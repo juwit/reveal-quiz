@@ -1,0 +1,14 @@
+{
+  "name": "reveal-quizz",
+  "version": "1.0.0",
+  "description": "reveal.js plugin that allows adding quizzes as slides.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julien Wittouck",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}
