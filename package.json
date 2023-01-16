@@ -4,7 +4,7 @@
   "description": "reveal.js plugin that allows adding quizzes as slides.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --outDir dist src/*.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Julien Wittouck",
