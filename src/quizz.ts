@@ -25,8 +25,10 @@ class Answer {
 
     toHtml(type: string = "checkbox") {
         return `
-            <input type="${type}" name="answer" id="${this.text}" />
-            <label for="${this.text}">${this.text}</label>
+            <div class="reveal-quizz-answer">
+                <input type="${type}" name="answer" id="${this.text}" />
+                <label for="${this.text}">${this.text}</label>
+            </div>
         `;
     }
 }
@@ -57,11 +59,9 @@ class Question{
     toHtml(): string {
         return `
             <h1>${this.text}</h1>
-            <ul>
             <form>
                 ${this.renderAnswers()}
             </form>
-            </ul>
         `;
     }
 }
@@ -81,7 +81,7 @@ function buildQuizzSlides(){
         const question = Question.fromMarkdown(section.innerText);
         questions.push(question);
         section.outerHTML = `
-<section>
+<section class="reveal-quizz-question">
     ${question.toHtml()}
 </section>
         `;
