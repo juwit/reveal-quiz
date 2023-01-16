@@ -9,8 +9,8 @@ class Answer {
         this.correct = correct;
     };
 
-    static correctRegex = /- \[x\] (\w*)/;
-    static incorrectRegex = /- \[ \] (\w*)/;
+    static correctRegex = /- \[x\] (.*)/;
+    static incorrectRegex = /- \[ \] (.*)/;
 
     static fromMarkdown(markdown: string): Answer {
         if(this.correctRegex.test(markdown)){
