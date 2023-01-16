@@ -61,6 +61,7 @@ class Question{
             <h1>${this.text}</h1>
             <form>
                 ${this.renderAnswers()}
+                <button type="button">Submit</button>
             </form>
         `;
     }

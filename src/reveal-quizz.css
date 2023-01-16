@@ -8,6 +8,17 @@
     flex-basis: auto;
 }
 
+.reveal-quizz-question form button {
+    position: absolute;
+    right: 0;
+    bottom: -5rem;
+    padding: 1rem;
+    margin-right: 1rem;
+
+    font-weight: inherit;
+    font-size: var(--r-main-font-size);
+}
+
 .reveal-quizz-answer input {
     display: none;
     width: 100%;
