@@ -2,8 +2,8 @@ interface Deck{
 }
 
 class Answer {
-    private text: string;
-    private correct: boolean;
+    private readonly text: string;
+    public readonly correct: boolean;
     private constructor(text: string, correct: boolean){
         this.text = text;
         this.correct = correct;
@@ -22,11 +22,18 @@ class Answer {
             return new Answer(text, false);
         }
     }
+
+    toHtml(type: string = "checkbox") {
+        return `
+            <input type="${type}" name="answer" id="${this.text}" />
+            <label for="${this.text}">${this.text}</label>
+        `;
+    }
 }
 
 class Question{
-    public readonly text: string;
-    private answers: Answer[];
+    protected readonly text: string;
+    private readonly answers: Answer[];
     private constructor(text: string, answers: Answer[]){
         this.text = text;
         this.answers = answers;
@@ -39,6 +46,23 @@ class Question{
         const answers = lines.slice(1).map(it => Answer.fromMarkdown(it));
 
         return new Question(questionText, answers);
+    }
+
+    renderAnswers():string{
+        const multipleCorrectAnswers = this.answers.filter(it => it.correct).length > 1;
+        const questionType = multipleCorrectAnswers ? "checkbox" : "radio";
+        return this.answers.map(it => it.toHtml(questionType)).join('\n');
+    }
+
+    toHtml(): string {
+        return `
+            <h1>${this.text}</h1>
+            <ul>
+            <form>
+                ${this.renderAnswers()}
+            </form>
+            </ul>
+        `;
     }
 }
 
@@ -58,7 +82,7 @@ function buildQuizzSlides(){
         questions.push(question);
         section.outerHTML = `
 <section>
-    <h1 class="question-text">${question.text}</h1>
+    ${question.toHtml()}
 </section>
         `;
     });
