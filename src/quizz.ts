@@ -1,12 +1,11 @@
-function init(deck: any) {
-    console.log('Initialized reveal-quiz plugin 🙋');
+interface Deck{
 }
 
-const plugin = {
-    id: 'reveal-quizz',
-    init, 
+function init(deck: Deck) {
+    console.log('Initialized reveal-quiz 🙋');
 }
 
-export default () => {
-    return plugin;
+export default {
+    id: 'RevealQuizz',
+    init,
 };
