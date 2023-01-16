@@ -1,0 +1,10 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "reveal.js": "^4.4.0"
+  }
+}

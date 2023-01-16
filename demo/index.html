@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/white.css" id="theme">
+    </head>
+  <body class="reveal">
+    <div class="slides">
+      <section>
+        <h1>reaveal-quizz demo</h1>
+      </section>
+      <section>
+        <h2>How to use ?</h2>
+      </section>
+      <section data-quiz>
+        - Who won the 2018 football world cup ?
+        - [x] France
+        - [ ] Germany
+        - [ ] Italy
+        - [ ] Brazil
+        </section>
+      </section>
+    </div>
+  </body>
+
+  <script type="module">
+    import Reveal from './node_modules/reveal.js/dist/reveal.esm.js';
+    import markdown from './node_modules/reveal.js/plugin/markdown/markdown.esm.js';
+
+    import RevealQuizz from '../dist/quizz.js';
+
+    Reveal.initialize({
+      plugins: [markdown, RevealQuizz],
+    });
+  </script>
+</html>
