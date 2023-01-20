@@ -24,11 +24,6 @@ class Answer {
             return new Answer(text, false);
         }
     }
-
-    toggle() {
-        this.selected = ! this.selected;
-        console.log(`Answer ${this.text} toggled to ${this.selected}`);
-    }
 }
 
 class Question{
