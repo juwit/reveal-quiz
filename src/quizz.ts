@@ -61,7 +61,9 @@ class QuestionView{
         console.log(`Question ${this.question.text} submitted !`);
 
         this.answerViews.forEach(it => it.computeState());
-        console.log(this.question);
+
+        // lock the question to disallow futher answers
+        this.answerViews.forEach(it => it.lock());
     }
 
     renderAnswers(form: HTMLFormElement){
@@ -117,6 +119,12 @@ class AnswerView{
     computeState(){
         const input = this.div.getElementsByTagName("input")[0];
         this.answer.selected = input.checked;
+    }
+
+    lock() {
+        const input = this.div.getElementsByTagName("input")[0];
+        input.classList.add("locked");
+        input.disabled = true;
     }
 }
 
