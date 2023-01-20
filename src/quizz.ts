@@ -18,7 +18,8 @@ class Answer {
     public readonly correct: boolean;
     selected: boolean = false;
     type: string;
-    private constructor(text: string, correct: boolean){
+
+    private constructor(text: string, correct: boolean) {
         this.text = text;
         this.correct = correct;
     };
@@ -27,22 +28,22 @@ class Answer {
     static incorrectRegex = /- \[ \] (.*)/;
 
     static fromMarkdown(markdown: string): Answer {
-        if(this.correctRegex.test(markdown)){
+        if (this.correctRegex.test(markdown)) {
             const [_, text] = this.correctRegex.exec(markdown);
             return new Answer(text, true);
-        }
-        else {
+        } else {
             const [_, text] = this.incorrectRegex.exec(markdown);
             return new Answer(text, false);
         }
     }
 }
 
-class Question{
+class Question {
     id: number;
     readonly text: string;
     readonly answers: Answer[];
-    private constructor(text: string, answers: Answer[]){
+
+    private constructor(text: string, answers: Answer[]) {
         this.text = text;
         this.answers = answers;
     };
@@ -59,17 +60,17 @@ class Question{
 
 }
 
-class QuestionView{
+class QuestionView {
     question: Question;
     section: Element;
     answerViews: AnswerView[] = [];
 
-    constructor(question: Question, section)  {
+    constructor(question: Question, section) {
         this.question = question;
         this.section = section;
     }
 
-    submitQuestion(){
+    submitQuestion() {
         console.log(`Question ${this.question.text} submitted !`);
 
         this.answerViews.forEach(it => it.computeState());
@@ -93,11 +94,11 @@ class QuestionView{
     /**
      * Show the correct and incorrect responses on the question
      */
-    showReponses(){
+    showReponses() {
         this.answerViews.forEach(it => it.showResponse());
     }
 
-    renderAnswers(form: HTMLFormElement){
+    renderAnswers(form: HTMLFormElement) {
         const multipleCorrectAnswers = this.question.answers.filter(it => it.correct).length > 1;
         const questionType = multipleCorrectAnswers ? "checkbox" : "radio";
         this.question.answers.forEach(it => it.type = questionType);
@@ -111,7 +112,7 @@ class QuestionView{
         });
     }
 
-    renderQuestion(){
+    renderQuestion() {
         this.section.innerHTML = `
             <h1>${this.question.text}</h1>
             <form>
@@ -119,7 +120,7 @@ class QuestionView{
             </form>
         `;
         this.section.classList.add("reveal-quizz-question");
-        const button =this.section.getElementsByTagName("button")[0];
+        const button = this.section.getElementsByTagName("button")[0];
         button.addEventListener("click", () => {
             this.submitQuestion();
         });
@@ -129,7 +130,7 @@ class QuestionView{
     }
 }
 
-class AnswerView{
+class AnswerView {
     answer: Answer;
     private div: HTMLDivElement;
 
@@ -138,7 +139,7 @@ class AnswerView{
         this.div = div;
     }
 
-    renderAnswer(){
+    renderAnswer() {
         this.div.classList.add("reveal-quizz-answer");
         this.div.innerHTML = `
             <input type="${this.answer.type}" name="answer" id="${this.answer.text}" />
@@ -146,7 +147,7 @@ class AnswerView{
         `;
     }
 
-    computeState(){
+    computeState() {
         const input = this.div.getElementsByTagName("input")[0];
         this.answer.selected = input.checked;
     }
@@ -164,11 +165,11 @@ class AnswerView{
             this.div.classList.add("correct");
         }
         // not selected correct answer
-        if(this.answer.correct && ! this.answer.selected){
+        if (this.answer.correct && !this.answer.selected) {
             this.div.classList.add("incorrect");
         }
         // selected incorrect answer
-        if(! this.answer.correct && this.answer.selected){
+        if (!this.answer.correct && this.answer.selected) {
             this.div.classList.add("incorrect");
         }
     }
@@ -192,7 +193,7 @@ function init(param: Deck) {
 
 const questionsViews: QuestionView[] = [];
 
-function buildQuizzSlides(){
+function buildQuizzSlides() {
     const sections = deck.getRevealElement().querySelectorAll('[data-quizz]');
     let questionId = 0;
     sections.forEach(section => {
