@@ -1,3 +1,6 @@
+import {Answer} from "./model/answer.js";
+import {Question} from "./model/question.js";
+
 interface Event {
     type: string;
     data: object;
@@ -11,53 +14,6 @@ interface Deck {
     on(event: string, callback: () => void);
 
     off(event: string, callback: () => void);
-}
-
-class Answer {
-    readonly text: string;
-    public readonly correct: boolean;
-    selected: boolean = false;
-    type: string;
-
-    private constructor(text: string, correct: boolean) {
-        this.text = text;
-        this.correct = correct;
-    };
-
-    static correctRegex = /- \[x\] (.*)/;
-    static incorrectRegex = /- \[ \] (.*)/;
-
-    static fromMarkdown(markdown: string): Answer {
-        if (this.correctRegex.test(markdown)) {
-            const [_, text] = this.correctRegex.exec(markdown);
-            return new Answer(text, true);
-        } else {
-            const [_, text] = this.incorrectRegex.exec(markdown);
-            return new Answer(text, false);
-        }
-    }
-}
-
-class Question {
-    id: number;
-    readonly text: string;
-    readonly answers: Answer[];
-
-    private constructor(text: string, answers: Answer[]) {
-        this.text = text;
-        this.answers = answers;
-    };
-
-    static fromMarkdown(markdown: string): Question {
-        const lines = markdown.split('\n').map(it => it.trim()).filter(it => it.length !== 0);
-        console.log(lines);
-        const questionText = lines[0].slice(2);
-        const answers = lines.slice(1).map(it => Answer.fromMarkdown(it));
-
-        return new Question(questionText, answers);
-    }
-
-
 }
 
 class QuestionView {
