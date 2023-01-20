@@ -179,11 +179,6 @@ function buildQuizzSlides(){
     });
 }
 
-function submitQuestion(id: number){
-    const questionView = questionsViews[id];
-    questionView.submitQuestion();
-}
-
 export default {
     id: 'RevealQuizz',
     init,
