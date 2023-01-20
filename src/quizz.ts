@@ -64,6 +64,16 @@ class QuestionView{
 
         // lock the question to disallow futher answers
         this.answerViews.forEach(it => it.lock());
+
+        // show responses now !
+        this.showReponses();
+    }
+
+    /**
+     * Show the correct and incorrect responses on the question
+     */
+    showReponses(){
+        this.answerViews.forEach(it => it.showResponse());
     }
 
     renderAnswers(form: HTMLFormElement){
@@ -79,7 +89,6 @@ class QuestionView{
             this.answerViews.push(view);
         });
     }
-
 
     renderQuestion(){
         this.section.innerHTML = `
@@ -125,6 +134,22 @@ class AnswerView{
         const input = this.div.getElementsByTagName("input")[0];
         input.classList.add("locked");
         input.disabled = true;
+    }
+
+    showResponse() {
+        console.log(this.answer);
+        // selected correct answer
+        if (this.answer.correct && this.answer.selected) {
+            this.div.classList.add("correct");
+        }
+        // not selected correct answer
+        if(this.answer.correct && ! this.answer.selected){
+            this.div.classList.add("incorrect");
+        }
+        // selected incorrect answer
+        if(! this.answer.correct && this.answer.selected){
+            this.div.classList.add("incorrect");
+        }
     }
 }
 
