@@ -65,6 +65,9 @@ class QuestionView{
         // lock the question to disallow futher answers
         this.answerViews.forEach(it => it.lock());
 
+        // remove submit button
+        this.section.getElementsByTagName("button")[0].remove();
+
         // show responses now !
         this.showReponses();
     }
