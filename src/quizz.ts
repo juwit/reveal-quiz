@@ -2,8 +2,10 @@ interface Deck{
 }
 
 class Answer {
-    private readonly text: string;
+    readonly text: string;
     public readonly correct: boolean;
+    selected: boolean = false;
+    type: string;
     private constructor(text: string, correct: boolean){
         this.text = text;
         this.correct = correct;
@@ -23,19 +25,16 @@ class Answer {
         }
     }
 
-    toHtml(type: string = "checkbox") {
-        return `
-            <div class="reveal-quizz-answer">
-                <input type="${type}" name="answer" id="${this.text}" />
-                <label for="${this.text}">${this.text}</label>
-            </div>
-        `;
+    toggle() {
+        this.selected = ! this.selected;
+        console.log(`Answer ${this.text} toggled to ${this.selected}`);
     }
 }
 
 class Question{
-    protected readonly text: string;
-    private readonly answers: Answer[];
+    id: number;
+    readonly text: string;
+    readonly answers: Answer[];
     private constructor(text: string, answers: Answer[]){
         this.text = text;
         this.answers = answers;
@@ -50,44 +49,108 @@ class Question{
         return new Question(questionText, answers);
     }
 
-    renderAnswers():string{
-        const multipleCorrectAnswers = this.answers.filter(it => it.correct).length > 1;
-        const questionType = multipleCorrectAnswers ? "checkbox" : "radio";
-        return this.answers.map(it => it.toHtml(questionType)).join('\n');
+
+}
+
+class QuestionView{
+    question: Question;
+    section: Element;
+    answerViews: AnswerView[] = [];
+
+    constructor(question: Question, section)  {
+        this.question = question;
+        this.section = section;
     }
 
-    toHtml(): string {
-        return `
-            <h1>${this.text}</h1>
+    submitQuestion(){
+        console.log(`Question ${this.question.text} submitted !`);
+
+        this.answerViews.forEach(it => it.computeState());
+        console.log(this.question);
+    }
+
+    renderAnswers(form: HTMLFormElement){
+        const multipleCorrectAnswers = this.question.answers.filter(it => it.correct).length > 1;
+        const questionType = multipleCorrectAnswers ? "checkbox" : "radio";
+        this.question.answers.forEach(it => it.type = questionType);
+
+        this.question.answers.forEach(it => {
+            const div = document.createElement('div');
+            form.append(div);
+            const view = new AnswerView(it, div);
+            view.renderAnswer();
+            this.answerViews.push(view);
+        });
+    }
+
+
+    renderQuestion(){
+        this.section.innerHTML = `
+            <h1>${this.question.text}</h1>
             <form>
-                ${this.renderAnswers()}
                 <button type="button">Submit</button>
             </form>
         `;
+        this.section.classList.add("reveal-quizz-question");
+        const button =this.section.getElementsByTagName("button")[0];
+        button.addEventListener("click", () => {
+            this.submitQuestion();
+        });
+
+        const form = this.section.getElementsByTagName('form')[0];
+        this.renderAnswers(form);
+    }
+}
+
+class AnswerView{
+    answer: Answer;
+    private div: HTMLDivElement;
+
+    constructor(answer: Answer, div: HTMLDivElement) {
+        this.answer = answer;
+        this.div = div;
+    }
+
+    renderAnswer(){
+        this.div.classList.add("reveal-quizz-answer");
+        this.div.innerHTML = `
+            <input type="${this.answer.type}" name="answer" id="${this.answer.text}" />
+            <label for="${this.answer.text}">${this.answer.text}</label>
+        `;
+    }
+
+    computeState(){
+        const input = this.div.getElementsByTagName("input")[0];
+        this.answer.selected = input.checked;
     }
 }
 
 let deck: any;
 
 function init(param: Deck) {
-    console.log('Initialized reveal-quiz 🙋');
     deck = param;
+
     buildQuizzSlides();
+    console.log('Initialized reveal-quiz 🙋');
 }
+
+const questionsViews: QuestionView[] = [];
 
 function buildQuizzSlides(){
     const sections = deck.getRevealElement().querySelectorAll('[data-quizz]');
-    const questions = [];
+    let questionId = 0;
     sections.forEach(section => {
         const question = Question.fromMarkdown(section.innerText);
-        questions.push(question);
-        section.outerHTML = `
-<section class="reveal-quizz-question">
-    ${question.toHtml()}
-</section>
-        `;
+        question.id = questionId++;
+        const questionView = new QuestionView(question, section);
+        questionView.renderQuestion();
+        questionsViews.push(questionView);
     });
-    console.log(questions);
+}
+
+function submitQuestion(id: number){
+    const questionView = questionsViews[id];
+    questionView.submitQuestion();
 }
 
 export default {
