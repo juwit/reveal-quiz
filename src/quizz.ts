@@ -1,4 +1,16 @@
-interface Deck{
+interface Event {
+    type: string;
+    data: object;
+}
+
+interface Deck {
+    dispatchEvent(event: Event);
+
+    getRevealElement(): HTMLElement;
+
+    on(event: string, callback: () => void);
+
+    off(event: string, callback: () => void);
 }
 
 class Answer {
@@ -68,8 +80,14 @@ class QuestionView{
         // remove submit button
         this.section.getElementsByTagName("button")[0].remove();
 
-        // show responses now !
-        this.showReponses();
+        const showResponseCallback = () => {
+            console.log("received event showResponses")
+            this.showReponses();
+            deck.off("showResponses", showResponseCallback);
+        };
+        deck.on("showResponses", showResponseCallback);
+
+        deck.dispatchEvent({type: "questionAnswered", data: this.question});
     }
 
     /**
@@ -156,12 +174,19 @@ class AnswerView{
     }
 }
 
-let deck: any;
+let deck: Deck;
 
 function init(param: Deck) {
     deck = param;
-
     buildQuizzSlides();
+
+    deck.on("questionAnswered", () => {
+        console.log("received event questionAnswered")
+        deck.dispatchEvent({
+            type: "showResponses",
+            data: {}
+        });
+    });
     console.log('Initialized reveal-quiz 🙋');
 }
 
@@ -171,6 +196,7 @@ function buildQuizzSlides(){
     const sections = deck.getRevealElement().querySelectorAll('[data-quizz]');
     let questionId = 0;
     sections.forEach(section => {
+        // @ts-ignore innerText attribute exists on HTMLElement, Typescript does not seem to recognize it
         const question = Question.fromMarkdown(section.innerText);
         question.id = questionId++;
         const questionView = new QuestionView(question, section);
