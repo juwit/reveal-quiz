@@ -4,7 +4,7 @@ import {TraineeQuestionView} from "./view/trainee/questionView.js";
 import {TrainerQuestionView} from "./view/trainer/questionView.js";
 
 import {Deck} from "./view/deck.js";
-import initMultiplex from "./multiplex.js";
+import {initMultiplex, Role} from "./multiplex.js";
 
 let deck: Deck;
 
@@ -13,17 +13,16 @@ function init(param: Deck) {
 
     // findout the role for the current presentation
     const params = new URL(window.location.toString()).searchParams;
-    const isClient = params.get('client') == "true";
-    const isPresenter = params.get('presenter') == "true";
+    const role = params.get('role') as Role;
+    const isTrainee = role === Role.TRAINEE;
+    const isTrainer = role === Role.TRAINER;
 
-    const role = isPresenter ? 'trainer' : 'trainee';
     buildQuizzSlides(deck, role);
 
-    if(isClient || isPresenter){
+    if(isTrainee || isTrainer){
         console.log('Initializing multiplexing 🖧');
         initMultiplex(deck, {
-            isClient,
-            isPresenter,
+            role,
             presentationId: params.get('presentationId'),
             presentationSecret: params.get('presentationSecret'),
             presentationSocketUrl: 'http://localhost:3000'
@@ -40,7 +39,7 @@ function init(param: Deck) {
     console.log('Initialized reveal-quiz 🙋');
 }
 
-function buildQuizzSlides(deck: Deck, role: string) {
+function buildQuizzSlides(deck: Deck, role: Role) {
     const sections = deck.getRevealElement().querySelectorAll('[data-quizz]');
 
     let questionId = 0;
@@ -50,7 +49,7 @@ function buildQuizzSlides(deck: Deck, role: string) {
         question.id = questionId++;
 
         let questionView;
-        if(role === "trainer"){
+        if(role === Role.TRAINER){
             questionView = new TrainerQuestionView(question, section, deck);
         }
         else {

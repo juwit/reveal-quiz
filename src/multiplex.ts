@@ -3,9 +3,13 @@ import {Deck} from "./view/deck.js";
 // @ts-ignore
 const notie = window.notie;
 
-interface MultiplexConfig {
-    isClient: boolean;
-    isPresenter: boolean;
+export enum Role {
+    TRAINER= 'trainer',
+    TRAINEE= 'trainee',
+}
+
+export interface MultiplexConfig {
+    role: Role
     presentationId: string;
     presentationSecret: string;
     presentationSocketUrl: string;
@@ -19,7 +23,7 @@ import { io } from '../node_modules/socket.io-client/dist/socket.io.esm.min.js';
 
 let deck: Deck;
 
-function initClientMultiplex(config: MultiplexConfig){
+function initTraineeMultiplex(config: MultiplexConfig){
     const socket = io(config.presentationSocketUrl);
     socket.on("connect", () => {
         console.log("Connected to multiplex engine as a client");
@@ -60,7 +64,7 @@ function initClientMultiplex(config: MultiplexConfig){
     });
 }
 
-function initPresenterMultiplex(config: MultiplexConfig){
+function initTrainerMultiplex(config: MultiplexConfig){
     const socket = io(config.presentationSocketUrl);
     socket.on("connect", () => {
         console.log("Connected to multiplex engine as a presenter");
@@ -101,13 +105,13 @@ function initPresenterMultiplex(config: MultiplexConfig){
     console.log("Initialized multiplexing");
 }
 
-export default function initMultiplex(deckParam: Deck, config: MultiplexConfig){
+export function initMultiplex(deckParam: Deck, config: MultiplexConfig){
     deck = deckParam;
     console.log(config);
-    if(config.isClient){
-        initClientMultiplex(config);
+    if(config.role === Role.TRAINEE){
+        initTraineeMultiplex(config);
     }
-    if(config.isPresenter){
-        initPresenterMultiplex(config);
+    if(config.role === Role.TRAINER){
+        initTrainerMultiplex(config);
     }
 }
