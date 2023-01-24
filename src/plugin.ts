@@ -28,14 +28,17 @@ function init(param: Deck) {
             presentationSocketUrl: 'http://localhost:3000'
         });
     }
-    
-    deck.on("questionAnswered", () => {
-        console.log("received event questionAnswered")
-        deck.dispatchEvent({
-            type: "showResponses",
-            data: {}
+
+    // for autonomous readers, directly answer the question
+    if(!isTrainee && !isTrainer){
+        deck.on("questionAnswered", () => {
+            console.log("received event questionAnswered")
+            deck.dispatchEvent({
+                type: "showResponses",
+                data: {}
+            });
         });
-    });
+    }
     console.log('Initialized reveal-quiz 🙋');
 }
 

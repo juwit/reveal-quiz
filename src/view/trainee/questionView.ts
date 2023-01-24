@@ -1,11 +1,11 @@
 import {Question} from "../../model/question.js";
-import {AnswerView} from "../answerView.js";
+import {TraineeAnswerView} from "./answerView.js";
 import {Deck} from "../deck.js";
 
 export class TraineeQuestionView {
     question: Question;
     section: Element;
-    answerViews: AnswerView[] = [];
+    answerViews: TraineeAnswerView[] = [];
     private deck: Deck;
 
     constructor(question: Question, section, deck: Deck) {
@@ -50,7 +50,7 @@ export class TraineeQuestionView {
         this.question.answers.forEach(it => {
             const div = document.createElement('div');
             form.append(div);
-            const view = new AnswerView(it, div);
+            const view = new TraineeAnswerView(it, div);
             view.renderAnswer();
             this.answerViews.push(view);
         });

@@ -1,6 +1,6 @@
-import {Answer} from "../model/answer";
+import {Answer} from "../../model/answer.js";
 
-export class AnswerView {
+export class TrainerAnswerView {
     answer: Answer;
     private div: HTMLDivElement;
 
@@ -31,16 +31,8 @@ export class AnswerView {
     showResponse() {
         console.log(this.answer);
         // selected correct answer
-        if (this.answer.correct && this.answer.selected) {
+        if (this.answer.correct) {
             this.div.classList.add("correct");
-        }
-        // not selected correct answer
-        if (this.answer.correct && !this.answer.selected) {
-            this.div.classList.add("incorrect");
-        }
-        // selected incorrect answer
-        if (!this.answer.correct && this.answer.selected) {
-            this.div.classList.add("incorrect");
         }
     }
 }

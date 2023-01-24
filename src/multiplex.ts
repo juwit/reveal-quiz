@@ -61,6 +61,12 @@ function initTraineeMultiplex(config: MultiplexConfig){
         if ( message.state ) {
             deck.setState(message.state);
         }
+        if( message.type ){
+            deck.dispatchEvent({
+                type: message.type,
+                data: {}
+            });
+        }
     });
 }
 
@@ -81,7 +87,7 @@ function initTrainerMultiplex(config: MultiplexConfig){
         });
     });
 
-    function post( evt ) {
+    function postState( evt ) {
         const messageData = {
             state: deck.getState(),
             secret: config.presentationSecret,
@@ -92,15 +98,25 @@ function initTrainerMultiplex(config: MultiplexConfig){
         socket.emit('broadcast', messageData );
     }
 
+    function postEvent( evt ) {
+        const messageData = {
+            secret: config.presentationSecret,
+            socketId: config.presentationId,
+            type: evt.type
+        };
+        console.log('sending message ', messageData);
+        socket.emit('broadcast', messageData );
+    }
 
     // Monitor events that trigger a change in state
-    deck.on( 'slidechanged', post );
-    deck.on( 'fragmentshown', post );
-    deck.on( 'fragmenthidden', post );
-    deck.on( 'overviewhidden', post );
-    deck.on( 'overviewshown', post );
-    deck.on( 'paused', post );
-    deck.on( 'resumed', post );
+    deck.on( 'slidechanged', postState );
+    deck.on( 'fragmentshown', postState );
+    deck.on( 'fragmenthidden', postState );
+    deck.on( 'overviewhidden', postState );
+    deck.on( 'overviewshown', postState );
+    deck.on( 'paused', postState );
+    deck.on( 'resumed', postState );
+    deck.on( 'showResponses', postEvent );
 
     console.log("Initialized multiplexing");
 }
