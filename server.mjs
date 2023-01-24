@@ -17,7 +17,7 @@ io.on( 'connection', socket => {
 
 
     socket.on('broadcast', data => {
-        console.log(`received message ${data}`);
+        console.log(`received message ${JSON.stringify(data)}`);
 
         // checking that a secret is provided
         if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return;

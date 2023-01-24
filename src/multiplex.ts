@@ -1,5 +1,8 @@
 import {Deck} from "./view/deck.js";
 
+// @ts-ignore
+const notie = window.notie;
+
 interface MultiplexConfig {
     isClient: boolean;
     isPresenter: boolean;
@@ -26,6 +29,11 @@ function initClientMultiplex(config: MultiplexConfig){
             controls: false,
             keyboard: false,
         });
+
+        notie.alert({
+            type: 'info',
+            text: 'Connected to multiplex engine as a client',
+        });
     });
     socket.on("connect_error", (err) => {
         console.log("Unable to connect to multiplex engine");
@@ -33,6 +41,11 @@ function initClientMultiplex(config: MultiplexConfig){
         deck.configure({
             controls: true,
             keyboard: true,
+        });
+
+        notie.alert({
+            type: 'warning',
+            text: 'Unable to connect to multiplex engine',
         });
     });
 
@@ -50,10 +63,18 @@ function initClientMultiplex(config: MultiplexConfig){
 function initPresenterMultiplex(config: MultiplexConfig){
     const socket = io(config.presentationSocketUrl);
     socket.on("connect", () => {
-        console.log("Connected to multiplex engine as a presenter")
+        console.log("Connected to multiplex engine as a presenter");
+        notie.alert({
+            type: 'info',
+            text: 'Connected to multiplex engine as presenter',
+        });
     });
     socket.on("connect_error", (err) => {
-        console.error(err);
+        console.log("Unable to connect to multiplex engine");
+        notie.alert({
+            type: 'warning',
+            text: 'Unable to connect to multiplex engine',
+        });
     });
 
     function post( evt ) {
