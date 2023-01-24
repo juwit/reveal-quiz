@@ -1,8 +1,8 @@
-import {Question} from "../model/question.js";
-import {AnswerView} from "./answerView.js";
-import {Deck} from "./deck.js";
+import {Question} from "../../model/question.js";
+import {AnswerView} from "../answerView.js";
+import {Deck} from "../deck.js";
 
-export class QuestionView {
+export class TrainerQuestionView {
     question: Question;
     section: Element;
     answerViews: AnswerView[] = [];
@@ -60,7 +60,7 @@ export class QuestionView {
         this.section.innerHTML = `
             <h1>${this.question.text}</h1>
             <form>
-                <button type="button">Submit</button>
+                <button type="button">Show responses</button>
             </form>
         `;
         this.section.classList.add("reveal-quizz-question");
