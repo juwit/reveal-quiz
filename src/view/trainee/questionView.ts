@@ -63,7 +63,7 @@ export class TraineeQuestionView {
                 <button type="button">Submit</button>
             </form>
         `;
-        this.section.classList.add("reveal-quizz-question");
+        this.section.classList.add("reveal-quiz-question");
         const button = this.section.getElementsByTagName("button")[0];
         button.addEventListener("click", () => {
             this.submitQuestion();

@@ -43,7 +43,7 @@ function init(param: Deck) {
 }
 
 function buildQuizzSlides(deck: Deck, role: Role) {
-    const sections = deck.getRevealElement().querySelectorAll('[data-quizz]');
+    const sections = deck.getRevealElement().querySelectorAll('[data-quiz]');
 
     let questionId = 0;
     sections.forEach(section => {

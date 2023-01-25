@@ -1,13 +1,13 @@
-# reveal-quizz
+# reveal-quiz
 
-reveal.js plugin that allows adding quizzes as slides.
+reveal.js plugin that allows adding quizes as slides.
 
 ## usage
 
 Create a simple question slide in markdown:
 
 ```html
-<section data-quizz>
+<section data-quiz>
 - Who won the 2018 football world cup ?
 - [x] France
 - [ ] Germany

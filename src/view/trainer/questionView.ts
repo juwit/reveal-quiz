@@ -47,7 +47,7 @@ export class TrainerQuestionView {
                 <button type="button">Show responses</button>
             </form>
         `;
-        this.section.classList.add("reveal-quizz-question");
+        this.section.classList.add("reveal-quiz-question");
         const button = this.section.getElementsByTagName("button")[0];
         button.addEventListener("click", () => {
             this.showReponses();

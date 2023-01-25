@@ -1,14 +1,14 @@
-.reveal-quizz-question h1 {
+.reveal-quiz-question h1 {
     font-size: larger;
 }
 
-.reveal-quizz-question form {
+.reveal-quiz-question form {
     display: flex;
     flex-flow: column wrap;
     flex-basis: auto;
 }
 
-.reveal-quizz-question form button {
+.reveal-quiz-question form button {
     position: absolute;
     right: 0;
     bottom: -5rem;
@@ -19,12 +19,12 @@
     font-size: var(--r-main-font-size);
 }
 
-.reveal-quizz-answer input {
+.reveal-quiz-answer input {
     display: none;
     width: 100%;
 }
 
-.reveal-quizz-answer label {
+.reveal-quiz-answer label {
     background: #f2f2f2;
     border: 2px solid #f2f2f2;
     border-radius: 5px;
@@ -34,16 +34,16 @@
     margin: 1rem;
 }
 
-.reveal-quizz-answer.correct label{
+.reveal-quiz-answer.correct label{
     background: lightgreen;
     border: 2px solid green;
 }
 
-.reveal-quizz-answer.incorrect label{
+.reveal-quiz-answer.incorrect label{
     background: indianred;
     border: 2px solid red;
 }
 
-.reveal-quizz-answer input:checked + label {
+.reveal-quiz-answer input:checked + label {
     border: 2px solid #766df4;
 }
