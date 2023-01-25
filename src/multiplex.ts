@@ -1,12 +1,10 @@
 import {Deck} from "./view/deck.js";
 
+import { io } from '../node_modules/socket.io-client/dist/socket.io.esm.min.js';
+import {Role} from "./model/quiz.js";
+
 // @ts-ignore
 const notie = window.notie;
-
-export enum Role {
-    TRAINER= 'trainer',
-    TRAINEE= 'trainee',
-}
 
 export interface MultiplexConfig {
     role: Role
@@ -16,15 +14,13 @@ export interface MultiplexConfig {
 }
 
 interface Socket {
-    on: (message) => void;
+    on(message: string, callback: (event:any)=>void): void;
 }
-
-import { io } from '../node_modules/socket.io-client/dist/socket.io.esm.min.js';
 
 let deck: Deck;
 
 function initTraineeMultiplex(config: MultiplexConfig){
-    const socket = io(config.presentationSocketUrl);
+    const socket:Socket = io(config.presentationSocketUrl);
     socket.on("connect", () => {
         console.log("Connected to multiplex engine as a client");
 

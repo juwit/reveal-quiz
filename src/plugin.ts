@@ -1,10 +1,9 @@
-import {Question} from "./model/question.js";
-
-import {TraineeQuestionView} from "./view/trainee/questionView.js";
-import {TrainerQuestionView} from "./view/trainer/questionView.js";
+import quizService from './service/quizService.js';
 
 import {Deck} from "./view/deck.js";
-import {initMultiplex, Role} from "./multiplex.js";
+import {initMultiplex} from "./multiplex.js";
+import {Role} from "./model/quiz.js";
+import {initQuizView} from "./view/quizView.js";
 
 let deck: Deck;
 
@@ -17,7 +16,8 @@ function init(param: Deck) {
     const isTrainee = role === Role.TRAINEE;
     const isTrainer = role === Role.TRAINER;
 
-    buildQuizzSlides(deck, role);
+    const quiz = quizService.loadOrCreateQuiz(deck, role);
+    initQuizView(quiz, deck);
 
     if(isTrainee || isTrainer){
         console.log('Initializing multiplexing 🖧');
@@ -40,26 +40,6 @@ function init(param: Deck) {
         });
     }
     console.log('Initialized reveal-quiz 🙋');
-}
-
-function buildQuizzSlides(deck: Deck, role: Role) {
-    const sections = deck.getRevealElement().querySelectorAll('[data-quiz]');
-
-    let questionId = 0;
-    sections.forEach(section => {
-        // @ts-ignore innerText attribute exists on HTMLElement, Typescript does not seem to recognize it
-        const question = Question.fromMarkdown(section.innerText);
-        question.id = questionId++;
-
-        let questionView;
-        if(role === Role.TRAINER){
-            questionView = new TrainerQuestionView(question, section, deck);
-        }
-        else {
-            questionView = new TraineeQuestionView(question, section, deck);
-        }
-        questionView.renderQuestion();
-    });
 }
 
 export default {
