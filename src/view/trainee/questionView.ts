@@ -17,6 +17,7 @@ export class TraineeQuestionView {
     submitQuestion() {
         console.log(`Question ${this.question.text} submitted !`);
 
+        this.question.answer();
         this.answerViews.forEach(it => it.computeState());
 
         // lock the question to disallow futher answers
@@ -40,6 +41,11 @@ export class TraineeQuestionView {
      */
     showReponses() {
         this.answerViews.forEach(it => it.showResponse());
+
+        if(this.section.getElementsByTagName("button").length > 0){
+            // remove submit button
+            this.section.getElementsByTagName("button")[0].remove();
+        }
     }
 
     renderAnswers(form: HTMLFormElement) {

@@ -4,11 +4,16 @@ export class Question {
     id: number;
     readonly text: string;
     readonly answers: Answer[];
+    private answered: boolean = false;
 
     private constructor(text: string, answers: Answer[]) {
         this.text = text;
         this.answers = answers;
     };
+
+    answer(){
+        this.answered = true;
+    }
 
     static fromMarkdown(markdown: string): Question {
         const lines = markdown.split('\n').map(it => it.trim()).filter(it => it.length !== 0);
@@ -19,4 +24,7 @@ export class Question {
         return new Question(questionText, answers);
     }
 
+    isAnswered() {
+        return this.answered;
+    }
 }

@@ -15,5 +15,8 @@ export function initQuizView(quiz: Quiz, deck: Deck){
             questionView = new TraineeQuestionView(question, sections[question.id], deck);
         }
         questionView.renderQuestion();
+        if(question.isAnswered()){
+            questionView.showReponses();
+        }
     })
 }
