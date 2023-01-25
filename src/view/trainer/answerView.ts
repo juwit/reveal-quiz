@@ -1,4 +1,4 @@
-import {Answer} from "../../model/answer.js";
+import {Answer} from '../../model/answer.js';
 
 export class TrainerAnswerView {
     answer: Answer;
@@ -10,7 +10,7 @@ export class TrainerAnswerView {
     }
 
     renderAnswer() {
-        this.div.classList.add("reveal-quiz-answer");
+        this.div.classList.add('reveal-quiz-answer');
         this.div.innerHTML = `
             <input type="${this.answer.type}" name="answer" id="${this.answer.text}" />
             <label for="${this.answer.text}">${this.answer.text}</label>
@@ -18,13 +18,13 @@ export class TrainerAnswerView {
     }
 
     computeState() {
-        const input = this.div.getElementsByTagName("input")[0];
+        const input = this.div.getElementsByTagName('input')[0];
         this.answer.selected = input.checked;
     }
 
     lock() {
-        const input = this.div.getElementsByTagName("input")[0];
-        input.classList.add("locked");
+        const input = this.div.getElementsByTagName('input')[0];
+        input.classList.add('locked');
         input.disabled = true;
     }
 
@@ -32,7 +32,7 @@ export class TrainerAnswerView {
         console.log(this.answer);
         // selected correct answer
         if (this.answer.correct) {
-            this.div.classList.add("correct");
+            this.div.classList.add('correct');
         }
     }
 }

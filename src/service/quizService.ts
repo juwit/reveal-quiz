@@ -1,7 +1,7 @@
-import {Quiz, Role} from "../model/quiz.js";
-import {Deck} from "../view/deck.js";
-import {Question} from "../model/question.js";
-import {Answer} from "../model/answer.js";
+import {Quiz, Role} from '../model/quiz.js';
+import {Deck} from '../view/deck.js';
+import {Question} from '../model/question.js';
+import {Answer} from '../model/answer.js';
 
 export interface QuizService{
     loadOrCreateQuiz(deck: Deck, role: Role): Quiz;
@@ -36,7 +36,7 @@ class QuizServiceImpl implements QuizService{
             quiz.role = role;
         }
         // listen to events to save the quiz when needed
-        deck.on("questionAnswered", () => {
+        deck.on('questionAnswered', () => {
             console.log('Saving quiz data to sessionStorage');
             storage.setItem('quiz', JSON.stringify(quiz));
         });

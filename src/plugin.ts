@@ -1,9 +1,9 @@
 import quizService from './service/quizService.js';
 
-import {Deck} from "./view/deck.js";
-import {initMultiplex} from "./multiplex.js";
-import {Role} from "./model/quiz.js";
-import {initQuizView} from "./view/quizView.js";
+import {Deck} from './view/deck.js';
+import {initMultiplex} from './multiplex.js';
+import {Role} from './model/quiz.js';
+import {initQuizView} from './view/quizView.js';
 
 let deck: Deck;
 
@@ -31,10 +31,10 @@ function init(param: Deck) {
 
     // for autonomous readers, directly answer the question
     if(!isTrainee && !isTrainer){
-        deck.on("questionAnswered", () => {
-            console.log("received event questionAnswered")
+        deck.on('questionAnswered', () => {
+            console.log('received event questionAnswered')
             deck.dispatchEvent({
-                type: "showResponses",
+                type: 'showResponses',
                 data: {}
             });
         });

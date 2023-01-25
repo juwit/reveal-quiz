@@ -1,6 +1,6 @@
-import {Question} from "../../model/question.js";
-import {TrainerAnswerView} from "../trainer/answerView.js";
-import {Deck} from "../deck.js";
+import {Question} from '../../model/question.js';
+import {TrainerAnswerView} from '../trainer/answerView.js';
+import {Deck} from '../deck.js';
 
 export class TrainerQuestionView {
     question: Question;
@@ -28,7 +28,7 @@ export class TrainerQuestionView {
 
     renderAnswers(form: HTMLFormElement) {
         const multipleCorrectAnswers = this.question.answers.filter(it => it.correct).length > 1;
-        const questionType = multipleCorrectAnswers ? "checkbox" : "radio";
+        const questionType = multipleCorrectAnswers ? 'checkbox' : 'radio';
         this.question.answers.forEach(it => it.type = questionType);
 
         this.question.answers.forEach(it => {
@@ -47,9 +47,9 @@ export class TrainerQuestionView {
                 <button type="button">Show responses</button>
             </form>
         `;
-        this.section.classList.add("reveal-quiz-question");
-        const button = this.section.getElementsByTagName("button")[0];
-        button.addEventListener("click", () => {
+        this.section.classList.add('reveal-quiz-question');
+        const button = this.section.getElementsByTagName('button')[0];
+        button.addEventListener('click', () => {
             this.showReponses();
         });
 

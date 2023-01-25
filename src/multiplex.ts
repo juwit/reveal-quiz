@@ -1,7 +1,7 @@
-import {Deck} from "./view/deck.js";
+import {Deck} from './view/deck.js';
 
 import { io } from '../node_modules/socket.io-client/dist/socket.io.esm.min.js';
-import {Role} from "./model/quiz.js";
+import {Role} from './model/quiz.js';
 
 // @ts-ignore
 const notie = window.notie;
@@ -21,8 +21,8 @@ let deck: Deck;
 
 function initTraineeMultiplex(config: MultiplexConfig){
     const socket:Socket = io(config.presentationSocketUrl);
-    socket.on("connect", () => {
-        console.log("Connected to multiplex engine as a client");
+    socket.on('connect', () => {
+        console.log('Connected to multiplex engine as a client');
 
         // removing controls from the deck engine
         deck.configure({
@@ -35,8 +35,8 @@ function initTraineeMultiplex(config: MultiplexConfig){
             text: 'Connected to multiplex engine as a client',
         });
     });
-    socket.on("connect_error", (err) => {
-        console.log("Unable to connect to multiplex engine");
+    socket.on('connect_error', (err) => {
+        console.log('Unable to connect to multiplex engine');
         // adding controls back to allow user to self navigate
         deck.configure({
             controls: true,
@@ -68,15 +68,15 @@ function initTraineeMultiplex(config: MultiplexConfig){
 
 function initTrainerMultiplex(config: MultiplexConfig){
     const socket = io(config.presentationSocketUrl);
-    socket.on("connect", () => {
-        console.log("Connected to multiplex engine as a presenter");
+    socket.on('connect', () => {
+        console.log('Connected to multiplex engine as a presenter');
         notie.alert({
             type: 'info',
             text: 'Connected to multiplex engine as presenter',
         });
     });
-    socket.on("connect_error", (err) => {
-        console.log("Unable to connect to multiplex engine");
+    socket.on('connect_error', (err) => {
+        console.log('Unable to connect to multiplex engine');
         notie.alert({
             type: 'warning',
             text: 'Unable to connect to multiplex engine',
@@ -114,7 +114,7 @@ function initTrainerMultiplex(config: MultiplexConfig){
     deck.on( 'resumed', postState );
     deck.on( 'showResponses', postEvent );
 
-    console.log("Initialized multiplexing");
+    console.log('Initialized multiplexing');
 }
 
 export function initMultiplex(deckParam: Deck, config: MultiplexConfig){

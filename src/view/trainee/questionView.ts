@@ -1,6 +1,6 @@
-import {Question} from "../../model/question.js";
-import {TraineeAnswerView} from "./answerView.js";
-import {Deck} from "../deck.js";
+import {Question} from '../../model/question.js';
+import {TraineeAnswerView} from './answerView.js';
+import {Deck} from '../deck.js';
 
 export class TraineeQuestionView {
     question: Question;
@@ -24,16 +24,17 @@ export class TraineeQuestionView {
         this.answerViews.forEach(it => it.lock());
 
         // remove submit button
-        this.section.getElementsByTagName("button")[0].remove();
+        this.section.getElementsByTagName('button')[0].remove();
 
         const showResponseCallback = () => {
-            console.log("received event showResponses")
+            console.log('received event showResponses')
             this.showReponses();
-            this.deck.off("showResponses", showResponseCallback);
+            this.deck.off('showResponses', showResponseCallback);
         };
-        this.deck.on("showResponses", showResponseCallback);
+        this.deck.on('showResponses', showResponseCallback);
 
-        this.deck.dispatchEvent({type: "questionAnswered", data: this.question});
+        console.log('Sending questionAnswered event');
+        this.deck.dispatchEvent({type: 'questionAnswered', data: this.question});
     }
 
     /**
@@ -42,15 +43,15 @@ export class TraineeQuestionView {
     showReponses() {
         this.answerViews.forEach(it => it.showResponse());
 
-        if(this.section.getElementsByTagName("button").length > 0){
+        if(this.section.getElementsByTagName('button').length > 0){
             // remove submit button
-            this.section.getElementsByTagName("button")[0].remove();
+            this.section.getElementsByTagName('button')[0].remove();
         }
     }
 
     renderAnswers(form: HTMLFormElement) {
         const multipleCorrectAnswers = this.question.answers.filter(it => it.correct).length > 1;
-        const questionType = multipleCorrectAnswers ? "checkbox" : "radio";
+        const questionType = multipleCorrectAnswers ? 'checkbox' : 'radio';
         this.question.answers.forEach(it => it.type = questionType);
 
         this.question.answers.forEach(it => {
@@ -69,9 +70,9 @@ export class TraineeQuestionView {
                 <button type="button">Submit</button>
             </form>
         `;
-        this.section.classList.add("reveal-quiz-question");
-        const button = this.section.getElementsByTagName("button")[0];
-        button.addEventListener("click", () => {
+        this.section.classList.add('reveal-quiz-question');
+        const button = this.section.getElementsByTagName('button')[0];
+        button.addEventListener('click', () => {
             this.submitQuestion();
         });
 

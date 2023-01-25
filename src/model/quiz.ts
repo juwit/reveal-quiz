@@ -1,4 +1,4 @@
-import {Question} from "./question.js";
+import {Question} from './question.js';
 
 export enum Role {
     TRAINER= 'trainer',
