@@ -1,3 +1,5 @@
+@import "../node_modules/notie/dist/notie.min.css";
+
 .reveal-quiz-question h1 {
     font-size: larger;
 }

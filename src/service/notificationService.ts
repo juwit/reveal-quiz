@@ -1,5 +1,5 @@
 // @ts-ignore
-const notie = window.notie
+import notie from 'notie'
 
 export interface NotificationService {
   info (text: string): void
