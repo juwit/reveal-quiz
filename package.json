@@ -16,6 +16,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "notie": "^4.3.1",
     "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.4"
   }
