@@ -1,6 +1,6 @@
-import {Question} from '../../model/question.js';
-import {TrainerAnswerView} from '../trainer/answerView.js';
-import {Deck} from '../deck.js';
+import {Question} from '../../model/question';
+import {TrainerAnswerView} from '../trainer/answerView';
+import {Deck} from '../deck';
 
 export class TrainerQuestionView {
     question: Question;

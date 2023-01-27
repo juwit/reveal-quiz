@@ -1,4 +1,4 @@
-import {Answer} from './answer.js';
+import {Answer} from './answer';
 
 export class Question {
     id: number;

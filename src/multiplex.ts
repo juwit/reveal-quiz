@@ -1,7 +1,7 @@
-import {Deck} from './view/deck.js';
+import {Deck} from './view/deck';
 
-import { io } from '../node_modules/socket.io-client/dist/socket.io.esm.min.js';
-import {Role} from './model/quiz.js';
+import { io } from 'socket.io-client/dist/socket.io.js';
+import {Role} from './model/quiz';
 
 // @ts-ignore
 const notie = window.notie;

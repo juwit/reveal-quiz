@@ -1,6 +1,6 @@
-import {Question} from '../../model/question.js';
-import {TraineeAnswerView} from './answerView.js';
-import {Deck} from '../deck.js';
+import {Question} from '../../model/question';
+import {TraineeAnswerView} from './answerView';
+import {Deck} from '../deck';
 
 export class TraineeQuestionView {
     question: Question;

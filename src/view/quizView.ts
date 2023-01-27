@@ -1,7 +1,7 @@
-import {Deck} from './deck.js';
-import {Quiz, Role} from '../model/quiz.js';
-import {TrainerQuestionView} from './trainer/questionView.js';
-import {TraineeQuestionView} from './trainee/questionView.js';
+import {Deck} from './deck';
+import {Quiz, Role} from '../model/quiz';
+import {TrainerQuestionView} from './trainer/questionView';
+import {TraineeQuestionView} from './trainee/questionView';
 
 export function initQuizView(quiz: Quiz, deck: Deck){
     const sections = deck.getRevealElement().querySelectorAll('[data-quiz]');

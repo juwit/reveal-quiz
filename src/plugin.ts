@@ -1,9 +1,9 @@
-import quizService from './service/quizService.js';
+import quizService from './service/quizService';
 
-import {Deck} from './view/deck.js';
-import {initMultiplex} from './multiplex.js';
-import {Role} from './model/quiz.js';
-import {initQuizView} from './view/quizView.js';
+import {Deck} from './view/deck';
+import {initMultiplex} from './multiplex';
+import {Role} from './model/quiz';
+import {initQuizView} from './view/quizView';
 
 let deck: Deck;
 

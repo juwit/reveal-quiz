@@ -1,4 +1,4 @@
-import {Answer} from '../../model/answer.js';
+import {Answer} from '../../model/answer';
 
 export class TraineeAnswerView {
     answer: Answer;

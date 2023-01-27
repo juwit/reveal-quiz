@@ -1,7 +1,7 @@
-import {Quiz, Role} from '../model/quiz.js';
-import {Deck} from '../view/deck.js';
-import {Question} from '../model/question.js';
-import {Answer} from '../model/answer.js';
+import {Quiz, Role} from '../model/quiz';
+import {Deck} from '../view/deck';
+import {Question} from '../model/question';
+import {Answer} from '../model/answer';
 
 export interface QuizService{
     loadOrCreateQuiz(deck: Deck, role: Role): Quiz;
