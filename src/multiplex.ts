@@ -3,8 +3,7 @@ import {Deck} from './view/deck';
 import { io } from 'socket.io-client/dist/socket.io.js';
 import {Role} from './model/quiz';
 
-// @ts-ignore
-const notie = window.notie;
+import notificationService from './service/notificationService';
 
 export interface MultiplexConfig {
     role: Role
@@ -30,10 +29,7 @@ function initTraineeMultiplex(config: MultiplexConfig){
             keyboard: false,
         });
 
-        notie.alert({
-            type: 'info',
-            text: 'Connected to multiplex engine as a client',
-        });
+        notificationService.info('Connected to multiplex engine as a client');
     });
     socket.on('connect_error', (err) => {
         console.log('Unable to connect to multiplex engine');
@@ -43,10 +39,7 @@ function initTraineeMultiplex(config: MultiplexConfig){
             keyboard: true,
         });
 
-        notie.alert({
-            type: 'warning',
-            text: 'Unable to connect to multiplex engine',
-        });
+        notificationService.warn('Unable to connect to multiplex engine');
     });
 
     socket.on(config.presentationId, function(message) {
@@ -70,17 +63,11 @@ function initTrainerMultiplex(config: MultiplexConfig){
     const socket = io(config.presentationSocketUrl);
     socket.on('connect', () => {
         console.log('Connected to multiplex engine as a presenter');
-        notie.alert({
-            type: 'info',
-            text: 'Connected to multiplex engine as presenter',
-        });
+        notificationService.info('Connected to multiplex engine as presenter');
     });
     socket.on('connect_error', (err) => {
         console.log('Unable to connect to multiplex engine');
-        notie.alert({
-            type: 'warning',
-            text: 'Unable to connect to multiplex engine',
-        });
+        notificationService.warn('Unable to connect to multiplex engine');
     });
 
     function postState( evt ) {
