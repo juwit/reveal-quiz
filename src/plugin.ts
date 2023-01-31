@@ -3,7 +3,7 @@ import quizService from './service/quizService'
 import { Deck } from './view/deck'
 import { initMultiplex } from './multiplex'
 import { Role } from './model/quiz'
-import { initQuizView } from './view/quizView'
+import QuizView from './view/quizView'
 
 let deck: Deck;
 
@@ -17,7 +17,8 @@ function init(param: Deck) {
     const isTrainer = role === Role.TRAINER || role === Role.ADMIN;
 
     const quiz = quizService.loadOrCreateQuiz(deck, role);
-    initQuizView(quiz, deck);
+    const quizView = new QuizView(quiz, deck);
+    quizView.init();
 
     if(isTrainee || isTrainer){
         console.log('Initializing multiplexing 🖧');
