@@ -29,9 +29,9 @@ export class TraineeQuestionView {
         const showResponseCallback = () => {
             console.log('received event showResponses')
             this.showReponses();
-            this.deck.off('showResponses', showResponseCallback);
+            this.deck.off('quiz-show-responses', showResponseCallback);
         };
-        this.deck.on('showResponses', showResponseCallback);
+        this.deck.on('quiz-show-responses', showResponseCallback);
 
         console.log('Sending questionAnswered event');
         this.deck.dispatchEvent({type: 'questionAnswered', data: this.question});

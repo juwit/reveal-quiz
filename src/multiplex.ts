@@ -99,7 +99,9 @@ function initTrainerMultiplex(config: MultiplexConfig){
     deck.on( 'overviewshown', postState );
     deck.on( 'paused', postState );
     deck.on( 'resumed', postState );
-    deck.on( 'showResponses', postEvent );
+
+    // Monitor events that should be broadcasted to other presentations
+    deck.on( 'quiz-show-responses', postEvent );
 
     console.log('Initialized multiplexing');
 }

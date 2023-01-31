@@ -21,7 +21,7 @@ export class TrainerQuestionView {
         this.answerViews.forEach(it => it.showResponse());
         // send event
         this.deck.dispatchEvent({
-            type: 'showResponses',
+            type: 'quiz-show-responses',
             data: {}
         });
     }

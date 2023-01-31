@@ -34,7 +34,7 @@ function init(param: Deck) {
         deck.on('questionAnswered', () => {
             console.log('received event questionAnswered')
             deck.dispatchEvent({
-                type: 'showResponses',
+                type: 'quiz-show-responses',
                 data: {}
             });
         });
