@@ -36,7 +36,7 @@ class QuizServiceImpl implements QuizService{
             quiz.role = role;
         }
         // listen to events to save the quiz when needed
-        deck.on('questionAnswered', () => {
+        deck.on('quiz-question-answered', () => {
             console.log('Saving quiz data to sessionStorage');
             storage.setItem('quiz', JSON.stringify(quiz));
         });

@@ -34,7 +34,7 @@ export class TraineeQuestionView {
         this.deck.on('quiz-show-responses', showResponseCallback);
 
         console.log('Sending questionAnswered event');
-        this.deck.dispatchEvent({type: 'questionAnswered', data: this.question});
+        this.deck.dispatchEvent({type: 'quiz-question-answered', data: this.question});
     }
 
     /**

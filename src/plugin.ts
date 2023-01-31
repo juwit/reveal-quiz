@@ -31,7 +31,7 @@ function init(param: Deck) {
 
     // for autonomous readers, directly answer the question
     if(!isTrainee && !isTrainer){
-        deck.on('questionAnswered', () => {
+        deck.on('quiz-question-answered', () => {
             console.log('received event questionAnswered')
             deck.dispatchEvent({
                 type: 'quiz-show-responses',
