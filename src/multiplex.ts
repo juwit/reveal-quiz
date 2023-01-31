@@ -1,9 +1,9 @@
-import {Deck} from './view/deck';
+import { Deck } from './view/deck'
 
-import { io } from 'socket.io-client/dist/socket.io.js';
-import {Role} from './model/quiz';
+import { io } from 'socket.io-client/dist/socket.io.js'
+import { Role } from './model/quiz'
 
-import notificationService from './service/notificationService';
+import notificationService from './service/notificationService'
 
 export interface MultiplexConfig {
     role: Role
@@ -19,27 +19,30 @@ interface Socket {
 let deck: Deck;
 
 function initTraineeMultiplex(config: MultiplexConfig){
-    const socket:Socket = io(config.presentationSocketUrl);
-    socket.on('connect', () => {
-        console.log('Connected to multiplex engine as a client');
-
-        // removing controls from the deck engine
+    // setting lock/unlock events
+    deck.on('quiz-lock', () => {
         deck.configure({
             controls: false,
             keyboard: false,
         });
-
-        notificationService.info('Connected to multiplex engine as a client');
     });
-    socket.on('connect_error', (err) => {
-        console.log('Unable to connect to multiplex engine');
-        // adding controls back to allow user to self navigate
+    deck.on('quiz-unlock', () => {
         deck.configure({
             controls: true,
             keyboard: true,
         });
+    });
 
+    const socket:Socket = io(config.presentationSocketUrl);
+    socket.on('connect', () => {
+        console.log('Connected to multiplex engine as a client');
+        notificationService.info('Connected to multiplex engine as a client');
+        deck.dispatchEvent({type: 'quiz-lock', data:{}});
+    });
+    socket.on('connect_error', (err) => {
+        console.log('Unable to connect to multiplex engine');
         notificationService.warn('Unable to connect to multiplex engine');
+        deck.dispatchEvent({type: 'quiz-unlock', data:{}});
     });
 
     socket.on(config.presentationId, function(message) {
@@ -102,6 +105,10 @@ function initTrainerMultiplex(config: MultiplexConfig){
 
     // Monitor events that should be broadcasted to other presentations
     deck.on( 'quiz-show-responses', postEvent );
+    deck.on( 'quiz-lock', postEvent );
+    // on locking, also send state to force users to current slide
+    deck.on( 'quiz-lock', postState );
+    deck.on( 'quiz-unlock', postEvent );
 
     console.log('Initialized multiplexing');
 }
@@ -112,7 +119,7 @@ export function initMultiplex(deckParam: Deck, config: MultiplexConfig){
     if(config.role === Role.TRAINEE){
         initTraineeMultiplex(config);
     }
-    if(config.role === Role.TRAINER){
+    if(config.role === Role.TRAINER || config.role === Role.ADMIN){
         initTrainerMultiplex(config);
     }
 }

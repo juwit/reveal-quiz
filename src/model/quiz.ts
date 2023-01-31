@@ -1,11 +1,12 @@
-import {Question} from './question';
+import { Question } from './question'
 
 export enum Role {
-    TRAINER= 'trainer',
-    TRAINEE= 'trainee',
+  TRAINER = 'trainer',
+  TRAINEE = 'trainee',
+  ADMIN = 'admin',
 }
 
 export class Quiz {
-    questions: Question[] = [];
-    role: Role;
+  questions: Question[] = []
+  role: Role
 }

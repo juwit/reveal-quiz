@@ -49,3 +49,15 @@
 .reveal-quiz-answer input:checked + label {
     border: 2px solid #766df4;
 }
+
+/** admin controls */
+.quiz-admin {
+    display: flex;
+}
+.quiz-admin-controls {
+    display: flex;
+    flex-direction: column;
+}
+.quiz-admin > .reveal {
+    border: solid 1px black;
+}

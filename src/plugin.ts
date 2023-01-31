@@ -1,9 +1,9 @@
-import quizService from './service/quizService';
+import quizService from './service/quizService'
 
-import {Deck} from './view/deck';
-import {initMultiplex} from './multiplex';
-import {Role} from './model/quiz';
-import {initQuizView} from './view/quizView';
+import { Deck } from './view/deck'
+import { initMultiplex } from './multiplex'
+import { Role } from './model/quiz'
+import { initQuizView } from './view/quizView'
 
 let deck: Deck;
 
@@ -14,7 +14,7 @@ function init(param: Deck) {
     const params = new URL(window.location.toString()).searchParams;
     const role = params.get('role') as Role;
     const isTrainee = role === Role.TRAINEE;
-    const isTrainer = role === Role.TRAINER;
+    const isTrainer = role === Role.TRAINER || role === Role.ADMIN;
 
     const quiz = quizService.loadOrCreateQuiz(deck, role);
     initQuizView(quiz, deck);
