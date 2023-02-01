@@ -31,7 +31,7 @@ export default class TimerImpl implements Timer{
   current: number;
   private interval: any;
   private updateCallback: () => void;
-  private stopCallback: () => void;
+  private stopCallbacks = [];
 
   constructor (duration: number) {
     this.duration = duration;
@@ -51,7 +51,7 @@ export default class TimerImpl implements Timer{
 
   stop (): void {
     clearInterval(this.interval);
-    this.stopCallback();
+    this.stopCallbacks.forEach(callback => callback());
     console.log('timer stop');
   }
 
@@ -60,6 +60,6 @@ export default class TimerImpl implements Timer{
   }
 
   onStop(stopCallback: () => void): void {
-    this.stopCallback = stopCallback;
+    this.stopCallbacks.push(stopCallback);
   }
 }
