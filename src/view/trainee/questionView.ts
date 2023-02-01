@@ -35,7 +35,7 @@ export class TraineeQuestionView implements QuestionView {
 
         const showResponseCallback = () => {
             console.log('received event showResponses')
-            this.showReponses();
+            this.showResponses();
             this.deck.off('quiz-show-responses', showResponseCallback);
         };
         this.deck.on('quiz-show-responses', showResponseCallback);
@@ -49,7 +49,7 @@ export class TraineeQuestionView implements QuestionView {
     /**
      * Show the correct and incorrect responses on the question
      */
-    showReponses() {
+    showResponses() {
         this.answerViews.forEach(it => it.showResponse());
 
         if(this.section.getElementsByTagName('button').length > 0){

@@ -21,10 +21,7 @@ export class TrainerQuestionView implements QuestionView{
         console.log(`Showing question ${this.question.text}`);
     }
 
-    /**
-     * Show the correct and incorrect responses on the question
-     */
-    showReponses() {
+    showResponses() {
         this.answerViews.forEach(it => it.showResponse());
         // send event
         this.deck.dispatchEvent({
@@ -57,7 +54,7 @@ export class TrainerQuestionView implements QuestionView{
         this.section.classList.add('reveal-quiz-question');
         const button = this.section.getElementsByTagName('button')[0];
         button.addEventListener('click', () => {
-            this.showReponses();
+            this.showResponses();
         });
 
         const form = this.section.getElementsByTagName('form')[0];
