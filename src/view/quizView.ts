@@ -34,7 +34,7 @@ export default class QuizView{
             }
             questionView.renderQuestion();
             if(question.isAnswered()){
-                questionView.showReponses();
+                questionView.showResponses();
             }
             this.questionViews.push(questionView);
         });

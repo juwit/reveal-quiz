@@ -17,6 +17,12 @@ export interface Timer {
    * @param updateCallback
    */
   onUpdate(updateCallback: () => void): void;
+
+  /**
+   * Registers a callback to be notified when the timer is stopped, either manually, or when the time expires.
+   * @param stopCallback
+   */
+  onStop(stopCallback: () => void): void;
 }
 
 export default class TimerImpl implements Timer{
@@ -25,6 +31,7 @@ export default class TimerImpl implements Timer{
   current: number;
   private interval: any;
   private updateCallback: () => void;
+  private stopCallback: () => void;
 
   constructor (duration: number) {
     this.duration = duration;
@@ -44,10 +51,15 @@ export default class TimerImpl implements Timer{
 
   stop (): void {
     clearInterval(this.interval);
+    this.stopCallback();
     console.log('timer stop');
   }
 
   onUpdate(updateCallback: () => void): void {
     this.updateCallback = updateCallback;
+  }
+
+  onStop(stopCallback: () => void): void {
+    this.stopCallback = stopCallback;
   }
 }

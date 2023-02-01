@@ -2,6 +2,8 @@ import {Question} from '../../model/question';
 import {TraineeAnswerView} from './answerView';
 import {Deck} from '../deck';
 import QuestionView from '../questionView'
+import TimerImpl from "../../model/timer";
+import TimerView from "../timerView";
 
 export class TraineeQuestionView implements QuestionView {
     question: Question;
@@ -19,6 +21,16 @@ export class TraineeQuestionView implements QuestionView {
 
     show(){
         console.log(`Showing question ${this.question.text}`);
+
+        if(! this.question.isAnswered()){
+            const timer = new TimerImpl(10);
+            const timerView = new TimerView(timer, this.section);
+            timer.start();
+            timer.onStop(() => {
+                // auto submitting the question when the timer stops !
+                this.submitQuestion();
+            });
+        }
     }
 
     submitQuestion() {

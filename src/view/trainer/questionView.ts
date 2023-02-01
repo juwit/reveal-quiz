@@ -22,12 +22,22 @@ export class TrainerQuestionView implements QuestionView{
     show(){
         console.log(`Showing question ${this.question.text}`);
 
-        const timer = new TimerImpl(10);
-        const timerView = new TimerView(timer, this.section);
-        timer.start();
+        if(! this.question.isAnswered()){
+            const timer = new TimerImpl(10);
+            const timerView = new TimerView(timer, this.section);
+            timer.start();
+            timer.onStop(() => {
+                // auto showing responses when the timer stops !
+                this.question.answer();
+                this.showResponses();
+            });
+        }
     }
 
     showResponses() {
+        // remove button
+        this.section.getElementsByTagName('button')[0].remove();
+
         this.answerViews.forEach(it => it.showResponse());
         // send event
         this.deck.dispatchEvent({
