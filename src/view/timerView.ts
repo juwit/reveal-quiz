@@ -11,6 +11,12 @@ export default class TimerView {
         this.element = element;
 
         this.timer.onUpdate(() => this.render());
+        this.timer.onStop(() => {
+           // removing the timer component 5 seconds after the stop
+           setTimeout(() => {
+               this.timerElement.remove();
+           }, 5000);
+        });
     }
 
     /**
