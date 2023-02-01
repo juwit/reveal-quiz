@@ -1,33 +1,15 @@
 import {Answer} from '../../model/answer';
+import {AbstractAnswerView} from "../answerView";
 
-export class TrainerAnswerView {
-    answer: Answer;
-    private div: HTMLDivElement;
+export class TrainerAnswerView extends AbstractAnswerView {
 
     constructor(answer: Answer, div: HTMLDivElement) {
-        this.answer = answer;
-        this.div = div;
+        super(answer, div);
     }
 
-    renderAnswer() {
-        this.div.classList.add('reveal-quiz-answer');
-        this.div.innerHTML = `
-            <input type="${this.answer.type}" name="answer" id="${this.answer.text}" />
-            <label for="${this.answer.text}">${this.answer.text}</label>
-        `;
-    }
-
-    computeState() {
-        const input = this.div.getElementsByTagName('input')[0];
-        this.answer.selected = input.checked;
-    }
-
-    lock() {
-        const input = this.div.getElementsByTagName('input')[0];
-        input.classList.add('locked');
-        input.disabled = true;
-    }
-
+    /**
+     * for a trainer, only show correct responses, as the trainer doesn't answer the question
+     */
     showResponse() {
         console.log(this.answer);
         // selected correct answer
