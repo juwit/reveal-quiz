@@ -2,6 +2,8 @@ import {Question} from '../../model/question';
 import {TrainerAnswerView} from '../trainer/answerView';
 import {Deck} from '../deck';
 import QuestionView from '../questionView'
+import TimerImpl from "../../model/timer";
+import TimerView from "../timerView";
 
 export class TrainerQuestionView implements QuestionView{
     question: Question;
@@ -19,6 +21,10 @@ export class TrainerQuestionView implements QuestionView{
 
     show(){
         console.log(`Showing question ${this.question.text}`);
+
+        const timer = new TimerImpl(10);
+        const timerView = new TimerView(timer, this.section);
+        timer.start();
     }
 
     showResponses() {
