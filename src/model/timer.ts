@@ -1,13 +1,30 @@
 export interface Timer {
+  readonly duration: number
+  readonly current: number;
+
+  /**
+   * Starts the timer
+   */
   start(): void;
+
+  /**
+   * Stops the timer
+   */
   stop(): void;
+
+  /**
+   * Registers a callback to be notified when the timer is updated
+   * @param updateCallback
+   */
+  onUpdate(updateCallback: () => void): void;
 }
 
 export default class TimerImpl implements Timer{
-  private readonly duration: number
+  readonly duration: number
 
-  private current: number;
+  current: number;
   private interval: any;
+  private updateCallback: () => void;
 
   constructor (duration: number) {
     this.duration = duration;
@@ -17,6 +34,7 @@ export default class TimerImpl implements Timer{
     console.log('timer start');
     this.current = this.duration;
     this.interval = setInterval(()=>{
+      this.updateCallback();
       this.current--;
       if(this.current < 0 ){
         this.stop();
@@ -27,5 +45,9 @@ export default class TimerImpl implements Timer{
   stop (): void {
     clearInterval(this.interval);
     console.log('timer stop');
+  }
+
+  onUpdate(updateCallback: () => void): void {
+    this.updateCallback = updateCallback;
   }
 }
