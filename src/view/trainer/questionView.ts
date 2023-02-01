@@ -1,8 +1,9 @@
 import {Question} from '../../model/question';
 import {TrainerAnswerView} from '../trainer/answerView';
 import {Deck} from '../deck';
+import QuestionView from '../questionView'
 
-export class TrainerQuestionView {
+export class TrainerQuestionView implements QuestionView{
     question: Question;
     section: Element;
     answerViews: TrainerAnswerView[] = [];
@@ -12,6 +13,12 @@ export class TrainerQuestionView {
         this.question = question;
         this.section = section;
         this.deck = deck;
+
+        this.section.setAttribute('data-quiz-question-id', this.question.id.toString());
+    }
+
+    show(){
+        console.log(`Showing question ${this.question.text}`);
     }
 
     /**
@@ -55,5 +62,7 @@ export class TrainerQuestionView {
 
         const form = this.section.getElementsByTagName('form')[0];
         this.renderAnswers(form);
+
+        this.section.setAttribute('data-quiz-question-id', this.question.id.toString());
     }
 }

@@ -1,8 +1,9 @@
 import {Question} from '../../model/question';
 import {TraineeAnswerView} from './answerView';
 import {Deck} from '../deck';
+import QuestionView from '../questionView'
 
-export class TraineeQuestionView {
+export class TraineeQuestionView implements QuestionView {
     question: Question;
     section: Element;
     answerViews: TraineeAnswerView[] = [];
@@ -12,6 +13,12 @@ export class TraineeQuestionView {
         this.question = question;
         this.section = section;
         this.deck = deck;
+
+        this.section.setAttribute('data-quiz-question-id', this.question.id.toString());
+    }
+
+    show(){
+        console.log(`Showing question ${this.question.text}`);
     }
 
     submitQuestion() {
@@ -35,6 +42,8 @@ export class TraineeQuestionView {
 
         console.log('Sending questionAnswered event');
         this.deck.dispatchEvent({type: 'quiz-question-answered', data: this.question});
+
+        this.section.setAttribute('data-quiz-question-id', this.question.id.toString());
     }
 
     /**

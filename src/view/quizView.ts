@@ -3,10 +3,12 @@ import { Quiz, Role } from '../model/quiz'
 import { TrainerQuestionView } from './trainer/questionView'
 import { TraineeQuestionView } from './trainee/questionView'
 import AdminView from './adminView'
+import QuestionView from './questionView'
 
 export default class QuizView{
-    private quiz: Quiz
-    private deck: Deck
+    private readonly quiz: Quiz
+    private readonly deck: Deck
+    private questionViews: QuestionView[] = [];
 
     constructor (quiz: Quiz, deck: Deck) {
         this.quiz = quiz;
@@ -33,6 +35,18 @@ export default class QuizView{
             questionView.renderQuestion();
             if(question.isAnswered()){
                 questionView.showReponses();
+            }
+            this.questionViews.push(questionView);
+        });
+
+        this.deck.on('slidechanged', event => {
+            // get question of current slide
+            const slideSection = event.currentSlide;
+            const questionId = slideSection.getAttribute('data-quiz-question-id');
+            if(questionId !== null){
+                // slide holds a question, otherwise its a simple slide
+                const questionView = this.questionViews[questionId];
+                questionView.show();
             }
         });
     }
