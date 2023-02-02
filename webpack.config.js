@@ -5,14 +5,19 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ts$/i,
         use: 'ts-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   mode: 'production',
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.css'],
   },
   output: {
     filename: 'reveal-quiz-bundle-esm.js',
