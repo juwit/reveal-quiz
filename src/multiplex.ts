@@ -61,11 +61,8 @@ function initTraineeMultiplex (config: MultiplexConfig) {
     if (message.state) {
       deck.setState(message.state)
     }
-    if (message.type) {
-      deck.dispatchEvent({
-        type: message.type,
-        data: {}
-      })
+    if (message.event) {
+      deck.dispatchEvent(message.event)
     }
   })
 }
@@ -91,11 +88,11 @@ function initTrainerMultiplex (config: MultiplexConfig) {
     socket.emit('broadcast', messageData)
   }
 
-  function postEvent (evt) {
+  function postEvent (event) {
     const messageData = {
+      event: {type: event.type, data: event.data},
       secret: config.presentationSecret,
       socketId: config.presentationId,
-      type: evt.type
     }
     console.log('sending message ', messageData)
     socket.emit('broadcast', messageData)
