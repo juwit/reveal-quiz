@@ -13,7 +13,11 @@ export interface MultiplexConfig {
 }
 
 interface Socket {
-  on (message: string, callback: (event: any) => void): void;
+  on (eventName: string, callback: (event: any) => void): void;
+
+  emit (eventName: string, message: { state: any; socketId: string; secret: string; }): void
+
+  emit (eventName: string, message: { event: { type: string; data: any; }; socketId: string; secret: string; }): void
 }
 
 let deck: Deck
@@ -68,7 +72,7 @@ function initTraineeMultiplex (config: MultiplexConfig) {
 }
 
 function initTrainerMultiplex (config: MultiplexConfig) {
-  const socket = io(config.presentationSocketUrl)
+  const socket: Socket = io(config.presentationSocketUrl)
   socket.on('connect', () => {
     console.log('Connected to multiplex engine as a presenter')
     notificationService.info('Connected to multiplex engine as presenter')
@@ -90,7 +94,10 @@ function initTrainerMultiplex (config: MultiplexConfig) {
 
   function postEvent (event) {
     const messageData = {
-      event: {type: event.type, data: event.data},
+      event: {
+        type: event.type,
+        data: event.data
+      },
       secret: config.presentationSecret,
       socketId: config.presentationId,
     }
