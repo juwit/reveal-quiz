@@ -1,4 +1,4 @@
-import { Quiz, Role } from '../model/quiz'
+import { Quiz, Role, Trainee } from '../model/quiz'
 import { Deck } from '../view/deck'
 import { Question } from '../model/question'
 import { Answer } from '../model/answer'
@@ -35,6 +35,9 @@ class QuizServiceImpl implements QuizService {
       quiz = this.buildQuizzFromSlides(deck)
     }
     quiz.role = role
+    if (quiz.role === Role.TRAINEE && !quiz.trainee) {
+      quiz.trainee = new Trainee()
+    }
     // listen to events to save the quiz when needed
     deck.on('quiz-question-answered', () => {
       console.log('Saving quiz data to sessionStorage')
