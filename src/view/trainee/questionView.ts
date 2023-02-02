@@ -10,6 +10,7 @@ export class TraineeQuestionView implements QuestionView {
   section: Element
   answerViews: TraineeAnswerView[] = []
   private deck: Deck
+  private submitButton: HTMLButtonElement
 
   constructor (question: Question, section, deck: Deck) {
     this.question = question
@@ -43,7 +44,7 @@ export class TraineeQuestionView implements QuestionView {
     this.answerViews.forEach(it => it.lock())
 
     // remove submit button
-    this.section.getElementsByTagName('button')[0].remove()
+    this.submitButton.remove()
 
     const showResponseCallback = () => {
       console.log('received event showResponses')
@@ -95,8 +96,8 @@ export class TraineeQuestionView implements QuestionView {
             </form>
         `
     this.section.classList.add('reveal-quiz-question')
-    const button = this.section.getElementsByTagName('button')[0]
-    button.addEventListener('click', () => {
+    this.submitButton = this.section.getElementsByTagName('button')[0]
+    this.submitButton.addEventListener('click', () => {
       this.submitQuestion()
     })
 
