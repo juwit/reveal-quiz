@@ -1,20 +1,20 @@
 interface Event {
-    type: string;
-    data: object;
+  type: string;
+  data: object;
 }
 
 export interface Deck {
-    dispatchEvent(event: Event);
+  dispatchEvent (event: Event);
 
-    getRevealElement(): HTMLElement;
+  getRevealElement (): HTMLElement;
 
-    on(event: string, callback: (event?: any) => void);
+  on (event: string, callback: (event?: any) => void);
 
-    off(event: string, callback: () => void);
+  off (event: string, callback: () => void);
 
-    setState(state): void;
+  setState (state): void;
 
-    getState(): any;
+  getState (): any;
 
-    configure(param: { keyboard: boolean; controls: boolean }): void;
+  configure (param: { keyboard: boolean; controls: boolean }): void;
 }
