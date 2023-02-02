@@ -23,7 +23,6 @@ export default class TimerView {
    * renders the timer on the slide
    */
   render (): void {
-    console.log(this.timerElement)
     if (this.timerElement === null) {
       // first render, create the object and add it to the section
       this.timerElement = document.createElement('aside')
