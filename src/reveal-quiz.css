@@ -36,12 +36,12 @@
     margin: 1rem;
 }
 
-.reveal-quiz-answer.correct label{
+.reveal-quiz-answer.correct label {
     background: lightgreen;
     border: 2px solid green;
 }
 
-.reveal-quiz-answer.incorrect label{
+.reveal-quiz-answer.incorrect label {
     background: indianred;
     border: 2px solid red;
 }
@@ -54,10 +54,12 @@
 .quiz-admin {
     display: flex;
 }
+
 .quiz-admin-controls {
     display: flex;
     flex-direction: column;
 }
+
 .quiz-admin > .reveal {
     border: solid 1px black;
 }
@@ -76,12 +78,15 @@
     top: 0;
     left: -4rem;
 }
-.timer-66{
+
+.timer-66 {
     background-color: lightgreen;
 }
-.timer-33{
+
+.timer-33 {
     background-color: lightsalmon;
 }
-.timer-0{
+
+.timer-0 {
     background-color: lightcoral;
 }
