@@ -33,8 +33,8 @@ class QuizServiceImpl implements QuizService{
         else{
             console.log('Loading the quiz from the slides markdown.');
             quiz = this.buildQuizzFromSlides(deck);
-            quiz.role = role;
         }
+        quiz.role = role;
         // listen to events to save the quiz when needed
         deck.on('quiz-question-answered', () => {
             console.log('Saving quiz data to sessionStorage');
