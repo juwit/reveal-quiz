@@ -81,12 +81,11 @@ function initTrainerMultiplex (config: MultiplexConfig) {
     notificationService.warn('Unable to connect to multiplex engine')
   })
 
-  function postState (evt) {
+  function postState () {
     const messageData = {
       state: deck.getState(),
       secret: config.presentationSecret,
       socketId: config.presentationId,
-      content: (evt || {}).content
     }
     console.log('sending message ', messageData)
     socket.emit('broadcast', messageData)
