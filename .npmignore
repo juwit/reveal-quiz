@@ -1,0 +1,7 @@
+# IDE files
+.git/
+.idea/
+*.iml
+
+node_modules/
+demo/

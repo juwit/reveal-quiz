@@ -14,6 +14,7 @@ export default class AdminViewImpl implements AdminView{
   }
 
   render (): void {
+    console.log('Rendering Admin controls');
     const adminDiv: HTMLDivElement = document.createElement('div');
     adminDiv.classList.add('quiz-admin-controls');
     adminDiv.textContent = 'Admin controls';

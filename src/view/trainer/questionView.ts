@@ -1,8 +1,11 @@
 import {Question} from '../../model/question';
 import {TrainerAnswerView} from '../trainer/answerView';
 import {Deck} from '../deck';
+import QuestionView from '../questionView'
+import TimerImpl from "../../model/timer";
+import TimerView from "../timerView";
 
-export class TrainerQuestionView {
+export class TrainerQuestionView implements QuestionView{
     question: Question;
     section: Element;
     answerViews: TrainerAnswerView[] = [];
@@ -12,12 +15,29 @@ export class TrainerQuestionView {
         this.question = question;
         this.section = section;
         this.deck = deck;
+
+        this.section.setAttribute('data-quiz-question-id', this.question.id.toString());
     }
 
-    /**
-     * Show the correct and incorrect responses on the question
-     */
-    showReponses() {
+    show(){
+        console.log(`Showing question ${this.question.text}`);
+
+        if(! this.question.isAnswered()){
+            const timer = new TimerImpl(10);
+            const timerView = new TimerView(timer, this.section);
+            timer.start();
+            timer.onStop(() => {
+                // auto showing responses when the timer stops !
+                this.question.answer();
+                this.showResponses();
+            });
+        }
+    }
+
+    showResponses() {
+        // remove button
+        this.section.getElementsByTagName('button')[0].remove();
+
         this.answerViews.forEach(it => it.showResponse());
         // send event
         this.deck.dispatchEvent({
@@ -50,10 +70,12 @@ export class TrainerQuestionView {
         this.section.classList.add('reveal-quiz-question');
         const button = this.section.getElementsByTagName('button')[0];
         button.addEventListener('click', () => {
-            this.showReponses();
+            this.showResponses();
         });
 
         const form = this.section.getElementsByTagName('form')[0];
         this.renderAnswers(form);
+
+        this.section.setAttribute('data-quiz-question-id', this.question.id.toString());
     }
 }
