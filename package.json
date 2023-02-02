@@ -16,8 +16,10 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "css-loader": "^6.7.3",
     "notie": "^4.3.1",
     "socket.io": "^4.5.4",
-    "socket.io-client": "^4.5.4"
+    "socket.io-client": "^4.5.4",
+    "style-loader": "^3.3.1"
   }
 }

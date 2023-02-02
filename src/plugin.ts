@@ -5,6 +5,8 @@ import { initMultiplex } from './multiplex'
 import { Role } from './model/quiz'
 import QuizView from './view/quizView'
 
+import './reveal-quiz.css';
+
 let deck: Deck;
 
 function init(param: Deck) {
