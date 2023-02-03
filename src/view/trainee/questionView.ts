@@ -70,10 +70,7 @@ export class TraineeQuestionView implements QuestionView {
 
     this.answerViews.forEach(it => it.showResponse())
 
-    if (this.section.getElementsByTagName('button').length > 0) {
-      // remove submit button
-      this.section.getElementsByTagName('button')[0].remove()
-    }
+    this.submitButton.remove()
 
     // show explanation
     const blockquote = document.createElement('blockquote')

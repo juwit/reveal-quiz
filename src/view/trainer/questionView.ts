@@ -10,6 +10,7 @@ export class TrainerQuestionView implements QuestionView {
   section: Element
   answerViews: TrainerAnswerView[] = []
   private deck: Deck
+  private showResponsesButton: HTMLButtonElement
 
   constructor (question: Question, section, deck: Deck) {
     this.question = question
@@ -38,7 +39,7 @@ export class TrainerQuestionView implements QuestionView {
     console.log(`Showing answers and explanation`)
 
     // remove button
-    this.section.getElementsByTagName('button')[0].remove()
+    this.showResponsesButton.remove()
 
     this.answerViews.forEach(it => it.showResponse())
 
@@ -77,8 +78,8 @@ export class TrainerQuestionView implements QuestionView {
             </form>
         `
     this.section.classList.add('reveal-quiz-question')
-    const button = this.section.getElementsByTagName('button')[0]
-    button.addEventListener('click', () => {
+    this.showResponsesButton = this.section.getElementsByTagName('button')[0]
+    this.showResponsesButton.addEventListener('click', () => {
       this.showResponses()
     })
 
