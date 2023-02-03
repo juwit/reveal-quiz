@@ -5,7 +5,7 @@ const expect = chai.expect;
 describe('model/question', () => {
   it('should parse markdown questions', () => {
     const markdown = `
-      - Who is Darth Sidious master ?
+      # Who is Darth Sidious master ?
       - [ ] Darth Bane
       - [ ] Darth Tenebrous
       - [x] Darth Plagueis
@@ -30,7 +30,7 @@ describe('model/question', () => {
 
   it('should be answered when marked so', () => {
     const markdown = `
-      - Who is Darth Sidious master ?
+      # Who is Darth Sidious master ?
       - [ ] Darth Bane
       - [ ] Darth Tenebrous
       - [x] Darth Plagueis
