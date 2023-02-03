@@ -1,6 +1,7 @@
-import { Question } from '../../src/model/question';
+import { Question } from '../../src/model/question'
 import * as chai from 'chai'
-const expect = chai.expect;
+
+const expect = chai.expect
 
 describe('model/question', () => {
   it('should parse markdown questions', () => {
@@ -11,28 +12,28 @@ describe('model/question', () => {
       - [x] Darth Plagueis
       > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
       > - Sheev Palpatine, to Anakin Skywalker
-    `;
-    const parsedQuestion = Question.fromMarkdown(markdown);
+    `
+    const parsedQuestion = Question.fromMarkdown(markdown)
 
-    expect(parsedQuestion.text).to.equal('Who is Darth Sidious master ?');
+    expect(parsedQuestion.text).to.equal('Who is Darth Sidious master ?')
     expect(parsedQuestion.explanation).to.equal(
-`"Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+      `"Did you ever hear the Tragedy of Darth Plagueis the Wise?"
 - Sheev Palpatine, to Anakin Skywalker`
-    );
+    )
 
-    expect(parsedQuestion.answers).to.have.lengthOf(3);
+    expect(parsedQuestion.answers).to.have.lengthOf(3)
 
-    const [bane, tenebrous, plagueis] = parsedQuestion.answers;
+    const [bane, tenebrous, plagueis] = parsedQuestion.answers
 
-    expect(bane.text).to.equal('Darth Bane');
-    expect(bane.correct).to.be.false;
+    expect(bane.text).to.equal('Darth Bane')
+    expect(bane.correct).to.be.false
 
-    expect(tenebrous.text).to.equal('Darth Tenebrous');
-    expect(tenebrous.correct).to.be.false;
+    expect(tenebrous.text).to.equal('Darth Tenebrous')
+    expect(tenebrous.correct).to.be.false
 
-    expect(plagueis.text).to.equal('Darth Plagueis');
-    expect(plagueis.correct).to.be.true;
-  });
+    expect(plagueis.text).to.equal('Darth Plagueis')
+    expect(plagueis.correct).to.be.true
+  })
 
   it('should parse markdown questions without explanation', () => {
     const markdown = `
@@ -40,12 +41,12 @@ describe('model/question', () => {
       - [ ] Darth Bane
       - [ ] Darth Tenebrous
       - [x] Darth Plagueis
-    `;
-    const parsedQuestion = Question.fromMarkdown(markdown);
+    `
+    const parsedQuestion = Question.fromMarkdown(markdown)
 
-    expect(parsedQuestion.text).to.equal('Who is Darth Sidious master ?');
-    expect(parsedQuestion.explanation).to.equal('');
-  });
+    expect(parsedQuestion.text).to.equal('Who is Darth Sidious master ?')
+    expect(parsedQuestion.explanation).to.equal('')
+  })
 
   it('should be answered when marked so', () => {
     const markdown = `
@@ -55,13 +56,13 @@ describe('model/question', () => {
       - [x] Darth Plagueis
       > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
       > - Sheev Palpatine, to Anakin Skywalker
-    `;
-    const parsedQuestion = Question.fromMarkdown(markdown);
+    `
+    const parsedQuestion = Question.fromMarkdown(markdown)
 
-    expect(parsedQuestion.isAnswered()).to.be.false;
+    expect(parsedQuestion.isAnswered()).to.be.false
 
-    parsedQuestion.answer();
+    parsedQuestion.answer()
 
-    expect(parsedQuestion.isAnswered()).to.be.true;
-  });
-});
+    expect(parsedQuestion.isAnswered()).to.be.true
+  })
+})
