@@ -5,7 +5,8 @@
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require ts-node/register --recursive --extension .ts test/",
+    "test:watch": "mocha --watch --require ts-node/register --recursive --extension .ts test/"
   },
   "author": "Julien Wittouck",
   "license": "ISC",
