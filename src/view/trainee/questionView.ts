@@ -66,12 +66,20 @@ export class TraineeQuestionView implements QuestionView {
    * Show the correct and incorrect responses on the question
    */
   showResponses () {
+    console.log(`Showing answers and explanation`)
+
     this.answerViews.forEach(it => it.showResponse())
 
     if (this.section.getElementsByTagName('button').length > 0) {
       // remove submit button
       this.section.getElementsByTagName('button')[0].remove()
     }
+
+    // show explanation
+    const blockquote = document.createElement('blockquote')
+    blockquote.textContent = this.question.explanation
+    blockquote.classList.add('explanation')
+    this.section.append(blockquote)
   }
 
   renderAnswers (form: HTMLFormElement) {

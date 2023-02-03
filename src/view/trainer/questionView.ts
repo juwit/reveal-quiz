@@ -35,10 +35,19 @@ export class TrainerQuestionView implements QuestionView {
   }
 
   showResponses () {
+    console.log(`Showing answers and explanation`)
+
     // remove button
     this.section.getElementsByTagName('button')[0].remove()
 
     this.answerViews.forEach(it => it.showResponse())
+
+    // show explanation
+    const blockquote = document.createElement('blockquote')
+    blockquote.textContent = this.question.explanation
+    blockquote.classList.add('explanation')
+    this.section.append(blockquote)
+
     // send event
     this.deck.dispatchEvent({
       type: 'quiz-show-responses',
