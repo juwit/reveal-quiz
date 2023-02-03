@@ -6,7 +6,8 @@
     "build": "webpack",
     "build:watch": "webpack watch",
     "test": "mocha --require ts-node/register --recursive --extension .ts test/",
-    "test:watch": "mocha --require ts-node/register --recursive --extension .ts test/"
+    "test:watch": "mocha --require ts-node/register --recursive --extension .ts test/",
+    "coverage": "nyc --all --include 'src/**/*.ts' npm run test"
   },
   "author": "Julien Wittouck",
   "license": "ISC",
