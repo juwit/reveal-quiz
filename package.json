@@ -6,7 +6,7 @@
     "build": "webpack",
     "build:watch": "webpack watch",
     "test": "mocha --require ts-node/register --recursive --extension .ts test/",
-    "test:watch": "mocha --watch --require ts-node/register --recursive --extension .ts test/"
+    "test:watch": "mocha --require ts-node/register --recursive --extension .ts test/"
   },
   "author": "Julien Wittouck",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "css-loader": "^6.7.3",
     "mocha": "^10.2.0",
     "notie": "^4.3.1",
+    "nyc": "^15.1.0",
     "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.4",
     "style-loader": "^3.3.1",
