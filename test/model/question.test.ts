@@ -27,4 +27,20 @@ describe('model/question', () => {
     expect(plagueis.text).to.equal('Darth Plagueis');
     expect(plagueis.correct).to.be.true;
   });
+
+  it('should be answered when marked so', () => {
+    const markdown = `
+      - Who is Darth Sidious master ?
+      - [ ] Darth Bane
+      - [ ] Darth Tenebrous
+      - [x] Darth Plagueis
+    `;
+    const parsedQuestion = Question.fromMarkdown(markdown);
+
+    expect(parsedQuestion.isAnswered()).to.be.false;
+
+    parsedQuestion.answer();
+
+    expect(parsedQuestion.isAnswered()).to.be.true;
+  });
 });
