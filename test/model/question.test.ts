@@ -9,10 +9,16 @@ describe('model/question', () => {
       - [ ] Darth Bane
       - [ ] Darth Tenebrous
       - [x] Darth Plagueis
+      > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+      > - Sheev Palpatine, to Anakin Skywalker
     `;
     const parsedQuestion = Question.fromMarkdown(markdown);
 
     expect(parsedQuestion.text).to.equal('Who is Darth Sidious master ?');
+    expect(parsedQuestion.explanation).to.equal(
+`"Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+- Sheev Palpatine, to Anakin Skywalker`
+    );
 
     expect(parsedQuestion.answers).to.have.lengthOf(3);
 
@@ -28,12 +34,27 @@ describe('model/question', () => {
     expect(plagueis.correct).to.be.true;
   });
 
+  it('should parse markdown questions without explanation', () => {
+    const markdown = `
+      # Who is Darth Sidious master ?
+      - [ ] Darth Bane
+      - [ ] Darth Tenebrous
+      - [x] Darth Plagueis
+    `;
+    const parsedQuestion = Question.fromMarkdown(markdown);
+
+    expect(parsedQuestion.text).to.equal('Who is Darth Sidious master ?');
+    expect(parsedQuestion.explanation).to.equal('');
+  });
+
   it('should be answered when marked so', () => {
     const markdown = `
       # Who is Darth Sidious master ?
       - [ ] Darth Bane
       - [ ] Darth Tenebrous
       - [x] Darth Plagueis
+      > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+      > - Sheev Palpatine, to Anakin Skywalker
     `;
     const parsedQuestion = Question.fromMarkdown(markdown);
 
