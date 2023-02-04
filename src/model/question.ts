@@ -39,4 +39,11 @@ export class Question {
   isAnswered () {
     return this.answered
   }
+
+  /**
+   * Computes the score of the question, one good answer = one point
+   */
+  score(): number {
+    return this.answers.filter(it => it.selected && it.correct).length
+  }
 }

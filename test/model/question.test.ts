@@ -65,4 +65,46 @@ describe('model/question', () => {
 
     expect(parsedQuestion.isAnswered()).to.be.true
   })
+
+  it('should give one point for a good one-choice answer', () => {
+    const markdown = `
+      # Who is Darth Sidious master ?
+      - [ ] Darth Bane
+      - [ ] Darth Tenebrous
+      - [x] Darth Plagueis
+      > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+      > - Sheev Palpatine, to Anakin Skywalker
+    `
+    const parsedQuestion = Question.fromMarkdown(markdown)
+
+    // select the good answer
+    parsedQuestion.answers[2].selected = true
+    parsedQuestion.answer()
+
+    expect(parsedQuestion.isAnswered()).to.be.true
+
+    expect(parsedQuestion.score()).to.equal(1)
+  })
+
+  it('should give points for a good multi-choice answer', () => {
+    const markdown = `
+            # Which of those ships are used by the Rebel Alliance ?
+            - [x] X-Wing fighter
+            - [ ] TIE Fighter
+            - [x] Y-Wing
+            - [x] Tantive IV
+            > The TIE fighter is the signature starfighter of the Galactic Empire
+        `
+    const parsedQuestion = Question.fromMarkdown(markdown)
+
+    // select the good answer
+    parsedQuestion.answers[0].selected = true
+    parsedQuestion.answers[2].selected = true
+    parsedQuestion.answers[3].selected = true
+    parsedQuestion.answer()
+
+    expect(parsedQuestion.isAnswered()).to.be.true
+
+    expect(parsedQuestion.score()).to.equal(3)
+  })
 })
