@@ -25,7 +25,7 @@ export class TraineeQuestionView implements QuestionView {
   show () {
     console.log(`Showing question ${this.question.text}`)
 
-    if (!this.question.isAnswered()) {
+    if (!this.question.isAnswered() && this.config.useTimer) {
       const timer = new TimerImpl(this.config.timerDuration)
       const timerView = new TimerView(timer, this.section)
       timer.start()
