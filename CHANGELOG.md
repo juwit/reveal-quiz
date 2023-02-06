@@ -1,5 +1,44 @@
 # Changelog
 
+<a name="0.0.4"></a>
+## 0.0.4 (2023-02-06)
+
+### Added
+
+- ✨ : add configuration on demo [[bb6804c](https://github.com/juwit/reveal-quiz/commit/bb6804cd41a7e82faa822e436cc26d0ab2aeb60c)]
+- ✨ : add useTimer configuration ([8e61b67](https://github.com/juwit/reveal-quiz/commit/8e61b6799c1646728c18d4eaf7196a86ec4b82fb))
+- ✨ : add timer configuration ([fbb0a97](https://github.com/juwit/reveal-quiz/commit/fbb0a97b280d2ef23db7d56c230f3a7151186dae))
+- ✨ : implement slide-specific configuration [[0b531be](https://github.com/juwit/reveal-quiz/commit/0b531be3196c6109e4a37dd899e6fb01782f3fa7)]
+- ✨ : compute score for answered questions [[bf0c06c](https://github.com/juwit/reveal-quiz/commit/bf0c06ce2aae198bea66b0baaacc5186fc9091fb)]
+- ✨ : add explanation render when rendering answers [[4621bc0](https://github.com/juwit/reveal-quiz/commit/4621bc02ff270a0bf8048bf6b356ba7be55b7307)]
+- ✨ : add explanations to questions [[c901569](https://github.com/juwit/reveal-quiz/commit/c901569daad939a6c2bccad8a3e1dc29fc738b30)]
+- ✨ : use markdown title for question text [[643c37f](https://github.com/juwit/reveal-quiz/commit/643c37fb2d9093579b1ff43bda8917700e0a73cb)]
+- ✅ : add test for answer() method [[803315d](https://github.com/juwit/reveal-quiz/commit/803315dd4b3b83dd37cdb5551023bb271ad46730)]
+- ➕ : add nyc for coverage [[6ed0364](https://github.com/juwit/reveal-quiz/commit/6ed036402b5fc0b39bfcd1190b585f4aaba99fb1)]
+- ✅ : add test for question parsing [[efed0fc](https://github.com/juwit/reveal-quiz/commit/efed0fc374f21d7c7a1edbf685798a71c32e232b)]
+- ➕ : add ts-node for mocha tests [[67ab8a0](https://github.com/juwit/reveal-quiz/commit/67ab8a0f17fb0f26babb7e02d4ecc48ffed99f3d)]
+- ➕ : add chai dependency for tests [[4e4a2ee](https://github.com/juwit/reveal-quiz/commit/4e4a2ee5b144477afd7b284dba9b6dd5935d4c0f)]
+- ➕ : add mocha dependency for tests [[fcf5485](https://github.com/juwit/reveal-quiz/commit/fcf5485768cb38e2f18de593221ef218cef42b55)]
+
+### Changed
+
+- 🎨 : format test code [[0c7397c](https://github.com/juwit/reveal-quiz/commit/0c7397c37f623913ec3053766b5756d4edecf1ee)]
+- 🔧 : add configuration for nyc coverage [[bb3891f](https://github.com/juwit/reveal-quiz/commit/bb3891fdf01b9c1090e36b1a1758bcfdf89a9cfa)]
+- 🔧 : add test scripts [[1915f56](https://github.com/juwit/reveal-quiz/commit/1915f56906cc37b91f74b4fd2bff4a7e1aa94bd4)]
+- 🔧 : configure tsconfig for tests only [[7bb7379](https://github.com/juwit/reveal-quiz/commit/7bb73792ac577feedc61e514b34e9a2b1903b459)]
+
+### Fixed
+
+- 🐛 : correct timerDuration property usage [[3d808aa](https://github.com/juwit/reveal-quiz/commit/3d808aaeac705ff5f3b110b59ba137be3c9efe67)]
+- 🐛 : correct response button bug on trainer view [[44fafeb](https://github.com/juwit/reveal-quiz/commit/44fafeb9e1b3507db7d6969ed7b94dbaa08e078b)]
+
+### Miscellaneous
+
+- 📝 : document configuration properties [[3e67da0](https://github.com/juwit/reveal-quiz/commit/3e67da0aa2aec587c8c13ce0f230ca14ed24e04a)]
+- 🙈 : add nyc_output [[7285945](https://github.com/juwit/reveal-quiz/commit/728594598270101d0814f4ccec95c551a2791604)]
+- 📝 : add CHANGELOG.md [[08ac1a2](https://github.com/juwit/reveal-quiz/commit/08ac1a2c3dae2083a067ed1ec7d9eaef07b91e23)]
+
+
 <a name="0.0.3"></a>
 ## 0.0.3 (2023-02-02)
 
