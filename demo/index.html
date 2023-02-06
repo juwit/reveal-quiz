@@ -39,6 +39,10 @@
     import RevealQuizz from './node_modules/reveal-quiz/dist/reveal-quiz-bundle-esm.js';
 
     Reveal.initialize({
+      quiz: {
+        timerDuration: 30,
+        useTimer: true,
+      },
       plugins: [markdown, RevealQuizz],
     });
   </script>
