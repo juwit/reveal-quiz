@@ -6,18 +6,16 @@ import { Quiz, Role } from './model/quiz'
 import notificationService from './service/notificationService'
 
 export interface MultiplexConfig {
-  role: Role
-  presentationId: string;
-  presentationSecret: string;
+  role: Role;
   presentationSocketUrl: string;
 }
 
 interface Socket {
   on (eventName: string, callback: (event: any) => void): void;
 
-  emit (eventName: string, message: { state: any; socketId: string; secret: string; }): void
+  emit (eventName: string, message: { state: any }): void
 
-  emit (eventName: string, message: { event: { type: string; data: any; }; socketId: string; secret: string; }): void
+  emit (eventName: string, message: { event: { type: string; data: any; } }): void
 }
 
 let deck: Deck
@@ -58,13 +56,7 @@ function initTraineeMultiplex (config: MultiplexConfig, quiz: Quiz) {
     })
   })
 
-  socket.on(config.presentationId, function (message) {
-    console.log(message)
-    // ignore data from sockets that aren't ours
-    if (message.socketId !== config.presentationId) {
-      return
-    }
-
+  socket.on('broadcast', function (message) {
     if (message.state) {
       deck.setState(message.state)
     }
@@ -87,9 +79,7 @@ function initTrainerMultiplex (config: MultiplexConfig) {
 
   function postState () {
     const messageData = {
-      state: deck.getState(),
-      secret: config.presentationSecret,
-      socketId: config.presentationId,
+      state: deck.getState()
     }
     console.log('sending message ', messageData)
     socket.emit('broadcast', messageData)
@@ -100,9 +90,7 @@ function initTrainerMultiplex (config: MultiplexConfig) {
       event: {
         type: event.type,
         data: event.data
-      },
-      secret: config.presentationSecret,
-      socketId: config.presentationId,
+      }
     }
     console.log('sending message ', messageData)
     socket.emit('broadcast', messageData)

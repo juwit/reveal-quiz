@@ -31,9 +31,7 @@ function init (param: Deck) {
     console.log('Initializing multiplexing 🖧')
     initMultiplex(deck, quiz, {
       role,
-      presentationId: params.get('presentationId'),
-      presentationSecret: params.get('presentationSecret'),
-      presentationSocketUrl: 'http://localhost:3000'
+      presentationSocketUrl: 'http://localhost:3000',
     })
   }
 

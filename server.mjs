@@ -24,7 +24,7 @@ adminNamespace.on('connection', socket => {
       lastState = data
     }
 
-    traineeNamespace.emit(data.socketId, data)
+    traineeNamespace.emit('broadcast', data)
   })
 })
 
@@ -34,6 +34,6 @@ traineeNamespace.on('connection', socket => {
   // send the last status so the trainee reconnects to the good slide
   if (lastState) {
     console.log('New user, sending last status')
-    socket.emit(lastState.socketId, lastState)
+    socket.emit('broadcast', lastState)
   }
 })
