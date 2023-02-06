@@ -14,4 +14,8 @@ export class Quiz {
   questions: Question[] = []
   role: Role
   trainee?: Trainee
+
+  reset () {
+    this.questions.forEach(it => it.reset())
+  }
 }
