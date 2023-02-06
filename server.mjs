@@ -1,40 +1,43 @@
-import { Server } from 'socket.io';
+import { Server } from 'socket.io'
 
 const io = new Server(3000, {
-    cors: {
-        origin: '*',
-        methods: '*',
-    },
-});
+  cors: {
+    origin: '*',
+    methods: '*',
+  },
+})
 
-let lastState = null;
+let lastState = null
 
-io.on( 'connection', socket => {
+const adminNamespace = io.of('/admin')
+const traineeNamespace = io.of('/trainee')
 
-    // also send to this new user the last status so it reconnects to the good slide
-    if(lastState){
-        console.log('New user, sending last status');
-        socket.emit(lastState.socketId, lastState);
+// admin namespace
+adminNamespace.on('connection', socket => {
+  console.log('Received connection to admin namespace')
+
+  // admin can broadcast events to trainees
+  socket.on('broadcast', data => {
+    console.log(`Received message in admin ${JSON.stringify(data)}`)
+
+    if (data.state) {
+      lastState = data
     }
 
-    socket.on('user-connected', data => {
-        console.log('Another user connected !');
-        // broadcasting the event
-        socket.broadcast.emit('user-connected', data);
-    });
+    // checking that a secret is provided
+    if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return
 
-    socket.on('broadcast', data => {
-        console.log(`received message ${JSON.stringify(data)}`);
+    delete data.secret
+    traineeNamespace.emit(data.socketId, data)
+  })
+})
 
-        if(data.state){
-            lastState = data;
-        }
-
-        // checking that a secret is provided
-        if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return;
-
-        delete data.secret;
-        socket.broadcast.emit(data.socketId, data);
-    });
-});
-
+// trainees namespace
+traineeNamespace.on('connection', socket => {
+  console.log('Received connection to trainee namespace')
+  // send the last status so the trainee reconnects to the good slide
+  if (lastState) {
+    console.log('New user, sending last status')
+    socket.emit(lastState.socketId, lastState)
+  }
+})

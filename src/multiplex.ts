@@ -40,7 +40,7 @@ function initTraineeMultiplex (config: MultiplexConfig, quiz: Quiz) {
     quiz.reset()
   })
 
-  const socket: Socket = io(config.presentationSocketUrl)
+  const socket: Socket = io(config.presentationSocketUrl+'/trainee')
   socket.on('connect', () => {
     console.log('Connected to multiplex engine as a client')
     notificationService.info('Connected to multiplex engine as a client')
@@ -75,7 +75,7 @@ function initTraineeMultiplex (config: MultiplexConfig, quiz: Quiz) {
 }
 
 function initTrainerMultiplex (config: MultiplexConfig) {
-  const socket: Socket = io(config.presentationSocketUrl)
+  const socket: Socket = io(config.presentationSocketUrl+'/admin')
   socket.on('connect', () => {
     console.log('Connected to multiplex engine as a presenter')
     notificationService.info('Connected to multiplex engine as presenter')
