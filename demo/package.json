@@ -5,6 +5,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "reveal-quiz": "^0.0.4",
     "reveal.js": "^4.4.0"
   }
 }
