@@ -40,6 +40,7 @@ export abstract class AbstractAnswerView implements AnswerView {
 
   renderAnswer () {
     this.div.classList.add('reveal-quiz-answer')
+    this.div.classList.remove('correct', 'incorrect')
     this.div.innerHTML = `
             <input type="${this.answer.type}" name="answer" id="${this.answer.text}" />
             <label for="${this.answer.text}">${this.answer.text}</label>

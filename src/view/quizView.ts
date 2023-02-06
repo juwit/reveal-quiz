@@ -50,5 +50,9 @@ export default class QuizView {
         questionView.show()
       }
     })
+
+    this.deck.on('quiz-reset', event => {
+      this.questionViews.forEach(it => it.reset());
+    })
   }
 }

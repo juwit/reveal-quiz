@@ -115,4 +115,10 @@ export class TraineeQuestionView implements QuestionView {
     const form = this.section.getElementsByTagName('form')[0]
     this.renderAnswers(form)
   }
+
+  reset () {
+    this.answerViews.forEach(it => it.renderAnswer());
+    this.section.getElementsByTagName('form')[0].append(this.submitButton);
+    this.explanationElement.remove()
+  }
 }

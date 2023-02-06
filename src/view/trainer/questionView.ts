@@ -94,4 +94,10 @@ export class TrainerQuestionView implements QuestionView {
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
   }
+
+  reset () {
+    this.answerViews.forEach(it => it.renderAnswer())
+    this.section.getElementsByTagName('form')[0].append(this.showResponsesButton)
+    this.explanationElement.remove()
+  }
 }
