@@ -4,6 +4,7 @@ import { Deck, QuizConfig } from '../deck'
 import QuestionView from '../questionView'
 import TimerImpl from '../../model/timer'
 import TimerView from '../timerView'
+import QuestionConfig from '../QuestionConfig'
 
 export class TrainerQuestionView implements QuestionView {
   question: Question
@@ -13,11 +14,11 @@ export class TrainerQuestionView implements QuestionView {
   private showResponsesButton: HTMLButtonElement
   private config: QuizConfig
 
-  constructor (question: Question, section, deck: Deck, config: QuizConfig) {
+  constructor (question: Question, section: Element, deck: Deck, globalConfig: QuizConfig) {
     this.question = question
     this.section = section
     this.deck = deck
-    this.config = config
+    this.config = new QuestionConfig(this.section, globalConfig)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
   }
