@@ -58,8 +58,7 @@ slide-specific configuration is passed using `data-quiz-config-*` attributes on 
 
 ### available configuration properties
 
-| global property      | slide property             | default value | description                                                                  |
-|----------------------|----------------------------|---------------|------------------------------------------------------------------------------|
-| useTimer             | data-quiz-config-userTimer | false         | set to `true` to activate a timer on questions                               |
-| defaultTimerDuration | N/A                        | 60            | the default duration of the timer (only global property)                     |
-| N/A                  | timerDuration              | N/A           | the duration of the timer for the current slide (only slide global property) |
+| global property | slide property                 | default value | description                                                                  |
+|-----------------|--------------------------------|---------------|------------------------------------------------------------------------------|
+| useTimer        | data-quiz-config-userTimer     | false         | set to `true` to activate a timer on questions                               |
+| timerDuration   | data-quiz-config-timerDuration | 60            | the duration of the timer                                                    |
