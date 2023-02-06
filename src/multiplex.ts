@@ -1,9 +1,11 @@
 import { Deck } from './view/deck'
 
 import { io } from 'socket.io-client/dist/socket.io.js'
-import { Quiz, Role } from './model/quiz'
+import { Quiz, Role, Trainee } from './model/quiz'
 
 import notificationService from './service/notificationService'
+import TrainingSession from './model/trainingSession'
+import { Question } from './model/question'
 
 export interface MultiplexConfig {
   role: Role;
@@ -78,7 +80,7 @@ function initTraineeMultiplex (config: MultiplexConfig, quiz: Quiz) {
   })
 }
 
-function initTrainerMultiplex (config: MultiplexConfig) {
+function initTrainerMultiplex (config: MultiplexConfig, quiz: Quiz) {
   const socket: Socket = io(config.presentationSocketUrl+'/admin')
   socket.on('connect', () => {
     console.log('Connected to multiplex engine as a presenter')
@@ -87,6 +89,16 @@ function initTrainerMultiplex (config: MultiplexConfig) {
   socket.on('connect_error', (err) => {
     console.log('Unable to connect to multiplex engine')
     notificationService.warn('Unable to connect to multiplex engine')
+  })
+
+  // create a TrainingSession
+  const trainingSession = new TrainingSession(quiz)
+  socket.on('trainee-quiz-question-answered', (message) => {
+    const {trainee, data} = message.event
+    Object.setPrototypeOf(trainee, Trainee.prototype)
+    Object.setPrototypeOf(data, Question.prototype)
+    console.log(`Receiving answer for trainee ${trainee.id}`)
+    trainingSession.addAnswer(trainee, data)
   })
 
   function postState () {
@@ -135,6 +147,6 @@ export function initMultiplex (deckParam: Deck, quiz: Quiz, config: MultiplexCon
     initTraineeMultiplex(config, quiz)
   }
   if (config.role === Role.TRAINER || config.role === Role.ADMIN) {
-    initTrainerMultiplex(config)
+    initTrainerMultiplex(config, quiz)
   }
 }

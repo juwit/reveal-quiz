@@ -40,5 +40,7 @@ traineeNamespace.on('connection', socket => {
   // receiving trainees answers
   socket.on('quiz-question-answered', data => {
     console.log(`Received message in trainee: ${JSON.stringify(data)}`)
+    // sending the answer to the admin
+    adminNamespace.emit('trainee-quiz-question-answered', data)
   })
 })

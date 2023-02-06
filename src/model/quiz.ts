@@ -20,4 +20,8 @@ export class Quiz {
   reset () {
     this.questions.forEach(it => it.reset())
   }
+
+  getQuestion (id: number): Question {
+    return this.questions.find(it => it.id === id)
+  }
 }
