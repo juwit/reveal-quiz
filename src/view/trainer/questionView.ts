@@ -1,9 +1,10 @@
 import { Question } from '../../model/question'
 import { TrainerAnswerView } from '../trainer/answerView'
-import { Deck } from '../deck'
+import { Deck, QuizConfig } from '../deck'
 import QuestionView from '../questionView'
 import TimerImpl from '../../model/timer'
 import TimerView from '../timerView'
+import QuestionConfig from '../questionConfig'
 
 export class TrainerQuestionView implements QuestionView {
   question: Question
@@ -11,11 +12,13 @@ export class TrainerQuestionView implements QuestionView {
   answerViews: TrainerAnswerView[] = []
   private deck: Deck
   private showResponsesButton: HTMLButtonElement
+  private config: QuizConfig
 
-  constructor (question: Question, section, deck: Deck) {
+  constructor (question: Question, section: Element, deck: Deck, globalConfig: QuizConfig) {
     this.question = question
     this.section = section
     this.deck = deck
+    this.config = new QuestionConfig(this.section, globalConfig)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
   }
@@ -23,8 +26,8 @@ export class TrainerQuestionView implements QuestionView {
   show () {
     console.log(`Showing question ${this.question.text}`)
 
-    if (!this.question.isAnswered()) {
-      const timer = new TimerImpl(10)
+    if (!this.question.isAnswered() && this.config.useTimer) {
+      const timer = new TimerImpl(this.config.timerDuration)
       const timerView = new TimerView(timer, this.section)
       timer.start()
       timer.onStop(() => {

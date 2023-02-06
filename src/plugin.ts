@@ -1,6 +1,6 @@
 import quizService from './service/quizService'
 
-import { Deck } from './view/deck'
+import { Deck, DefaultQuizConfig } from './view/deck'
 import { initMultiplex } from './multiplex'
 import { Role } from './model/quiz'
 import QuizView from './view/quizView'
@@ -12,6 +12,11 @@ let deck: Deck
 function init (param: Deck) {
   deck = param
 
+  // load default plugin configuration, and merge it with user configuration
+  const pluginConfig = deck.getConfig().quiz
+  const config = new DefaultQuizConfig()
+  config.merge(pluginConfig)
+
   // findout the role for the current presentation
   const params = new URL(window.location.toString()).searchParams
   const role = params.get('role') as Role
@@ -19,7 +24,7 @@ function init (param: Deck) {
   const isTrainer = role === Role.TRAINER || role === Role.ADMIN
 
   const quiz = quizService.loadOrCreateQuiz(deck, role)
-  const quizView = new QuizView(quiz, deck)
+  const quizView = new QuizView(quiz, deck, config)
   quizView.init()
 
   if (isTrainee || isTrainer) {
