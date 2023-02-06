@@ -120,6 +120,7 @@ function initTrainerMultiplex (config: MultiplexConfig) {
   // on locking, also send state to force users to current slide
   deck.on('quiz-lock', postState)
   deck.on('quiz-unlock', postEvent)
+  deck.on('quiz-reset', postEvent)
 
   console.log('Initialized multiplexing')
 }

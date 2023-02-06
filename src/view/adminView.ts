@@ -37,8 +37,18 @@ export default class AdminViewImpl implements AdminView {
       })
     }
 
+    const resetQuizButton = document.createElement('button')
+    resetQuizButton.textContent = 'Reset Quiz'
+    resetQuizButton.onclick = () => {
+      this.deck.dispatchEvent({
+        type: 'quiz-reset',
+        data: {}
+      })
+    }
+
     adminDiv.append(lockButton)
     adminDiv.append(unlockButton)
+    adminDiv.append(resetQuizButton)
 
     // insert admin div just before the slides
     this.reveal.before(adminDiv)
