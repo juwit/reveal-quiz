@@ -18,7 +18,7 @@ adminNamespace.on('connection', socket => {
 
   // admin can broadcast events to trainees
   socket.on('broadcast', data => {
-    console.log(`Received message in admin ${JSON.stringify(data)}`)
+    console.log(`Received message in admin: ${JSON.stringify(data)}`)
 
     if (data.state) {
       lastState = data
@@ -36,4 +36,9 @@ traineeNamespace.on('connection', socket => {
     console.log('New user, sending last status')
     socket.emit('broadcast', lastState)
   }
+
+  // receiving trainees answers
+  socket.on('quiz-question-answered', data => {
+    console.log(`Received message in trainee: ${JSON.stringify(data)}`)
+  })
 })

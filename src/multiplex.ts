@@ -64,6 +64,18 @@ function initTraineeMultiplex (config: MultiplexConfig, quiz: Quiz) {
       deck.dispatchEvent(message.event)
     }
   })
+
+  // for trainees, when a question is answered, the result should be send to the trainer (for scoring)
+  deck.on('quiz-question-answered', (question) => {
+    const messageData = {
+      event: {
+        type: 'quiz-question-answered',
+        trainee: quiz.trainee,
+        data: question,
+      },
+    }
+    socket.emit('quiz-question-answered', messageData)
+  })
 }
 
 function initTrainerMultiplex (config: MultiplexConfig) {
