@@ -50,6 +50,10 @@
     border: 2px solid #766df4;
 }
 
+.explanation {
+    white-space: pre-wrap;
+}
+
 /** admin controls */
 .quiz-admin {
     display: flex;

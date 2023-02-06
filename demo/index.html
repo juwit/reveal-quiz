@@ -13,17 +13,20 @@
         </textarea>
       </section>
       <section data-quiz>
-        - Who is Darth Sidious master ?
+        # Who is Darth Sidious master ?
         - [ ] Darth Bane
         - [ ] Darth Tenebrous
         - [x] Darth Plagueis
+        > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+        > - Sheev Palpatine, to Anakin Skywalker
         </section>
       <section data-quiz>
-        - Which of those ships are used by the Rebel Alliance ?
+        # Which of those ships are used by the Rebel Alliance ?
         - [x] X-Wing fighter
-        - [ ] Tie Fighter
+        - [ ] TIE Fighter
         - [x] Y-Wing
         - [x] Tantive IV
+        > The TIE fighter is the signature starfighter of the Galactic Empire
       </section>
     </div>
     </div>
@@ -36,6 +39,10 @@
     import RevealQuizz from './node_modules/reveal-quiz/dist/reveal-quiz-bundle-esm.js';
 
     Reveal.initialize({
+      quiz: {
+        timerDuration: 30,
+        useTimer: true,
+      },
       plugins: [markdown, RevealQuizz],
     });
   </script>

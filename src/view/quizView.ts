@@ -1,4 +1,4 @@
-import { Deck } from './deck'
+import { Deck, QuizConfig } from './deck'
 import { Quiz, Role } from '../model/quiz'
 import { TrainerQuestionView } from './trainer/questionView'
 import { TraineeQuestionView } from './trainee/questionView'
@@ -7,12 +7,14 @@ import QuestionView from './questionView'
 
 export default class QuizView {
   private readonly quiz: Quiz
+  private readonly config: QuizConfig
   private readonly deck: Deck
   private questionViews: QuestionView[] = []
 
-  constructor (quiz: Quiz, deck: Deck) {
+  constructor (quiz: Quiz, deck: Deck, config: QuizConfig) {
     this.quiz = quiz
     this.deck = deck
+    this.config = config
   }
 
   init () {
@@ -27,9 +29,9 @@ export default class QuizView {
     this.quiz.questions.forEach(question => {
       let questionView
       if (this.quiz.role === Role.TRAINER || this.quiz.role === Role.ADMIN) {
-        questionView = new TrainerQuestionView(question, sections[question.id], this.deck)
+        questionView = new TrainerQuestionView(question, sections[question.id], this.deck, this.config)
       } else {
-        questionView = new TraineeQuestionView(question, sections[question.id], this.deck)
+        questionView = new TraineeQuestionView(question, sections[question.id], this.deck, this.config)
       }
       questionView.renderQuestion()
       if (question.isAnswered()) {

@@ -1,20 +1,24 @@
 import { Question } from '../../model/question'
 import { TrainerAnswerView } from '../trainer/answerView'
-import { Deck } from '../deck'
+import { Deck, QuizConfig } from '../deck'
 import QuestionView from '../questionView'
 import TimerImpl from '../../model/timer'
 import TimerView from '../timerView'
+import QuestionConfig from '../questionConfig'
 
 export class TrainerQuestionView implements QuestionView {
   question: Question
   section: Element
   answerViews: TrainerAnswerView[] = []
   private deck: Deck
+  private showResponsesButton: HTMLButtonElement
+  private config: QuizConfig
 
-  constructor (question: Question, section, deck: Deck) {
+  constructor (question: Question, section: Element, deck: Deck, globalConfig: QuizConfig) {
     this.question = question
     this.section = section
     this.deck = deck
+    this.config = new QuestionConfig(this.section, globalConfig)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
   }
@@ -22,8 +26,8 @@ export class TrainerQuestionView implements QuestionView {
   show () {
     console.log(`Showing question ${this.question.text}`)
 
-    if (!this.question.isAnswered()) {
-      const timer = new TimerImpl(10)
+    if (!this.question.isAnswered() && this.config.useTimer) {
+      const timer = new TimerImpl(this.config.timerDuration)
       const timerView = new TimerView(timer, this.section)
       timer.start()
       timer.onStop(() => {
@@ -35,10 +39,19 @@ export class TrainerQuestionView implements QuestionView {
   }
 
   showResponses () {
+    console.log(`Showing answers and explanation`)
+
     // remove button
-    this.section.getElementsByTagName('button')[0].remove()
+    this.showResponsesButton.remove()
 
     this.answerViews.forEach(it => it.showResponse())
+
+    // show explanation
+    const blockquote = document.createElement('blockquote')
+    blockquote.textContent = this.question.explanation
+    blockquote.classList.add('explanation')
+    this.section.append(blockquote)
+
     // send event
     this.deck.dispatchEvent({
       type: 'quiz-show-responses',
@@ -68,8 +81,8 @@ export class TrainerQuestionView implements QuestionView {
             </form>
         `
     this.section.classList.add('reveal-quiz-question')
-    const button = this.section.getElementsByTagName('button')[0]
-    button.addEventListener('click', () => {
+    this.showResponsesButton = this.section.getElementsByTagName('button')[0]
+    this.showResponsesButton.addEventListener('click', () => {
       this.showResponses()
     })
 
