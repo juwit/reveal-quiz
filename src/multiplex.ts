@@ -1,7 +1,7 @@
 import { Deck } from './view/deck'
 
 import { io } from 'socket.io-client/dist/socket.io.js'
-import { Role } from './model/quiz'
+import { Quiz, Role } from './model/quiz'
 
 import notificationService from './service/notificationService'
 
@@ -22,7 +22,7 @@ interface Socket {
 
 let deck: Deck
 
-function initTraineeMultiplex (config: MultiplexConfig) {
+function initTraineeMultiplex (config: MultiplexConfig, quiz: Quiz) {
   // setting lock/unlock events
   deck.on('quiz-lock', () => {
     deck.configure({
@@ -35,6 +35,9 @@ function initTraineeMultiplex (config: MultiplexConfig) {
       controls: true,
       keyboard: true,
     })
+  })
+  deck.on('quiz-reset', () => {
+    quiz.reset()
   })
 
   const socket: Socket = io(config.presentationSocketUrl)
@@ -125,11 +128,11 @@ function initTrainerMultiplex (config: MultiplexConfig) {
   console.log('Initialized multiplexing')
 }
 
-export function initMultiplex (deckParam: Deck, config: MultiplexConfig) {
+export function initMultiplex (deckParam: Deck, quiz: Quiz, config: MultiplexConfig) {
   deck = deckParam
   console.log(config)
   if (config.role === Role.TRAINEE) {
-    initTraineeMultiplex(config)
+    initTraineeMultiplex(config, quiz)
   }
   if (config.role === Role.TRAINER || config.role === Role.ADMIN) {
     initTrainerMultiplex(config)
