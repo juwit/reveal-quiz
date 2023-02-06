@@ -24,10 +24,6 @@ adminNamespace.on('connection', socket => {
       lastState = data
     }
 
-    // checking that a secret is provided
-    if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return
-
-    delete data.secret
     traineeNamespace.emit(data.socketId, data)
   })
 })
