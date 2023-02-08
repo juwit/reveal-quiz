@@ -3,6 +3,8 @@ import { Question } from '../../src/model/question'
 import { Quiz, Trainee } from '../../src/model/quiz'
 import { expect } from 'chai'
 
+import {randomUUID} from 'crypto'
+
 describe('model/trainingSession', () => {
   it('should gather trainee responses', () => {
 
@@ -20,11 +22,11 @@ describe('model/trainingSession', () => {
 
     const trainingSession = new TrainingSession(quiz)
 
-    const john = new Trainee()
+    const john = new Trainee(randomUUID())
     const johnQuestion = Question.fromMarkdown(markdown)
     johnQuestion.answers[2].selected = true
 
-    const jack = new Trainee()
+    const jack = new Trainee(randomUUID())
     const jackQuestion = Question.fromMarkdown(markdown)
     jackQuestion.answers[1].selected = true
 
@@ -53,7 +55,7 @@ describe('model/trainingSession', () => {
 
     const trainingSession = new TrainingSession(quiz)
 
-    const john = new Trainee()
+    const john = new Trainee(randomUUID())
     const johnQuestion = Question.fromMarkdown(markdown)
     johnQuestion.answers[2].selected = true
 

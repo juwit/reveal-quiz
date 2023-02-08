@@ -36,7 +36,7 @@ class QuizServiceImpl implements QuizService {
     }
     quiz.role = role
     if (quiz.role === Role.TRAINEE && !quiz.trainee) {
-      quiz.trainee = new Trainee()
+      quiz.trainee = new Trainee(crypto.randomUUID())
     }
     // listen to events to save the quiz when needed
     deck.on('quiz-question-answered', () => {

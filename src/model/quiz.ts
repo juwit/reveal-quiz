@@ -1,7 +1,5 @@
 import { Question } from './question'
 
-import {randomUUID} from 'crypto'
-
 export enum Role {
   TRAINER = 'trainer',
   TRAINEE = 'trainee',
@@ -9,7 +7,11 @@ export enum Role {
 }
 
 export class Trainee {
-  id: string = randomUUID()
+  private readonly id: string
+
+  constructor (id: string) {
+    this.id = id
+  }
 }
 
 export class Quiz {
