@@ -24,7 +24,7 @@ export default class QRCodeView {
     // generate a trainee URL
     const currentUrl = new URL(window.location.toString())
     currentUrl.searchParams.set('role', 'trainee')
-    console.log(currentUrl.toString())
+    console.log(`Generating trainee URL : ${currentUrl.toString()}`)
 
     new QRious({
       element: this.canvasElement,
