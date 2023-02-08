@@ -9,6 +9,8 @@ const io = new Server(3000, {
 
 let lastState = null
 
+const adminEvents = ['qrcode-show', 'qrcode-hide']
+
 const adminNamespace = io.of('/admin')
 const traineeNamespace = io.of('/trainee')
 
@@ -22,9 +24,15 @@ adminNamespace.on('connection', socket => {
 
     if (data.state) {
       lastState = data
+      return traineeNamespace.emit('broadcast', data)
+    }
+    if(adminEvents.includes(data.event.type)){
+      adminNamespace.emit(data.event.type, data)
+    }
+    else {
+      traineeNamespace.emit('broadcast', data)
     }
 
-    traineeNamespace.emit('broadcast', data)
   })
 })
 

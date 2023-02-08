@@ -6,6 +6,7 @@ import { Quiz, Role, Trainee } from './model/quiz'
 import notificationService from './service/notificationService'
 import { Question } from './model/question'
 import {TrainingSession} from './model/trainingSession'
+import QRCodeView from './view/trainer/qrcodeView'
 
 export interface MultiplexConfig {
   role: Role;
@@ -112,6 +113,15 @@ function initTrainerMultiplex (config: MultiplexConfig, quiz: Quiz) {
     TrainingSession.instance.addTrainee(trainee)
   })
 
+  const qrcodeView = new QRCodeView(deck)
+  socket.on('qrcode-show', () => {
+    console.log('qrcode-show')
+    qrcodeView.show()
+  });
+  socket.on('qrcode-hide', () => {
+    console.log('qrcode-hide')
+    qrcodeView.hide()
+  });
 
   function postState () {
     const messageData = {
@@ -148,6 +158,9 @@ function initTrainerMultiplex (config: MultiplexConfig, quiz: Quiz) {
   deck.on('quiz-lock', postState)
   deck.on('quiz-unlock', postEvent)
   deck.on('quiz-reset', postEvent)
+  // events to show/hide qrcodes
+  deck.on('qrcode-show', postEvent)
+  deck.on('qrcode-hide', postEvent)
 
   console.log('Initialized multiplexing')
 }
