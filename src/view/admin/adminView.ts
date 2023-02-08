@@ -1,5 +1,5 @@
-import { Deck } from './deck'
-import { TrainingSession } from '../model/trainingSession'
+import { Deck } from '../deck'
+import { TrainingSession } from '../../model/trainingSession'
 
 export interface AdminView {
   render (): void;

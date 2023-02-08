@@ -2,7 +2,7 @@ import { Deck, QuizConfig } from './deck'
 import { Quiz, Role } from '../model/quiz'
 import { TrainerQuestionView } from './trainer/questionView'
 import { TraineeQuestionView } from './trainee/questionView'
-import AdminView from './adminView'
+import AdminView from './admin/adminView'
 import QuestionView from './questionView'
 
 export default class QuizView {
