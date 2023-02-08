@@ -148,6 +148,9 @@ function initTrainerMultiplex (config: MultiplexConfig, quiz: Quiz) {
   deck.on('quiz-lock', postState)
   deck.on('quiz-unlock', postEvent)
   deck.on('quiz-reset', postEvent)
+  // events to show/hide qrcodes
+  deck.on('qrcode-show', postEvent)
+  deck.on('qrcode-hide', postEvent)
 
   console.log('Initialized multiplexing')
 }

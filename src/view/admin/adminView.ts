@@ -41,6 +41,8 @@ export default class AdminViewImpl implements AdminView {
     adminDiv.append(this.buildActionButton('Lock', 'quiz-lock'))
     adminDiv.append(this.buildActionButton('Unlock', 'quiz-unlock'))
     adminDiv.append(this.buildActionButton('Reset Quiz', 'quiz-reset'))
+    adminDiv.append(this.buildActionButton('Show QR Code', 'qrcode-show'))
+    adminDiv.append(this.buildActionButton('Hide QR Code', 'qrcode-hide'))
 
     // insert admin div just before the slides
     this.reveal.before(adminDiv)

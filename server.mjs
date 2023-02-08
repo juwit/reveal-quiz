@@ -22,9 +22,15 @@ adminNamespace.on('connection', socket => {
 
     if (data.state) {
       lastState = data
+      return traineeNamespace.emit('broadcast', data)
     }
 
-    traineeNamespace.emit('broadcast', data)
+    if(adminEvents.includes(data.event.type)){
+      return adminNamespace.emit(data.event.type, data)
+    }
+    else {
+      return traineeNamespace.emit('broadcast', data)
+    }
   })
 })
 
