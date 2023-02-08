@@ -14,42 +14,33 @@ export default class AdminViewImpl implements AdminView {
     this.reveal = deck.getRevealElement()
   }
 
+  /**
+   * builds a button that dispatches an event to the deck
+   * @param label the label of the button
+   * @param eventType the type of the event
+   * @private
+   */
+  private buildActionButton(label: string, eventType: string): HTMLButtonElement{
+    const actionButton = document.createElement('button')
+    actionButton.textContent = label
+    actionButton.onclick = () => {
+      this.deck.dispatchEvent({
+        type: eventType ,
+        data: {}
+      })
+    }
+    return actionButton
+  }
+
   render (): void {
     console.log('Rendering Admin controls')
     const adminDiv: HTMLDivElement = document.createElement('div')
     adminDiv.classList.add('quiz-admin-controls')
     adminDiv.textContent = 'Admin controls'
 
-    const lockButton = document.createElement('button')
-    lockButton.textContent = 'Lock'
-    lockButton.onclick = () => {
-      this.deck.dispatchEvent({
-        type: 'quiz-lock',
-        data: {}
-      })
-    }
-
-    const unlockButton = document.createElement('button')
-    unlockButton.textContent = 'Unlock'
-    unlockButton.onclick = () => {
-      this.deck.dispatchEvent({
-        type: 'quiz-unlock',
-        data: {}
-      })
-    }
-
-    const resetQuizButton = document.createElement('button')
-    resetQuizButton.textContent = 'Reset Quiz'
-    resetQuizButton.onclick = () => {
-      this.deck.dispatchEvent({
-        type: 'quiz-reset',
-        data: {}
-      })
-    }
-
-    adminDiv.append(lockButton)
-    adminDiv.append(unlockButton)
-    adminDiv.append(resetQuizButton)
+    adminDiv.append(this.buildActionButton('Lock', 'quiz-lock'))
+    adminDiv.append(this.buildActionButton('Unlock', 'quiz-unlock'))
+    adminDiv.append(this.buildActionButton('Reset Quiz', 'quiz-reset'))
 
     // insert admin div just before the slides
     this.reveal.before(adminDiv)
