@@ -14,11 +14,13 @@ class TraineeSession {
   }
 }
 
-export default class TrainingSession {
+export class TrainingSession {
 
   private readonly quiz: Quiz
 
   traineeSessions: TraineeSession[] = []
+
+  static instance : TrainingSession
 
   constructor (quiz: Quiz) {
     this.quiz = quiz
@@ -45,4 +47,7 @@ export default class TrainingSession {
     return traineeSession
   }
 
+  static init(quiz: Quiz): void{
+    TrainingSession.instance = new TrainingSession(quiz)
+  }
 }

@@ -4,8 +4,8 @@ import { io } from 'socket.io-client/dist/socket.io.js'
 import { Quiz, Role, Trainee } from './model/quiz'
 
 import notificationService from './service/notificationService'
-import TrainingSession from './model/trainingSession'
 import { Question } from './model/question'
+import {TrainingSession} from './model/trainingSession'
 
 export interface MultiplexConfig {
   role: Role;
@@ -91,14 +91,13 @@ function initTrainerMultiplex (config: MultiplexConfig, quiz: Quiz) {
     notificationService.warn('Unable to connect to multiplex engine')
   })
 
-  // create a TrainingSession
-  const trainingSession = new TrainingSession(quiz)
+  TrainingSession.init(quiz)
   socket.on('trainee-quiz-question-answered', (message) => {
     const {trainee, data} = message.event
     Object.setPrototypeOf(trainee, Trainee.prototype)
     Object.setPrototypeOf(data, Question.prototype)
     console.log(`Receiving answer for trainee ${trainee.id}`)
-    trainingSession.addAnswer(trainee, data)
+    TrainingSession.instance.addAnswer(trainee, data)
   })
 
   function postState () {

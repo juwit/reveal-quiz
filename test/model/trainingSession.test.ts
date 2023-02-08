@@ -1,4 +1,4 @@
-import TrainingSession from '../../src/model/trainingSession'
+import {TrainingSession} from '../../src/model/trainingSession'
 import { Question } from '../../src/model/question'
 import { Quiz, Trainee } from '../../src/model/quiz'
 import { expect } from 'chai'

@@ -4,6 +4,7 @@ import { TrainerQuestionView } from './trainer/questionView'
 import { TraineeQuestionView } from './trainee/questionView'
 import AdminView from './adminView'
 import QuestionView from './questionView'
+import { TrainingSession } from '../model/trainingSession'
 
 export default class QuizView {
   private readonly quiz: Quiz
@@ -22,7 +23,7 @@ export default class QuizView {
 
     if (this.quiz.role === Role.ADMIN) {
       // add the admin component
-      const adminView = new AdminView(this.deck)
+      const adminView = new AdminView(this.deck, TrainingSession.instance)
       adminView.render()
     }
 
