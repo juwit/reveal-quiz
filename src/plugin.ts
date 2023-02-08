@@ -1,11 +1,11 @@
 import quizService from './service/quizService'
 
 import { Deck, DefaultQuizConfig } from './view/deck'
-import { initMultiplex } from './multiplex'
 import { Role } from './model/quiz'
 import QuizView from './view/quizView'
 
 import './reveal-quiz.css'
+import { initMultiplex } from './multiplex/multiplex'
 
 let deck: Deck
 
