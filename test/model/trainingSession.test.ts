@@ -59,10 +59,15 @@ describe('model/trainingSession', () => {
     const johnQuestion = Question.fromMarkdown(markdown)
     johnQuestion.answers[2].selected = true
 
+    const jack = new Trainee(randomUUID())
+    const jackQuestion = Question.fromMarkdown(markdown)
+    jackQuestion.answers[2].selected = true
+
     trainingSession.addAnswer(john, johnQuestion)
+    trainingSession.addAnswer(jack, jackQuestion)
 
     expect(quiz.questions[0].answers[0].traineeAnswersSelected).to.equal(0)
     expect(quiz.questions[0].answers[1].traineeAnswersSelected).to.equal(0)
-    expect(quiz.questions[0].answers[2].traineeAnswersSelected).to.equal(1)
+    expect(quiz.questions[0].answers[2].traineeAnswersSelected).to.equal(2)
   })
 })
