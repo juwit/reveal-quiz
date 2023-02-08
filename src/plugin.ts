@@ -20,14 +20,12 @@ function init (param: Deck) {
   // findout the role for the current presentation
   const params = new URL(window.location.toString()).searchParams
   const role = params.get('role') as Role
-  const isTrainee = role === Role.TRAINEE
-  const isTrainer = role === Role.TRAINER || role === Role.ADMIN
 
   const quiz = quizService.loadOrCreateQuiz(deck, role)
   const quizView = new QuizView(quiz, deck, config)
   quizView.init()
 
-  if (isTrainee || isTrainer) {
+  if (role) {
     console.log('Initializing multiplexing 🖧')
     initMultiplex(deck, quiz, {
       role,
@@ -36,7 +34,7 @@ function init (param: Deck) {
   }
 
   // for autonomous readers, directly answer the question
-  if (!isTrainee && !isTrainer) {
+  if (!role) {
     deck.on('quiz-question-answered', () => {
       console.log('received event questionAnswered')
       deck.dispatchEvent({

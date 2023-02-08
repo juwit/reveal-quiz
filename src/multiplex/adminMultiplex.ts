@@ -8,7 +8,7 @@ import QRCodeView from '../view/trainer/qrcodeView'
 
 import { io } from 'socket.io-client/dist/socket.io.js'
 
-export default class TrainerMultiplex implements Multiplex {
+export default class AdminMultiplex implements Multiplex {
 
   private readonly deck: Deck
   private readonly quiz: Quiz
@@ -41,10 +41,10 @@ export default class TrainerMultiplex implements Multiplex {
   }
 
   connect (): void {
-    this.socket = io(this.config.presentationSocketUrl + '/trainer')
+    this.socket = io(this.config.presentationSocketUrl + '/admin')
     this.socket.on('connect', () => {
-      console.log('Connected to multiplex engine as a presenter')
-      notificationService.info('Connected to multiplex engine as presenter')
+      console.log('Connected to multiplex engine as an Admin')
+      notificationService.info('Connected to multiplex engine as an admin')
     })
     this.socket.on('connect_error', (err) => {
       console.log('Unable to connect to multiplex engine')
@@ -69,22 +69,12 @@ export default class TrainerMultiplex implements Multiplex {
       TrainingSession.instance.addTrainee(trainee)
     })
 
-    const qrcodeView = new QRCodeView(this.deck)
-    this.socket.on('qrcode-show', () => {
-      console.log('qrcode-show')
-      qrcodeView.show()
-    })
-    this.socket.on('qrcode-hide', () => {
-      console.log('qrcode-hide')
-      qrcodeView.hide()
-    })
-
     const postStateCallback = () => this.postState()
     const postEventCallback = (event) => this.postEvent(event)
 
     this.socket.on('broadcast', (message) => {
       if (message.state) {
-        console.log('trainer event')
+        console.log('admin event')
         // remove the event listener while setting the state
         this.deck.off('slidechanged', postStateCallback)
         this.deck.setState(message.state)
@@ -106,6 +96,19 @@ export default class TrainerMultiplex implements Multiplex {
 
     // Monitor events that should be broadcasted to other presentations
     this.deck.on('quiz-show-responses', postEventCallback)
+    this.deck.on('quiz-lock', postEventCallback)
+    // on locking, also send state to force users to current slide
+    this.deck.on('quiz-lock', postStateCallback)
+    this.deck.on('quiz-unlock', postEventCallback)
+    this.deck.on('quiz-reset', postEventCallback)
+
+
+    // events to show/hide qrcodes, those events are run locally, and broadcasted
+    const qrcodeView = new QRCodeView(this.deck)
+    this.deck.on('qrcode-show', postEventCallback)
+    this.deck.on('qrcode-hide', postEventCallback)
+    this.deck.on('qrcode-show', () => qrcodeView.show())
+    this.deck.on('qrcode-hide', () => qrcodeView.hide())
 
     console.log('Initialized multiplexing')
   }

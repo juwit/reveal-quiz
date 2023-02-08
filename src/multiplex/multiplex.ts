@@ -2,6 +2,7 @@ import { Quiz, Role } from '../model/quiz'
 import { Deck } from '../view/deck'
 import TraineeMultiplex from './traineeMultiplex'
 import TrainerMultiplex from './trainerMultiplex'
+import AdminMultiplex from './adminMultiplex'
 
 /**
  * Interface of a socket, that will be used for multiplexing
@@ -39,7 +40,10 @@ export function initMultiplex (deck: Deck, quiz: Quiz, config: MultiplexConfig) 
   if (config.role === Role.TRAINEE) {
     new TraineeMultiplex(deck, quiz, config).connect()
   }
-  if (config.role === Role.TRAINER || config.role === Role.ADMIN) {
+  if (config.role === Role.TRAINER) {
     new TrainerMultiplex(deck, quiz, config).connect()
+  }
+  if (config.role === Role.ADMIN) {
+    new AdminMultiplex(deck, quiz, config).connect()
   }
 }

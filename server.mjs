@@ -12,6 +12,7 @@ let lastState = null
 const adminEvents = ['qrcode-show', 'qrcode-hide']
 
 const adminNamespace = io.of('/admin')
+const trainerNamespace = io.of('/trainer')
 const traineeNamespace = io.of('/trainee')
 
 // admin namespace
@@ -24,15 +25,37 @@ adminNamespace.on('connection', socket => {
 
     if (data.state) {
       lastState = data
-      return traineeNamespace.emit('broadcast', data)
-    }
-    if(adminEvents.includes(data.event.type)){
-      adminNamespace.emit(data.event.type, data)
-    }
-    else {
+      // state is broadcasted from the admin to the presenter and to the trainees
+      trainerNamespace.emit('broadcast', data)
       traineeNamespace.emit('broadcast', data)
+      return
     }
 
+    if(adminEvents.includes(data.event.type)){
+      // admin events are broadcasted to the trainer view only
+      trainerNamespace.emit(data.event.type, data)
+      return
+    }
+
+    // other events are only broadcasted to the trainees
+    traineeNamespace.emit('broadcast', data)
+  })
+})
+
+// trainer namespace
+trainerNamespace.on('connection', socket => {
+  console.log('Received connection to trainer namespace')
+
+  // trainer can broadcast state events to trainees and admin
+  socket.on('broadcast', data => {
+    console.log(`Received message in trainer: ${JSON.stringify(data)}`)
+
+    if (data.state) {
+      lastState = data
+      // state is broadcasted from the admin to the presenter and to the trainees
+      adminNamespace.emit('broadcast', data)
+      traineeNamespace.emit('broadcast', data)
+    }
   })
 })
 
