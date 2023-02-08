@@ -8,8 +8,8 @@ export default class QRCodeView {
 
   private readonly deck: Deck
 
-  private divElement: HTMLDivElement
-  private canvasElement: HTMLCanvasElement
+  private readonly divElement: HTMLDivElement
+  private readonly canvasElement: HTMLCanvasElement
 
   constructor (deck: Deck) {
     this.deck = deck
@@ -21,9 +21,14 @@ export default class QRCodeView {
     this.canvasElement.classList.add('qrcode')
     this.divElement.append(this.canvasElement)
 
+    // generate a trainee URL
+    const currentUrl = new URL(window.location.toString())
+    currentUrl.searchParams.set('role', 'trainee')
+    console.log(currentUrl.toString())
+
     new QRious({
       element: this.canvasElement,
-      value: 'https://github.com',
+      value: currentUrl.toString(),
       size: 500,
     })
 
