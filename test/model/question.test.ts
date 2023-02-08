@@ -107,4 +107,28 @@ describe('model/question', () => {
 
     expect(parsedQuestion.score()).to.equal(3)
   })
+
+  it('should reset all answers when told so', () => {
+    const markdown = `
+      # Who is Darth Sidious master ?
+      - [ ] Darth Bane
+      - [ ] Darth Tenebrous
+      - [x] Darth Plagueis
+      > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+      > - Sheev Palpatine, to Anakin Skywalker
+    `
+    const parsedQuestion = Question.fromMarkdown(markdown)
+
+    // select the good answer
+    parsedQuestion.answers[2].selected = true
+    parsedQuestion.answer()
+
+    // reset the question
+    parsedQuestion.reset()
+
+    expect(parsedQuestion.isAnswered()).to.be.false
+    parsedQuestion.answers.forEach(it => {
+      expect(it.selected).to.be.false
+    })
+  })
 })

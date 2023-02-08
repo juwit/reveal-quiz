@@ -5,6 +5,8 @@ export class Answer {
   public readonly correct: boolean
   selected: boolean = false
   type: string
+  // the number of trainee that selected this answer, used on admin view
+  traineeAnswersSelected: number = 0
 
   private constructor (text: string, correct: boolean) {
     this.text = text

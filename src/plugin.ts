@@ -29,11 +29,9 @@ function init (param: Deck) {
 
   if (isTrainee || isTrainer) {
     console.log('Initializing multiplexing 🖧')
-    initMultiplex(deck, {
+    initMultiplex(deck, quiz, {
       role,
-      presentationId: params.get('presentationId'),
-      presentationSecret: params.get('presentationSecret'),
-      presentationSocketUrl: 'http://localhost:3000'
+      presentationSocketUrl: 'http://localhost:3000',
     })
   }
 

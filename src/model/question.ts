@@ -46,4 +46,9 @@ export class Question {
   score(): number {
     return this.answers.filter(it => it.selected && it.correct).length
   }
+
+  reset () {
+    this.answered = false;
+    this.answers.forEach(it => it.selected = false)
+  }
 }

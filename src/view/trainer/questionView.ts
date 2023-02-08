@@ -13,6 +13,7 @@ export class TrainerQuestionView implements QuestionView {
   private deck: Deck
   private showResponsesButton: HTMLButtonElement
   private config: QuizConfig
+  private readonly explanationElement: HTMLQuoteElement
 
   constructor (question: Question, section: Element, deck: Deck, globalConfig: QuizConfig) {
     this.question = question
@@ -21,6 +22,11 @@ export class TrainerQuestionView implements QuestionView {
     this.config = new QuestionConfig(this.section, globalConfig)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
+
+    // show explanation
+    this.explanationElement = document.createElement('blockquote')
+    this.explanationElement.textContent = this.question.explanation
+    this.explanationElement.classList.add('explanation')
   }
 
   show () {
@@ -47,10 +53,7 @@ export class TrainerQuestionView implements QuestionView {
     this.answerViews.forEach(it => it.showResponse())
 
     // show explanation
-    const blockquote = document.createElement('blockquote')
-    blockquote.textContent = this.question.explanation
-    blockquote.classList.add('explanation')
-    this.section.append(blockquote)
+    this.section.append(this.explanationElement)
 
     // send event
     this.deck.dispatchEvent({
@@ -90,5 +93,11 @@ export class TrainerQuestionView implements QuestionView {
     this.renderAnswers(form)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
+  }
+
+  reset () {
+    this.answerViews.forEach(it => it.renderAnswer())
+    this.section.getElementsByTagName('form')[0].append(this.showResponsesButton)
+    this.explanationElement.remove()
   }
 }

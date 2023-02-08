@@ -36,12 +36,17 @@ class QuizServiceImpl implements QuizService {
     }
     quiz.role = role
     if (quiz.role === Role.TRAINEE && !quiz.trainee) {
-      quiz.trainee = new Trainee()
+      quiz.trainee = new Trainee(crypto.randomUUID())
     }
     // listen to events to save the quiz when needed
     deck.on('quiz-question-answered', () => {
       console.log('Saving quiz data to sessionStorage')
       storage.setItem('quiz', JSON.stringify(quiz))
+    })
+    // listen to events to save the quiz when needed
+    deck.on('quiz-reset', () => {
+      console.log('Reset quiz data from sessionStorage')
+      storage.removeItem('quiz')
     })
     return quiz
   }

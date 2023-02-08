@@ -16,4 +16,10 @@ export default interface QuestionView {
    * Renders the question, by displaying the question and the available answers.
    */
   renderQuestion (): void;
+
+  /**
+   * Resets the question view back to its initial state.
+   * All the components are destroyed and re-created
+   */
+  reset(): void;
 }

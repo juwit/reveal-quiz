@@ -1,40 +1,60 @@
-import { Server } from 'socket.io';
+import { Server } from 'socket.io'
 
 const io = new Server(3000, {
-    cors: {
-        origin: '*',
-        methods: '*',
-    },
-});
+  cors: {
+    origin: '*',
+    methods: '*',
+  },
+})
 
-let lastState = null;
+let lastState = null
 
-io.on( 'connection', socket => {
+const adminEvents = ['qrcode-show', 'qrcode-hide']
 
-    // also send to this new user the last status so it reconnects to the good slide
-    if(lastState){
-        console.log('New user, sending last status');
-        socket.emit(lastState.socketId, lastState);
+const adminNamespace = io.of('/admin')
+const traineeNamespace = io.of('/trainee')
+
+// admin namespace
+adminNamespace.on('connection', socket => {
+  console.log('Received connection to admin namespace')
+
+  // admin can broadcast events to trainees
+  socket.on('broadcast', data => {
+    console.log(`Received message in admin: ${JSON.stringify(data)}`)
+
+    if (data.state) {
+      lastState = data
+      return traineeNamespace.emit('broadcast', data)
+    }
+    if(adminEvents.includes(data.event.type)){
+      adminNamespace.emit(data.event.type, data)
+    }
+    else {
+      traineeNamespace.emit('broadcast', data)
     }
 
-    socket.on('user-connected', data => {
-        console.log('Another user connected !');
-        // broadcasting the event
-        socket.broadcast.emit('user-connected', data);
-    });
+  })
+})
 
-    socket.on('broadcast', data => {
-        console.log(`received message ${JSON.stringify(data)}`);
+// trainees namespace
+traineeNamespace.on('connection', socket => {
+  console.log('Received connection to trainee namespace')
+  // send the last status so the trainee reconnects to the good slide
+  if (lastState) {
+    console.log('New user, sending last status')
+    socket.emit('broadcast', lastState)
+  }
 
-        if(data.state){
-            lastState = data;
-        }
+  // sending the new trainee information to the admin
+  socket.on('user-connected', data => {
+    console.log(`Received message in trainee: ${JSON.stringify(data)}`)
+    adminNamespace.emit('user-connected', data)
+  })
 
-        // checking that a secret is provided
-        if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return;
-
-        delete data.secret;
-        socket.broadcast.emit(data.socketId, data);
-    });
-});
-
+  // receiving trainees answers
+  socket.on('quiz-question-answered', data => {
+    console.log(`Received message in trainee: ${JSON.stringify(data)}`)
+    // sending the answer to the admin
+    adminNamespace.emit('trainee-quiz-question-answered', data)
+  })
+})
