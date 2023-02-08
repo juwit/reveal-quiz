@@ -1,5 +1,46 @@
 # Changelog
 
+<a name="0.0.5"></a>
+## 0.0.5 (2023-02-08)
+
+### Added
+
+- ✨ : generate a trainee url [[d63bb36](https://github.com/juwit/reveal-quiz/commit/d63bb36e5c8e9ac5c810da552d642dd975af451d)]
+- ✨ : hide/show qrcode [[1f5d663](https://github.com/juwit/reveal-quiz/commit/1f5d663bac02de0c00f69599608139a2c03866a9)]
+- ✨ : send events show/hide qrcode [[0c8186b](https://github.com/juwit/reveal-quiz/commit/0c8186bec56f01dfd8655bc97f12a1f71028bd52)]
+- ➕ : add qrious for qr code generation [[d929f49](https://github.com/juwit/reveal-quiz/commit/d929f491aed6068031744111ac238a6bef428099)]
+- ✨ : add user-connected event [[5b8281b](https://github.com/juwit/reveal-quiz/commit/5b8281bcd3f003fe44095e572ad9e5c36d026729)]
+- ✅ : enance test case [[262fafc](https://github.com/juwit/reveal-quiz/commit/262fafc6f75d84d0a2ab31cac912162fc31ef2ca)]
+- ✨ : gather trainees response on admin [[8d11f89](https://github.com/juwit/reveal-quiz/commit/8d11f8999b164636f9c3cb3dc5fe90b6429ee9ca)]
+- ✨ : use crypto via module import [[457f49b](https://github.com/juwit/reveal-quiz/commit/457f49b025a9020d1d3ebabcda8c80df39972cce)]
+- ➕ : add @types/node dependency [[749e2d0](https://github.com/juwit/reveal-quiz/commit/749e2d087bbc1fa6ad4d279bbef772dcd0ac4734)]
+- ✨ : send answer to trainer [[6bd5c86](https://github.com/juwit/reveal-quiz/commit/6bd5c8658b776c0eeea8554836aa6c9d54bcb9bc)]
+- ✨ : separate users and admin namespaces for socket communication [[1a0c770](https://github.com/juwit/reveal-quiz/commit/1a0c770d275944943005284907325382edb3ddef)]
+- ✨ : reset question view on event [[5807e21](https://github.com/juwit/reveal-quiz/commit/5807e217cb4fe922b2561e6a2130eccd0a69698a)]
+- ✨ : reset quiz save when receiving event [[cfca6f7](https://github.com/juwit/reveal-quiz/commit/cfca6f761531f8229db953d982afef60e0fe1c02)]
+- ✨ : add reset button in admin view [[d8f9c25](https://github.com/juwit/reveal-quiz/commit/d8f9c2542b62a591c5158bf4146c1b0da4b77543)]
+- ✨ : reset quiz, question &amp; answers [[d915ac9](https://github.com/juwit/reveal-quiz/commit/d915ac968077b37b88c72cc8f84bacdc895d3af8)]
+- ➕ : add reveal-quiz dependency in demo [[b7fe9d4](https://github.com/juwit/reveal-quiz/commit/b7fe9d4d05811acadb46d069ec6703baed248649)]
+
+### Changed
+
+- ♻️ : extract a method to build action buttons [[f1fc8f9](https://github.com/juwit/reveal-quiz/commit/f1fc8f992178777f4a7292e1764066e81a4dc5c8)]
+- 🚚 : move admin views to its own folder [[7e5cbad](https://github.com/juwit/reveal-quiz/commit/7e5cbadf9f1e7307cd5707601764c684986f9af0)]
+- ♻️ : transform TrainingSession into a singleton [[093583b](https://github.com/juwit/reveal-quiz/commit/093583bfce810524d6d1584df22f404f5f18c35c)]
+- ♻️ : remove crypto dependency from model [[e364bf3](https://github.com/juwit/reveal-quiz/commit/e364bf3526e77b0bfdf4d9663add49ec1514bd72)]
+- ♻️ : extract explanation component [[b37087e](https://github.com/juwit/reveal-quiz/commit/b37087e0bca97b16978305ed49f1272f708b7536)]
+- 🎨 : correct indentation in demo html [[1cf6a63](https://github.com/juwit/reveal-quiz/commit/1cf6a63f5fafc43736ffb3516e93626500aab766)]
+
+### Fixed
+
+- 🐛 : correct constructor call [[e06e153](https://github.com/juwit/reveal-quiz/commit/e06e153be84716b5bd82e928791112cfed2ca972)]
+
+### Security
+
+- 🔒 : remove secret management client-side [[75f922e](https://github.com/juwit/reveal-quiz/commit/75f922e13e01b5c30db67868ae89a93af6376c13)]
+- 🔒 : remove secret verification server-side [[49e5901](https://github.com/juwit/reveal-quiz/commit/49e5901f4327634a96fe12271a6d4d434fa5d722)]
+
+
 <a name="0.0.4"></a>
 ## 0.0.4 (2023-02-06)
 
