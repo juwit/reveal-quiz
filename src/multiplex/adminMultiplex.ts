@@ -74,14 +74,18 @@ export default class AdminMultiplex implements Multiplex {
 
     this.socket.on('broadcast', (message) => {
       if (message.state) {
-        console.log('admin event')
         // remove the event listener while setting the state
         this.deck.off('slidechanged', postStateCallback)
         this.deck.setState(message.state)
         this.deck.on('slidechanged', postStateCallback)
       }
       if (message.event) {
-        this.deck.dispatchEvent(message.event)
+        this.deck.dispatchEvent({
+          type: message.event.type,
+          data: {
+            data: message.event.data
+          },
+        })
       }
     })
 

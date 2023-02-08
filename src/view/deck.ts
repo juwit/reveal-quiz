@@ -29,7 +29,7 @@ export interface Deck {
 
   on (event: string, callback: (event?: any) => void);
 
-  off (event: string, callback: () => void);
+  off (event: string, callback: (event?: any) => void);
 
   setState (state): void;
 

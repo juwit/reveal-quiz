@@ -91,7 +91,12 @@ export default class TrainerMultiplex implements Multiplex {
         this.deck.on('slidechanged', postStateCallback)
       }
       if (message.event) {
-        this.deck.dispatchEvent(message.event)
+        this.deck.dispatchEvent({
+          type: message.event.type,
+          data: {
+            data: message.event.data
+          },
+        })
       }
     })
 

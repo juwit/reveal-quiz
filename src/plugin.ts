@@ -35,11 +35,13 @@ function init (param: Deck) {
 
   // for autonomous readers, directly answer the question
   if (!role) {
-    deck.on('quiz-question-answered', () => {
+    deck.on('quiz-question-answered', (event) => {
       console.log('received event questionAnswered')
       deck.dispatchEvent({
         type: 'quiz-show-responses',
-        data: {}
+        data: {
+          data: event.data
+        }
       })
     })
   }

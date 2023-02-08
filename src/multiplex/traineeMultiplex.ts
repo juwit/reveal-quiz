@@ -59,7 +59,12 @@ export default class TraineeMultiplex implements Multiplex {
         this.deck.setState(message.state)
       }
       if (message.event) {
-        this.deck.dispatchEvent(message.event)
+        this.deck.dispatchEvent({
+          type: message.event.type,
+          data: {
+            data: message.event.data
+          },
+        })
       }
     })
     this.socket.emit('user-connected', {
@@ -70,12 +75,12 @@ export default class TraineeMultiplex implements Multiplex {
     })
 
     // for trainees, when a question is answered, the result should be send to the trainer (for scoring)
-    this.deck.on('quiz-question-answered', (question) => {
+    this.deck.on('quiz-question-answered', (event) => {
       const messageData = {
         event: {
           type: 'quiz-question-answered',
           trainee: this.quiz.trainee,
-          data: question,
+          data: event.data,
         },
       }
       this.socket.emit('quiz-question-answered', messageData)
