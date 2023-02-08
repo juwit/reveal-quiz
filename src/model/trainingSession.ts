@@ -47,6 +47,10 @@ export class TrainingSession {
     return traineeSession
   }
 
+  addTrainee (trainee: Trainee) {
+    this.findTraineeSessionOrCreate(trainee)
+  }
+
   static init(quiz: Quiz): void{
     TrainingSession.instance = new TrainingSession(quiz)
   }

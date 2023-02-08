@@ -66,6 +66,12 @@ function initTraineeMultiplex (config: MultiplexConfig, quiz: Quiz) {
       deck.dispatchEvent(message.event)
     }
   })
+  socket.emit('user-connected', {
+    event: {
+      type: 'user-connected',
+      data: quiz.trainee
+    }
+  })
 
   // for trainees, when a question is answered, the result should be send to the trainer (for scoring)
   deck.on('quiz-question-answered', (question) => {
@@ -99,6 +105,13 @@ function initTrainerMultiplex (config: MultiplexConfig, quiz: Quiz) {
     console.log(`Receiving answer for trainee ${trainee.id}`)
     TrainingSession.instance.addAnswer(trainee, data)
   })
+  socket.on('user-connected', (message) => {
+    const {trainee} = message.event
+    Object.setPrototypeOf(trainee, Trainee.prototype)
+    console.log(`Receiving connection for trainee ${trainee.id}`)
+    TrainingSession.instance.addTrainee(trainee)
+  })
+
 
   function postState () {
     const messageData = {
