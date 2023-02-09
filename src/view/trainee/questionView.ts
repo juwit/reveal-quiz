@@ -56,20 +56,13 @@ export class TraineeQuestionView implements QuestionView {
     // remove submit button
     this.submitButton.remove()
 
-    const showResponseCallback = () => {
-      console.log('received event showResponses')
-      this.showResponses()
-      this.deck.off('quiz-show-responses', showResponseCallback)
-    }
-    this.deck.on('quiz-show-responses', showResponseCallback)
-
     console.log('Sending questionAnswered event')
     this.deck.dispatchEvent({
       type: 'quiz-question-answered',
-      data: this.question
+      data: {
+        data: this.question
+      }
     })
-
-    this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
   }
 
   /**
@@ -79,9 +72,7 @@ export class TraineeQuestionView implements QuestionView {
     console.log(`Showing answers and explanation`)
 
     this.answerViews.forEach(it => it.showResponse())
-
     this.submitButton.remove()
-
     this.section.append(this.explanationElement)
   }
 
@@ -114,6 +105,16 @@ export class TraineeQuestionView implements QuestionView {
 
     const form = this.section.getElementsByTagName('form')[0]
     this.renderAnswers(form)
+
+    // register the show responses
+    const showResponseCallback = (event) => {
+      if(event.data.id !== this.question.id){
+        return
+      }
+      this.showResponses()
+      this.deck.off('quiz-show-responses', showResponseCallback)
+    }
+    this.deck.on('quiz-show-responses', showResponseCallback)
   }
 
   reset () {

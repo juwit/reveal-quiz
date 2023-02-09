@@ -58,7 +58,11 @@ export class TrainerQuestionView implements QuestionView {
     // send event
     this.deck.dispatchEvent({
       type: 'quiz-show-responses',
-      data: {}
+      data: {
+        data: {
+          id: this.question.id
+        }
+      }
     })
   }
 
