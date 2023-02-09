@@ -84,17 +84,18 @@ export class TrainerQuestionView implements QuestionView {
     this.section.innerHTML = `
             <h1>${this.question.text}</h1>
             <form>
-                <button type="button">Show responses</button>
             </form>
         `
     this.section.classList.add('reveal-quiz-question')
-    this.showResponsesButton = this.section.getElementsByTagName('button')[0]
+    this.showResponsesButton = document.createElement('button')
+    this.showResponsesButton.textContent = 'Show responses'
     this.showResponsesButton.addEventListener('click', () => {
       this.showResponses()
     })
 
     const form = this.section.getElementsByTagName('form')[0]
     this.renderAnswers(form)
+    form.append(this.showResponsesButton)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
   }
