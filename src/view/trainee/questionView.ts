@@ -23,11 +23,13 @@ export class TraineeQuestionView implements QuestionView {
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
 
-    // show explanation
-    this.explanationElement = document.createElement('blockquote')
-    this.explanationElement.textContent = this.question.explanation
-    this.explanationElement.classList.add('explanation')
-    this.section.append(this.explanationElement)
+    if(this.question.explanation) {
+      // show explanation
+      this.explanationElement = document.createElement('blockquote')
+      this.explanationElement.textContent = this.question.explanation
+      this.explanationElement.classList.add('explanation')
+      this.section.append(this.explanationElement)
+    }
   }
 
   show () {
@@ -122,6 +124,8 @@ export class TraineeQuestionView implements QuestionView {
   reset () {
     this.answerViews.forEach(it => it.renderAnswer());
     this.section.getElementsByTagName('form')[0].append(this.submitButton);
-    this.explanationElement.remove()
+    if(this.explanationElement){
+      this.explanationElement.remove()
+    }
   }
 }
