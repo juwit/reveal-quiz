@@ -1,4 +1,4 @@
-import { QuizConfig } from './deck'
+import { QuizConfig } from "./quizConfig";
 
 /**
  * Reads a configuration from a slide, that can override global configuration
@@ -6,6 +6,7 @@ import { QuizConfig } from './deck'
 export default class QuestionConfig implements QuizConfig {
   timerDuration: number = 60
   useTimer: boolean = false
+  randomizeAnswers: boolean = false
 
   constructor (section: Element, globalConfig: QuizConfig) {
     this.mergeGlobalConfiguration(globalConfig)
@@ -19,6 +20,9 @@ export default class QuestionConfig implements QuizConfig {
     if(globalConfig.timerDuration){
       this.timerDuration = globalConfig.timerDuration
     }
+    if(globalConfig.randomizeAnswers){
+      this.randomizeAnswers = globalConfig.randomizeAnswers
+    }
   }
 
   private loadDataAttributes (section: Element) {
@@ -30,6 +34,11 @@ export default class QuestionConfig implements QuizConfig {
     const timerDuration = section.getAttribute('data-quiz-config-timerDuration')
     if(timerDuration){
       this.timerDuration = parseInt(timerDuration)
+    }
+
+    const randomizeAnswers = section.getAttribute('data-quiz-config-randomizeAnswers')
+    if(randomizeAnswers){
+      this.randomizeAnswers = randomizeAnswers === 'true'
     }
   }
 }

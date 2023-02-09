@@ -1,10 +1,12 @@
 import { Question } from '../../model/question'
 import { TraineeAnswerView } from './answerView'
-import { Deck, QuizConfig } from '../deck'
+import { Deck } from '../deck'
 import QuestionView from '../questionView'
 import TimerImpl from '../../model/timer'
 import TimerView from '../timerView'
-import QuestionConfig from '../questionConfig'
+import QuestionConfig from '../../config/questionConfig'
+import { QuizConfig } from "../../config/quizConfig";
+import { Answer } from "../../model/answer";
 
 export class TraineeQuestionView implements QuestionView {
   question: Question
@@ -83,7 +85,17 @@ export class TraineeQuestionView implements QuestionView {
     const questionType = multipleCorrectAnswers ? 'checkbox' : 'radio'
     this.question.answers.forEach(it => it.type = questionType)
 
-    this.question.answers.forEach(it => {
+    // randomize answers
+    let answers: Answer[] = this.question.answers
+    if(this.config.randomizeAnswers){
+      const answersAndRandoms: [Answer, number][] = this.question.answers
+        .map(answer=> [answer, Math.random()]) // associate each answer with a random number
+      answersAndRandoms
+        .sort((a,b) => b[1] - a [1])
+      answers = answersAndRandoms.map(it => it[0])
+    }
+
+    answers.forEach(it => {
       const div = document.createElement('div')
       form.append(div)
       const view = new TraineeAnswerView(it, div)
