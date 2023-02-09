@@ -1,5 +1,28 @@
 # Changelog
 
+<a name="0.0.7"></a>
+## 0.0.7 (2023-02-09)
+
+### Added
+
+- ✨ : randomize answers on trainee view [[fe739ed](https://github.com/juwit/reveal-quizz/commit/fe739ed9a46150800eaf741f4d7d994ec9d30645)]
+- ✅ : add tests for questionConfig [[08370aa](https://github.com/juwit/reveal-quizz/commit/08370aa41c45ad8d4d40a04e9180304a59cce97c)]
+- ➕ : add jsdom dependency for tests [[9151a14](https://github.com/juwit/reveal-quizz/commit/9151a14c06c443cf859d6ff461df2bb6e642b99d)]
+- ✨ : add randomizeAnswers configuration parameter [[d267b15](https://github.com/juwit/reveal-quizz/commit/d267b15772ce4149a44396d035f502bd046972a3)]
+- ✨ : add an id on answers [[432f063](https://github.com/juwit/reveal-quizz/commit/432f0631c71950d74c65d4c7a410d332cc742d0a)]
+
+### Changed
+
+- 🚚 : extract QuizConfig to its own file [[cd44a80](https://github.com/juwit/reveal-quizz/commit/cd44a80f395d2cb8f4e89cf1aa9a4251c92fd814)]
+- 🚚 : move question config to config directory [[2fbf7c0](https://github.com/juwit/reveal-quizz/commit/2fbf7c029074951f9c155d192317e5c16df62cab)]
+- 💄 : correct show responses button positioning [[8ed4dd2](https://github.com/juwit/reveal-quizz/commit/8ed4dd2219455206335322fbe2abab67c8d7f0d3)]
+- 💄 : correct submit button positioning [[9b38564](https://github.com/juwit/reveal-quizz/commit/9b38564184f5d0aa08d80cf0680683bbce7b1643)]
+
+### Fixed
+
+- 🐛 : do not show explanation when empty [[bff2410](https://github.com/juwit/reveal-quizz/commit/bff241025487a36cddefe8764ea33c7de1bb5100)]
+
+
 <a name="0.0.6"></a>
 ## 0.0.6 (2023-02-09)
 
