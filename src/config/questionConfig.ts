@@ -1,4 +1,4 @@
-import { QuizConfig } from '../view/deck'
+import { QuizConfig } from "./quizConfig";
 
 /**
  * Reads a configuration from a slide, that can override global configuration

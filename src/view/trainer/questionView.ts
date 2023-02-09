@@ -1,10 +1,11 @@
 import { Question } from '../../model/question'
 import { TrainerAnswerView } from '../trainer/answerView'
-import { Deck, QuizConfig } from '../deck'
+import { Deck } from '../deck'
 import QuestionView from '../questionView'
 import TimerImpl from '../../model/timer'
 import TimerView from '../timerView'
 import QuestionConfig from '../../config/questionConfig'
+import { QuizConfig } from "../../config/quizConfig";
 
 export class TrainerQuestionView implements QuestionView {
   question: Question
