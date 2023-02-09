@@ -3,6 +3,7 @@ import { Deck } from '../deck'
 import * as QRious from 'qrious'
 
 import './qrcode.css'
+import utilsService from '../../service/utilsService'
 
 export default class QRCodeView {
 
@@ -22,13 +23,11 @@ export default class QRCodeView {
     this.divElement.append(this.canvasElement)
 
     // generate a trainee URL
-    const currentUrl = new URL(window.location.toString())
-    currentUrl.searchParams.set('role', 'trainee')
-    console.log(`Generating trainee URL : ${currentUrl.toString()}`)
-
+    const url = utilsService.generateTraineeUrl()
+    console.log(`Generating trainee URL : ${url}`)
     new QRious({
       element: this.canvasElement,
-      value: currentUrl.toString(),
+      value: url,
       size: 500,
     })
 
