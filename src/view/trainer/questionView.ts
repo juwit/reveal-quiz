@@ -57,7 +57,9 @@ export class TrainerQuestionView implements QuestionView {
     this.answerViews.forEach(it => it.showResponse())
 
     // show explanation
-    this.section.append(this.explanationElement)
+    if(this.explanationElement) {
+      this.section.append(this.explanationElement)
+    }
 
     // send event
     this.deck.dispatchEvent({
