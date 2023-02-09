@@ -13,9 +13,10 @@ function init (param: Deck) {
   deck = param
 
   // load default plugin configuration, and merge it with user configuration
-  const pluginConfig = deck.getConfig().quiz
   const config = new DefaultQuizConfig()
-  config.merge(pluginConfig)
+  if(deck.getConfig().quiz){
+    config.merge(deck.getConfig().quiz)
+  }
 
   // findout the role for the current presentation
   const params = new URL(window.location.toString()).searchParams
