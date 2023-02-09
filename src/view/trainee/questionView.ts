@@ -77,7 +77,9 @@ export class TraineeQuestionView implements QuestionView {
 
     this.answerViews.forEach(it => it.showResponse())
     this.submitButton.remove()
-    this.section.append(this.explanationElement)
+    if(this.explanationElement) {
+      this.section.append(this.explanationElement)
+    }
   }
 
   renderAnswers (form: HTMLFormElement) {
