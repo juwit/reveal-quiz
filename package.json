@@ -1,6 +1,6 @@
 {
   "name": "reveal-quiz",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "reveal.js plugin that allows adding quizes as slides.",
   "scripts": {
     "build": "webpack",
@@ -17,6 +17,7 @@
     "@types/node": "^18.11.19",
     "chai": "^4.3.7",
     "css-loader": "^6.7.3",
+    "jsdom": "^21.1.0",
     "mocha": "^10.2.0",
     "notie": "^4.3.1",
     "nyc": "^15.1.0",

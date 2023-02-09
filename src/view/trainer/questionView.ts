@@ -1,10 +1,11 @@
 import { Question } from '../../model/question'
 import { TrainerAnswerView } from '../trainer/answerView'
-import { Deck, QuizConfig } from '../deck'
+import { Deck } from '../deck'
 import QuestionView from '../questionView'
 import TimerImpl from '../../model/timer'
 import TimerView from '../timerView'
-import QuestionConfig from '../questionConfig'
+import QuestionConfig from '../../config/questionConfig'
+import { QuizConfig } from "../../config/quizConfig";
 
 export class TrainerQuestionView implements QuestionView {
   question: Question
@@ -23,10 +24,13 @@ export class TrainerQuestionView implements QuestionView {
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
 
-    // show explanation
-    this.explanationElement = document.createElement('blockquote')
-    this.explanationElement.textContent = this.question.explanation
-    this.explanationElement.classList.add('explanation')
+    if(this.question.explanation) {
+      // show explanation
+      this.explanationElement = document.createElement('blockquote')
+      this.explanationElement.textContent = this.question.explanation
+      this.explanationElement.classList.add('explanation')
+      this.section.append(this.explanationElement)
+    }
   }
 
   show () {
@@ -84,17 +88,18 @@ export class TrainerQuestionView implements QuestionView {
     this.section.innerHTML = `
             <h1>${this.question.text}</h1>
             <form>
-                <button type="button">Show responses</button>
             </form>
         `
     this.section.classList.add('reveal-quiz-question')
-    this.showResponsesButton = this.section.getElementsByTagName('button')[0]
+    this.showResponsesButton = document.createElement('button')
+    this.showResponsesButton.textContent = 'Show responses'
     this.showResponsesButton.addEventListener('click', () => {
       this.showResponses()
     })
 
     const form = this.section.getElementsByTagName('form')[0]
     this.renderAnswers(form)
+    form.append(this.showResponsesButton)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
   }
@@ -102,6 +107,8 @@ export class TrainerQuestionView implements QuestionView {
   reset () {
     this.answerViews.forEach(it => it.renderAnswer())
     this.section.getElementsByTagName('form')[0].append(this.showResponsesButton)
-    this.explanationElement.remove()
+    if(this.explanationElement){
+      this.explanationElement.remove()
+    }
   }
 }

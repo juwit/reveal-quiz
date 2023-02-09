@@ -1,10 +1,12 @@
 import { Question } from '../../model/question'
 import { TraineeAnswerView } from './answerView'
-import { Deck, QuizConfig } from '../deck'
+import { Deck } from '../deck'
 import QuestionView from '../questionView'
 import TimerImpl from '../../model/timer'
 import TimerView from '../timerView'
-import QuestionConfig from '../questionConfig'
+import QuestionConfig from '../../config/questionConfig'
+import { QuizConfig } from "../../config/quizConfig";
+import { Answer } from "../../model/answer";
 
 export class TraineeQuestionView implements QuestionView {
   question: Question
@@ -23,11 +25,13 @@ export class TraineeQuestionView implements QuestionView {
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())
 
-    // show explanation
-    this.explanationElement = document.createElement('blockquote')
-    this.explanationElement.textContent = this.question.explanation
-    this.explanationElement.classList.add('explanation')
-    this.section.append(this.explanationElement)
+    if(this.question.explanation) {
+      // show explanation
+      this.explanationElement = document.createElement('blockquote')
+      this.explanationElement.textContent = this.question.explanation
+      this.explanationElement.classList.add('explanation')
+      this.section.append(this.explanationElement)
+    }
   }
 
   show () {
@@ -81,7 +85,17 @@ export class TraineeQuestionView implements QuestionView {
     const questionType = multipleCorrectAnswers ? 'checkbox' : 'radio'
     this.question.answers.forEach(it => it.type = questionType)
 
-    this.question.answers.forEach(it => {
+    // randomize answers
+    let answers: Answer[] = this.question.answers
+    if(this.config.randomizeAnswers){
+      const answersAndRandoms: [Answer, number][] = this.question.answers
+        .map(answer=> [answer, Math.random()]) // associate each answer with a random number
+      answersAndRandoms
+        .sort((a,b) => b[1] - a [1])
+      answers = answersAndRandoms.map(it => it[0])
+    }
+
+    answers.forEach(it => {
       const div = document.createElement('div')
       form.append(div)
       const view = new TraineeAnswerView(it, div)
@@ -94,17 +108,19 @@ export class TraineeQuestionView implements QuestionView {
     this.section.innerHTML = `
             <h1>${this.question.text}</h1>
             <form>
-                <button type="button">Submit</button>
             </form>
         `
     this.section.classList.add('reveal-quiz-question')
-    this.submitButton = this.section.getElementsByTagName('button')[0]
+
+    this.submitButton = document.createElement('button')
+    this.submitButton.textContent = 'Submit'
     this.submitButton.addEventListener('click', () => {
       this.submitQuestion()
     })
 
     const form = this.section.getElementsByTagName('form')[0]
     this.renderAnswers(form)
+    form.append(this.submitButton)
 
     // register the show responses
     const showResponseCallback = (event) => {
@@ -120,6 +136,8 @@ export class TraineeQuestionView implements QuestionView {
   reset () {
     this.answerViews.forEach(it => it.renderAnswer());
     this.section.getElementsByTagName('form')[0].append(this.submitButton);
-    this.explanationElement.remove()
+    if(this.explanationElement){
+      this.explanationElement.remove()
+    }
   }
 }
