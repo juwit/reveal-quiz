@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.0.8"></a>
+## 0.0.8 (2023-02-09)
+
+### Fixed
+
+- 🐛 : do not show explanation if not defined [[3e77bd6](https://github.com/juwit/reveal-quizz/commit/3e77bd6ef352ee2b2567ecb9c684521ac86d8b29)]
+
+
 <a name="0.0.7"></a>
 ## 0.0.7 (2023-02-09)
 
