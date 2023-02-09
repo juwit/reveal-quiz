@@ -1,5 +1,29 @@
 # Changelog
 
+<a name="0.0.6"></a>
+## 0.0.6 (2023-02-09)
+
+### Added
+
+- ✨ : add copy trainer url button [[e9c8dcf](https://github.com/juwit/reveal-quizz/commit/e9c8dcf9885a89d21dfaaa902e1f8f6191a66251)]
+- ✨ : add copy trainee url button [[7f1e514](https://github.com/juwit/reveal-quizz/commit/7f1e51401d7ca359eae8efb2168430ab84166504)]
+- 🔊 : adapt log message [[d179258](https://github.com/juwit/reveal-quizz/commit/d179258fc8a281bfb0213c58755f3ad91926b35e)]
+
+### Changed
+
+- ♻️ : separate admin multiplex from trainer multiplex [[581f4d9](https://github.com/juwit/reveal-quizz/commit/581f4d94590a9f4762dc3203be4c40def3795e19)]
+- ♻️ : refactoring the multiplex [[e0eb11b](https://github.com/juwit/reveal-quizz/commit/e0eb11b8804da4a584abb2fa9f2c4e2a2ce00c53)]
+
+### Fixed
+
+- 🐛 : fix a bug when global configuration is not defined [[9d41f02](https://github.com/juwit/reveal-quizz/commit/9d41f02796981f9cd8aa0bdf184a5e5a7e4d23a5)]
+- 🐛 : correct event data management [[b637c6b](https://github.com/juwit/reveal-quizz/commit/b637c6bbb361b7d2b3ebfdfc544f25b64540829e)]
+
+### Miscellaneous
+
+-  👷 : add workflow to publish bundle to gh-pages [[89711c2](https://github.com/juwit/reveal-quizz/commit/89711c2ad74ae7829f81f36d3698714d47df5d54)]
+
+
 <a name="0.0.5"></a>
 ## 0.0.5 (2023-02-08)
 
