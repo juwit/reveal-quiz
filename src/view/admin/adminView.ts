@@ -58,11 +58,15 @@ export default class AdminViewImpl implements AdminView {
     adminDiv.append(this.buildDispatchButton('Show QR Code', 'qrcode-show'))
     adminDiv.append(this.buildDispatchButton('Hide QR Code', 'qrcode-hide'))
     adminDiv.append(this.buildActionButton('Copy Trainee Link', () => {
-      const url = utilsService.generateTraineeUrl()
-      console.log(`Generating trainee URL : ${url}`)
-      navigator.clipboard.writeText(url)
+      navigator.clipboard.writeText(utilsService.generateTraineeUrl())
         .then(() => {
-          notificationService.info(`Trainee URL copied to clipboard : ${url}`)
+          notificationService.info(`Trainee URL copied to clipboard `)
+        })
+    }))
+    adminDiv.append(this.buildActionButton('Copy Trainer Link', () => {
+      navigator.clipboard.writeText(utilsService.generateTrainerUrl())
+        .then(() => {
+          notificationService.info(`Trainer URL copied to clipboard`)
         })
     }))
 

@@ -12,4 +12,9 @@ describe('service/utilsService', () => {
     const url = utilsService.generateTraineeUrl()
     expect(url).to.equal('http://localhost/prez?role=trainee')
   })
+
+  it('should generate a Trainer URL', () => {
+    const url = utilsService.generateTrainerUrl()
+    expect(url).to.equal('http://localhost/prez?role=trainer')
+  })
 })
