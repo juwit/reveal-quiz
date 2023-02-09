@@ -1,6 +1,8 @@
 export class Answer {
   static correctRegex = /- \[x\] (.*)/
   static incorrectRegex = /- \[ \] (.*)/
+
+  id: number
   readonly text: string
   public readonly correct: boolean
   selected: boolean = false

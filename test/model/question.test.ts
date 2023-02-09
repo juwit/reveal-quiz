@@ -48,6 +48,20 @@ describe('model/question', () => {
     expect(parsedQuestion.explanation).to.equal('')
   })
 
+  it('should give an id to each answer', () => {
+    const markdown = `
+      # Who is Darth Sidious master ?
+      - [ ] Darth Bane
+      - [ ] Darth Tenebrous
+      - [x] Darth Plagueis
+    `
+    const parsedQuestion = Question.fromMarkdown(markdown)
+
+    expect(parsedQuestion.answers[0].id).to.equal(0)
+    expect(parsedQuestion.answers[1].id).to.equal(1)
+    expect(parsedQuestion.answers[2].id).to.equal(2)
+  })
+
   it('should be answered when marked so', () => {
     const markdown = `
       # Who is Darth Sidious master ?
