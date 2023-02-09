@@ -11,14 +11,11 @@
 }
 
 .reveal-quiz-question form button {
-    position: absolute;
-    right: 0;
-    bottom: -5rem;
-    padding: 1rem;
-    margin-right: 1rem;
-
     font-weight: inherit;
     font-size: var(--r-main-font-size);
+
+    align-self: flex-end;
+    margin: 1rem;
 }
 
 .reveal-quiz-answer input {

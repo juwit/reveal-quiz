@@ -94,17 +94,19 @@ export class TraineeQuestionView implements QuestionView {
     this.section.innerHTML = `
             <h1>${this.question.text}</h1>
             <form>
-                <button type="button">Submit</button>
             </form>
         `
     this.section.classList.add('reveal-quiz-question')
-    this.submitButton = this.section.getElementsByTagName('button')[0]
+
+    this.submitButton = document.createElement('button')
+    this.submitButton.textContent = 'Submit'
     this.submitButton.addEventListener('click', () => {
       this.submitQuestion()
     })
 
     const form = this.section.getElementsByTagName('form')[0]
     this.renderAnswers(form)
+    form.append(this.submitButton)
 
     // register the show responses
     const showResponseCallback = (event) => {
