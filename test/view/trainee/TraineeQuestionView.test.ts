@@ -77,4 +77,71 @@ describe('view/trainee/TraineeQuestionView', () => {
       expect(button[0].textContent).to.equal('Submit')
     })
   })
+
+  describe('showResponses', () => {
+
+    const markdown = `
+        # Who is Darth Sidious master ?
+        - [ ] Darth Bane
+        - [ ] Darth Tenebrous
+        - [x] Darth Plagueis
+        > "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+        > - Sheev Palpatine, to Anakin Skywalker
+      `
+    const question = Question.fromMarkdown(markdown)
+    question.id = 1
+
+    const sectionHtml = `
+      <section
+        data-quiz
+        data-quiz-config-useTimer="true"
+        data-quiz-config-timerDuration="30"
+        data-quiz-config-randomizeAnswers="false"
+      >
+      </section>
+    `
+    const dom = new JSDOM(sectionHtml)
+    const section = dom.window.document.querySelector('section')
+    global.document = dom.window.document
+
+    const deck = {
+      on: sinon.stub(),
+      off: sinon.stub(),
+      dispatchEvent: sinon.stub(),
+      getRevealElement: sinon.stub(),
+      getState: sinon.stub(),
+      setState: sinon.stub(),
+      configure: sinon.stub(),
+      getConfig: sinon.stub(),
+    }
+
+    const config = new DefaultQuizConfig()
+
+    const view = new TraineeQuestionView(question, section, deck, config)
+
+    view.renderQuestion()
+    // select all responses
+    question.answers.forEach(it => it.selected = true)
+    view.showResponses()
+
+    it('should show correct and incorrect responses', () => {
+      const divs: HTMLDivElement[] = section.getElementsByTagName('div')
+      expect(divs).to.have.lengthOf(3)
+      expect(divs[0].classList.contains('incorrect')).to.be.true
+      expect(divs[1].classList.contains('incorrect')).to.be.true
+      expect(divs[2].classList.contains('correct')).to.be.true
+    })
+
+    it('should remove the "Submit" button', () => {
+      const button: HTMLButtonElement[] = section.getElementsByTagName('button')
+      expect(button).to.have.lengthOf(0)
+    })
+
+    it('should show the explanation', () => {
+      const quote: HTMLQuoteElement[] = section.getElementsByTagName('blockquote')
+      expect(quote).to.have.lengthOf(1)
+      expect(quote[0].textContent).to.equal('"Did you ever hear the Tragedy of Darth Plagueis the Wise?"\n- Sheev Palpatine, to Anakin Skywalker')
+    })
+
+  })
 })
