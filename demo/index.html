@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css">
-		<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/white.css" id="theme">
-    </head>
+  <head>
+      <link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css">
+      <link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/white.css" id="theme">
+  </head>
   <body>
     <div class="reveal">
     <div class="slides">
@@ -32,18 +32,22 @@
     </div>
   </body>
 
+  <!-- use javascript import -->
+  <!--<script src="./node_modules/reveal-quiz/dist/reveal-quiz-bundle.js"></script>-->
+
   <script type="module">
     import Reveal from './node_modules/reveal.js/dist/reveal.esm.js';
     import markdown from './node_modules/reveal.js/plugin/markdown/markdown.esm.js';
 
-    import RevealQuizz from './node_modules/reveal-quiz/dist/reveal-quiz-bundle-esm.js';
+    // use module import
+    import * as RevealQuiz from './node_modules/reveal-quiz/dist/reveal-quiz-bundle-esm.js';
 
     Reveal.initialize({
       quiz: {
         timerDuration: 30,
-        useTimer: true,
+        useTimer: false,
       },
-      plugins: [markdown, RevealQuizz],
+      plugins: [markdown, RevealQuiz],
     });
   </script>
 </html>
