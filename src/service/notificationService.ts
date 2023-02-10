@@ -1,5 +1,6 @@
 // @ts-ignore
 import notie from 'notie'
+import 'notie/dist/notie.css'
 
 export interface NotificationService {
   info (text: string): void

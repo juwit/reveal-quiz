@@ -2,6 +2,8 @@ import { Deck } from '../deck'
 import notificationService from '../../service/notificationService'
 import utilsService from '../../service/utilsService'
 
+import './admin.css'
+
 export interface AdminView {
   render (): void;
 }

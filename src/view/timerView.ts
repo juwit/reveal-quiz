@@ -1,5 +1,7 @@
 import { Timer } from '../model/timer'
 
+import './reveal-quiz-timer.css'
+
 export default class TimerView {
   private timer: Timer
   private readonly element: Element
