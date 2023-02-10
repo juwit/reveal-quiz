@@ -1,5 +1,29 @@
 # Changelog
 
+<a name="0.0.9"></a>
+## 0.0.9 (2023-02-10)
+
+### Added
+
+- ✅ : add test for submitQuestion on click [[a8cb8ca](https://github.com/juwit/reveal-quiz/commit/a8cb8ca06773dd33790e1cf2949a4a14b9660d17)]
+    * ✅ : add tests for submitQuestion ([1eaac4b](https://github.com/juwit/reveal-quiz/commit/1eaac4b43286cb91391efa455a1d142146a46b0d))
+- ✅ : add tests for showResponses [[dfdac49](https://github.com/juwit/reveal-quiz/commit/dfdac490e1cc92b5c1fa210b7c2974c6f76a48ca)]
+- ✅ : add simple test for TraineeQuestionView [[426c473](https://github.com/juwit/reveal-quiz/commit/426c4730b728db1f28b286dd0495029a13dd3e2d)]
+    * ✅ : add simple test for TrainerQuestionView ([4978d70](https://github.com/juwit/reveal-quiz/commit/4978d709f5bde1e3d5b6c34eab6df81fc511bcba))
+- ➕ : add sinon dependency for tests [[6284400](https://github.com/juwit/reveal-quiz/commit/628440097734fafbdd25b04230fbb988068fbe09)]
+
+### Changed
+
+- 🔧 : configure webpack to build plain javascript in addition of module [[aa4fe66](https://github.com/juwit/reveal-quiz/commit/aa4fe666929fad998c95651a8ebe35520e6110ee)]
+- ♻️ : move css closer to components [[84b3ddd](https://github.com/juwit/reveal-quiz/commit/84b3ddd78ab70b6acfac18c63d47c74633c26e4e)]
+- 🚚 : rename questionView.ts to TraineeQuestionView.ts [[fda9628](https://github.com/juwit/reveal-quiz/commit/fda962802ef00d4f264f171e55adb10bd73f4b52)]
+    * 🚚 : rename questionView.ts to TrainerQuestionView.ts ([0f498b3](https://github.com/juwit/reveal-quiz/commit/0f498b32a9435f60220b315072363c638e0e3e02))
+
+### Miscellaneous
+
+- 📝 : update module import of demo [[c788f1a](https://github.com/juwit/reveal-quiz/commit/c788f1a3b5dcc01497f19920339810bda53a5ad0)]
+
+
 <a name="0.0.8"></a>
 ## 0.0.8 (2023-02-09)
 
