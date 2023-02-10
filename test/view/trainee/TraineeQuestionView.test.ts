@@ -78,6 +78,71 @@ describe('view/trainee/TraineeQuestionView', () => {
     })
   })
 
+  describe('submitQuestion', () => {
+
+    const markdown = `
+        # Who is Darth Sidious master ?
+        - [ ] Darth Bane
+        - [ ] Darth Tenebrous
+        - [x] Darth Plagueis
+      `
+    const question = Question.fromMarkdown(markdown)
+    question.id = 1
+
+    const sectionHtml = `
+      <section>
+      </section>
+    `
+    const dom = new JSDOM(sectionHtml)
+    const section = dom.window.document.querySelector('section')
+    global.document = dom.window.document
+
+    const deck = {
+      on: sinon.stub(),
+      off: sinon.stub(),
+      dispatchEvent: sinon.stub(),
+      getRevealElement: sinon.stub(),
+      getState: sinon.stub(),
+      setState: sinon.stub(),
+      configure: sinon.stub(),
+      getConfig: sinon.stub(),
+    }
+
+    const config = new DefaultQuizConfig()
+
+    const view = new TraineeQuestionView(question, section, deck, config)
+
+    view.renderQuestion()
+    // select an answer
+    section.getElementsByTagName('input')[1].checked = true
+    view.submitQuestion()
+
+    it('should lock all responses', () => {
+      const inputs: HTMLInputElement[] = section.getElementsByTagName('input')
+      expect(inputs).to.have.lengthOf(3)
+      for (let i = 0; i < inputs.length; i++) {
+        expect(inputs[i].disabled).to.be.true
+        expect(inputs[i].classList.contains('locked')).to.be.true
+      }
+    })
+
+    it('should remove the "Submit" button', () => {
+      const button: HTMLButtonElement[] = section.getElementsByTagName('button')
+      expect(button).to.have.lengthOf(0)
+    })
+
+    it('should flag the question as "answered"', () => {
+      expect(question.isAnswered()).to.be.true
+    })
+
+    it('should select the answers based on user input', () => {
+      expect(question.answers[0].selected).to.be.false
+      expect(question.answers[1].selected).to.be.true
+      expect(question.answers[2].selected).to.be.false
+    })
+
+  })
+
   describe('showResponses', () => {
 
     const markdown = `
