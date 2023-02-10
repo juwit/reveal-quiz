@@ -1,6 +1,6 @@
 import * as sinon from 'sinon'
 
-import { TraineeQuestionView } from '../../../src/view/trainee/questionView'
+import { TraineeQuestionView } from '../../../src/view/trainee/TraineeQuestionView'
 import { Question } from '../../../src/model/question'
 
 import {JSDOM} from 'jsdom';
