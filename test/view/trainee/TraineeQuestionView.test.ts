@@ -115,7 +115,13 @@ describe('view/trainee/TraineeQuestionView', () => {
     view.renderQuestion()
     // select an answer
     section.getElementsByTagName('input')[1].checked = true
-    view.submitQuestion()
+
+    it('should submitQuestion on button click', () => {
+      const button: HTMLButtonElement[] = section.getElementsByTagName('button')
+      button[0].click()
+
+      expect(question.isAnswered()).to.be.true
+    })
 
     it('should lock all responses', () => {
       const inputs: HTMLInputElement[] = section.getElementsByTagName('input')
