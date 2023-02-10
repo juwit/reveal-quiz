@@ -10,7 +10,7 @@ import {DefaultQuizConfig} from "./config/quizConfig";
 
 let deck: Deck
 
-function init (param: Deck) {
+export function init (param: Deck) {
   deck = param
 
   // load default plugin configuration, and merge it with user configuration
@@ -50,7 +50,4 @@ function init (param: Deck) {
   console.log('Initialized reveal-quiz 🙋')
 }
 
-export default {
-  id: 'RevealQuizz',
-  init,
-}
+export const id = 'RevealQuiz'
