@@ -1,6 +1,6 @@
 import { Deck } from './deck'
 import { Quiz, Role } from '../model/quiz'
-import { TrainerQuestionView } from './trainer/questionView'
+import { TrainerQuestionView } from './trainer/TrainerQuestionView'
 import { TraineeQuestionView } from './trainee/questionView'
 import AdminView from './admin/adminView'
 import QuestionView from './questionView'
