@@ -1,5 +1,3 @@
-@import "../node_modules/notie/dist/notie.min.css";
-
 .reveal-quiz-question h1 {
     font-size: larger;
 }
@@ -49,45 +47,4 @@
 
 .explanation {
     white-space: pre-wrap;
-}
-
-/** admin controls */
-.quiz-admin {
-    display: flex;
-}
-
-.quiz-admin-controls {
-    display: flex;
-    flex-direction: column;
-}
-
-.quiz-admin > .reveal {
-    border: solid 1px black;
-}
-
-/** timer style */
-.timer {
-    display: block;
-    background-color: #ccc;
-    border-radius: 50%;
-    width: 4rem;
-    height: 4rem;
-    line-height: 4rem;
-
-    /* position just to the left of the slide */
-    position: absolute;
-    top: 0;
-    left: -4rem;
-}
-
-.timer-66 {
-    background-color: lightgreen;
-}
-
-.timer-33 {
-    background-color: lightsalmon;
-}
-
-.timer-0 {
-    background-color: lightcoral;
 }

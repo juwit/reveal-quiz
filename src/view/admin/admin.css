@@ -1,0 +1,13 @@
+/** admin controls */
+.quiz-admin {
+    display: flex;
+}
+
+.quiz-admin-controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-admin > .reveal {
+    border: solid 1px black;
+}
