@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="0.0.10"></a>
+## 0.0.10 (2023-02-13)
+
+### Added
+
+- ✨ : use markdown in questions or answers [[0da121d](https://github.com/juwit/reveal-quiz/commit/0da121dcfabfed4a1b172adb451dd411d35360b6)]
+- ✅ : add mocha test setup to ignore css imports [[f876ee2](https://github.com/juwit/reveal-quiz/commit/f876ee268beec1f09983e701bd59f5fc91edfaaf)]
+- ➕ : add marked as a dev dependency [[c085dbd](https://github.com/juwit/reveal-quiz/commit/c085dbdd8f3ebbd03e710b9df25429107ef7e1b2)]
+
+
 <a name="0.0.9"></a>
 ## 0.0.9 (2023-02-10)
 

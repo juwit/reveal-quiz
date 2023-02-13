@@ -80,27 +80,37 @@ export class TrainerQuestionView implements QuestionView {
     this.question.answers.forEach(it => {
       const div = document.createElement('div')
       form.append(div)
-      const view = new TrainerAnswerView(it, div)
+      const view = new TrainerAnswerView(it, div, this.deck)
       view.renderAnswer()
       this.answerViews.push(view)
     })
   }
 
   renderQuestion () {
-    this.section.innerHTML = `
-            <h1>${this.question.text}</h1>
-            <form>
-            </form>
-        `
+    this.section.innerHTML = ''
     this.section.classList.add('reveal-quiz-question')
+
+    // add the title
+    const questionTitle = document.createElement('h1')
+    questionTitle.textContent = this.question.text
+    this.section.append(questionTitle)
+
+    if(this.deck.hasPlugin('markdown')){
+      const marked = this.deck.getPlugin('markdown').marked
+      questionTitle.innerHTML = marked.parseInline(this.question.text)
+    }
+
+    // add the form
+    const form = document.createElement('form')
+    this.section.append(form)
+
+    this.renderAnswers(form)
+
     this.showResponsesButton = document.createElement('button')
     this.showResponsesButton.textContent = 'Show responses'
     this.showResponsesButton.addEventListener('click', () => {
       this.showResponses()
     })
-
-    const form = this.section.getElementsByTagName('form')[0]
-    this.renderAnswers(form)
     form.append(this.showResponsesButton)
 
     this.section.setAttribute('data-quiz-question-id', this.question.id.toString())

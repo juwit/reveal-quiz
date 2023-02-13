@@ -100,28 +100,37 @@ export class TraineeQuestionView implements QuestionView {
     answers.forEach(it => {
       const div = document.createElement('div')
       form.append(div)
-      const view = new TraineeAnswerView(it, div)
+      const view = new TraineeAnswerView(it, div, this.deck)
       view.renderAnswer()
       this.answerViews.push(view)
     })
   }
 
   renderQuestion () {
-    this.section.innerHTML = `
-            <h1>${this.question.text}</h1>
-            <form>
-            </form>
-        `
+    this.section.innerHTML = ''
     this.section.classList.add('reveal-quiz-question')
+
+    // add the title
+    const questionTitle = document.createElement('h1')
+    questionTitle.textContent = this.question.text
+    this.section.append(questionTitle)
+
+    if(this.deck.hasPlugin('markdown')){
+      const marked = this.deck.getPlugin('markdown').marked
+      questionTitle.innerHTML = marked.parseInline(this.question.text)
+    }
+
+    // add the form
+    const form = document.createElement('form')
+    this.section.append(form)
+
+    this.renderAnswers(form)
 
     this.submitButton = document.createElement('button')
     this.submitButton.textContent = 'Submit'
     this.submitButton.addEventListener('click', () => {
       this.submitQuestion()
     })
-
-    const form = this.section.getElementsByTagName('form')[0]
-    this.renderAnswers(form)
     form.append(this.submitButton)
 
     // register the show responses
