@@ -1,4 +1,5 @@
 import { Answer } from '../model/answer'
+import { Deck } from './deck'
 
 /**
  * Represents the view for an answer, basically a simple checkbox or radio button in a form.
@@ -32,18 +33,27 @@ export interface AnswerView {
 export abstract class AbstractAnswerView implements AnswerView {
   protected answer: Answer
   protected div: HTMLDivElement
+  private deck: Deck
 
-  protected constructor (answer: Answer, div: HTMLDivElement) {
+  protected constructor (answer: Answer, div: HTMLDivElement, deck: Deck) {
     this.answer = answer
     this.div = div
+    this.deck = deck
   }
 
   renderAnswer () {
     this.div.classList.add('reveal-quiz-answer')
     this.div.classList.remove('correct', 'incorrect')
+
+    let answerText = this.answer.text
+    if(this.deck.hasPlugin('markdown')){
+      const marked = this.deck.getPlugin('markdown').marked
+      answerText = marked.parseInline(this.answer.text)
+    }
+
     this.div.innerHTML = `
             <input type="${this.answer.type}" name="answer" id="${this.answer.text}" />
-            <label for="${this.answer.text}">${this.answer.text}</label>
+            <label for="${this.answer.text}">${answerText}</label>
         `
   }
 

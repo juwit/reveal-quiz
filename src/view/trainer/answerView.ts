@@ -1,10 +1,11 @@
 import { Answer } from '../../model/answer'
 import { AbstractAnswerView } from '../answerView'
+import { Deck } from '../deck'
 
 export class TrainerAnswerView extends AbstractAnswerView {
 
-  constructor (answer: Answer, div: HTMLDivElement) {
-    super(answer, div)
+  constructor (answer: Answer, div: HTMLDivElement, deck: Deck) {
+    super(answer, div, deck)
   }
 
   /**
