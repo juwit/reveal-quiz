@@ -2,13 +2,23 @@
 
 reveal.js plugin that allows adding quizzes as slides.
 
+![](docs/capture.gif)
+
+## features
+
+* single-choice questions
+* multiple-choice questions
+* markdown in questions and answers
+* answers explanations show after answer submission
+* multicast & remote-control
+
 ## usage
 
 Create a simple question slide in markdown:
 
 ```html
 <section data-quiz>
-- Who won the 2018 football world cup ?
+# Who won the 2018 football world cup ?
 - [x] France
 - [ ] Germany
 - [ ] Italy
@@ -16,10 +26,23 @@ Create a simple question slide in markdown:
 </section>
 ```
 
-The question itself should be a simple text.
-The answers are written as Markdown task lists.
-The checked answers are the valid ones.
+The question itself should be a simple text, using a markdown title mark `#`.
+The answers are written as Markdown task lists using `- [ ]`.
+The checked answers (`- [x]`) are the valid ones.
 If only one answer is valid, answers will be displayed as radio buttons, otherwise they will be displayed as check boxes.
+
+An optional answers explanation can be added as a markdown blockquote using `>`, and will be displayed after the question was answered.
+
+```html
+<section data-quiz>
+# Who is *Darth Sidious* master ?
+- [ ] Darth Bane
+- [ ] Darth Tenebrous
+- [x] Darth Plagueis
+> "Did you ever hear the Tragedy of Darth Plagueis the Wise?"
+> - Sheev Palpatine, to Anakin Skywalker
+</section>
+```
 
 ## configuration
 
