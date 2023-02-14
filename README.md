@@ -2,7 +2,7 @@
 
 reveal.js plugin that allows adding quizzes as slides.
 
-![](docs/capture.gif)
+![](site/capture.gif)
 
 ## features
 
