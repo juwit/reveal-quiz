@@ -18,6 +18,8 @@ jobs:
       - run: npm run build
       - name: Copy dist/ to site/dist/
         run: cp -R dist/ site/
+      - name: Copy demo/ to site/demo/
+        run: cp -R demo/ site/
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v1
         with:
