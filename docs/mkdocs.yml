@@ -24,9 +24,11 @@ extra_css:
   - stylesheets/reveal-quiz.css
 
 markdown_extensions:
+  - admonition
   - pymdownx.highlight:
       anchor_linenums: true
       linenums_style: pymdownx-inline
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.inlinehilite
+  - pymdownx.details
