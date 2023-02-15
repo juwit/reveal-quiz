@@ -46,7 +46,7 @@ A single-choice question is created when the markdown structure only contains a 
 
 ```html
 <section data-quiz>
-    # Who is *Darth Sidious* master ?
+    # Who is Darth Sidious master ?
     - [ ] Darth Bane
     - [ ] Darth Tenebrous
     - [x] Darth Plagueis
