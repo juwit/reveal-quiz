@@ -9,6 +9,7 @@ theme:
   favicon: assets/favicon.png
   features:
     - navigation.tabs
+    - content.code.copy
 
 repo_url: https://github.com/juwit/reveal-quiz
 
@@ -21,3 +22,11 @@ copyright: Copyright &copy; 2023 Julien Wittouck
 
 extra_css:
   - stylesheets/reveal-quiz.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums_style: pymdownx-inline
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
