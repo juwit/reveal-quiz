@@ -1,0 +1,23 @@
+site_name: reveal-quiz documentation
+
+docs_dir: content
+
+theme:
+  name: material
+  language: en
+  logo: assets/logo-white.svg
+  favicon: assets/favicon.png
+  features:
+    - navigation.tabs
+
+repo_url: https://github.com/juwit/reveal-quiz
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/juwit/reveal-quiz
+
+copyright: Copyright &copy; 2023 Julien Wittouck
+
+extra_css:
+  - stylesheets/reveal-quiz.css
