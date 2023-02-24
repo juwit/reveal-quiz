@@ -24,7 +24,6 @@
     "nyc": "^15.1.0",
     "qrious": "^4.0.2",
     "sinon": "^15.0.1",
-    "socket.io": "^4.5.4",
     "socket.io-client": "^4.5.4",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.4.2",

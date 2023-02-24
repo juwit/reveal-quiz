@@ -1,0 +1,14 @@
+{
+  "name": "reveal-quiz-server",
+  "version": "0.0.1",
+  "description": "server component for reveal-quiz multicasting",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.6.1"
+  }
+}
