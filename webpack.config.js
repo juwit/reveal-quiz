@@ -2,6 +2,34 @@ const path = require('path')
 
 module.exports = [
   {
+    entry: {
+      model: ['./src/model/quiz.ts', './src/model/question.ts']
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts$/i,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        }
+      ],
+    },
+    mode: 'production',
+    resolve: {
+      extensions: ['.ts', '.js'],
+    },
+    output: {
+      filename: 'reveal-quiz-[name]-esm.js',
+      path: path.resolve(__dirname, 'dist'),
+      library: {
+        type: 'module'
+      }
+    },
+    experiments: {
+      outputModule: true,
+    },
+  },
+  {
     entry: './src/plugin.ts',
     module: {
       rules: [
