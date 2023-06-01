@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = [
   {
     entry: {
-      model: ['./src/model/quiz.ts', './src/model/question.ts']
+      model: ['./src/model/model.module.ts']
     },
     module: {
       rules: [
